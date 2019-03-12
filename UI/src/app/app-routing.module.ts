@@ -3,10 +3,12 @@ import {NgModule} from '@angular/core';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
 import {OfferEditComponent} from './components/offer-edit/offer-edit.component';
+import {OfferComponent} from './components/offer/offer.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main-page', pathMatch: 'full'},
   {path: 'main-page', component: MainPageComponent},
+  {path: 'offer/:id', component: OfferComponent},
   {path: 'offer-edit', component: OfferEditComponent},
   {path: 'catalog', component: CatalogComponent},
   {path: '**', redirectTo: 'main-page'}

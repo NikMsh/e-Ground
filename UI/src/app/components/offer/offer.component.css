@@ -1,0 +1,38 @@
+main {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 80%;
+  padding: 40px;
+  margin: auto;
+}
+.template{
+
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+
+}
+
+.imageBlock {
+  padding-top: 30px;
+}
+.rightFromImageBlock {
+
+  padding-top: 30px;
+  padding-left: 5%;
+  width: 470px;
+  height: 370px;
+}
+
+.imgParametrs{
+  height: 250px;
+  width: 450px;
+}
+
+p{
+  max-width: 1100px;
+  font-size: 18px;
+}
