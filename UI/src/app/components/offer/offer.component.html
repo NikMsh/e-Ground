@@ -4,28 +4,22 @@
     </mat-spinner>
   </div>
   <ng-template #offerView>
-    <div *ngIf="(offer|async) !== null; else offerNotFound">
-      <div class="template">
-        <div class="imageBlock">
-          <mat-card>
-            <img class="imgParametrs"
-                 src="../../../assets/images/defaultImageForItem.jpg"
-                 alt="../../../assets/images/defaultImageForItem.jpg"><img/>
-          </mat-card>
+    <div class="offer-page-carcass" *ngIf="(offer|async) !== null; else offerNotFound">
+      <div class="offer-page-info-carcass">
+        <div class="offer-info">
+          <h1>{{(offer | async)?.name}}</h1>
+          <div class="offer-image">
+            <mat-card style="background-color: #e3e5e8">
+              <img class="offer-image-parameters"
+                   src="../../../assets/images/defaultImageForItem.jpg"
+                   alt="../../../assets/images/defaultImageForItem.jpg"><img/>
+            </mat-card>
+          </div>
+          <h2>Цена: {{(offer | async)?.price}}$</h2>
+          <h3 style="margin-top: 10px">Описание</h3>
+          <p style="word-break: break-all">{{(offer | async)?.description}}</p>
+
         </div>
-        <div class="rightFromImageBlock" style="word-wrap: break-word;">
-          <h3> {{(offer | async)?.name}} </h3>
-          <p><br/> {{(offer | async)?.description}} </p>
-
-          <p>
-            <b style="margin-right: 30px">Need investments:</b>
-
-            {{(offer | async)?.price}}$
-            <br/>
-
-          </p>
-        </div>
-        <mat-divider style="width: 90%"></mat-divider>
       </div>
     </div>
   </ng-template>
