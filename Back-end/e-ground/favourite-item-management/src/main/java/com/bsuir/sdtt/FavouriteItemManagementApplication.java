@@ -13,8 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @SpringBootApplication
 @EnableJpaRepositories
-public class FavouriteItemApplication {
+public class FavouriteItemManagementApplication {
     public static void main(String[] args) {
-        SpringApplication.run(FavouriteItemApplication.class, args);
+        SpringApplication.run(FavouriteItemManagementApplication.class, args);
     }
 }
