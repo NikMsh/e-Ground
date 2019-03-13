@@ -27,6 +27,12 @@ public class OfferDto {
     @NotNull
     private String name;
 
+    /**
+     * Field of seller ID.
+     */
+    @NotNull
+    private UUID sellerId;
+
     @NotNull
     private String description;
     /**

@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 /**
  * Class of offer that extends BaseEntity class.
@@ -24,6 +25,12 @@ public class Offer extends BaseEntity {
      */
     @Basic(optional = false)
     private String name;
+
+    /**
+     * Field of seller ID.
+     */
+    @NotNull
+    private UUID sellerId;
 
     @NotNull
     private String description;
