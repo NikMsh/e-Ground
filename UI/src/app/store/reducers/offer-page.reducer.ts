@@ -11,19 +11,19 @@ export interface OfferPageState {
 
 const INITIAL_STATE = {
   offer: null,
-  isSelected: true
+  isSelected: false
 };
 
 export const offerPageReducer: Reducer<OfferPageState> = (state: OfferPageState = INITIAL_STATE, action) => {
   switch (action.type) {
     case CREATE_OFFER: {
-      return {...state};
+      return {...state, isSelected: true};
     }
     case CREATE_OFFER_SUCCESS: {
-      return {...state, offer: action.payload.offer};
+      return {...state, isSelected: false, offer: action.payload.offer};
     }
     case CREATE_OFFER_FAILED: {
-      return {...state};
+      return {...state, isSelected: false};
     }
     case SELECT_OFFER: {
       return {...state, isSelected: true};

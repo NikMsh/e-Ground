@@ -25,17 +25,6 @@ export const catalogReducer: Reducer<CatalogState> = (state: CatalogState = INIT
     case FETCH_OFFERS_FAILED: {
       return {...state, isLoading: false};
     }
-    case CREATE_OFFER: {
-      return {...state, isLoading: true};
-    }
-    case CREATE_OFFER_SUCCESS: {
-      const newOffer = action.payload.offer;
-      const updatedOffers = new Map(state.offers).set(newOffer.id, newOffer);
-      return {...state, offers: updatedOffers, isLoading: false};
-    }
-    case CREATE_OFFER_FAILED: {
-      return {...state, isLoading: false};
-    }
     default: {
       return state;
     }
