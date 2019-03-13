@@ -23,9 +23,9 @@ export class CatalogService {
   }
 
   getCatalogList(): Observable<Offer[]> {
-    /*return this.http.get<Offer[]>(`${this.apiUrl}/offers/filter`)
-      .pipe(catchError((error: any) => throwError(error.error)));*/
-     return of(this.offers);
+    return this.http.get<Offer[]>(`${this.apiUrl}/offers/filter`)
+      .pipe(catchError((error: any) => throwError(error.error)));
+     // return of(this.offers);
   }
 
   createOffer(offer: Offer): Observable<Offer> {

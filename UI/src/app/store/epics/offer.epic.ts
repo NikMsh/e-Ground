@@ -40,7 +40,7 @@ export class OfferEpic {
       switchMap(({payload}) => {
         return payload.offerId !== null ?
           this.offerService
-            .getOfferById(payload.startupId)
+            .getOfferById(payload.offerId)
             .pipe(
               map(startup => selectOfferSuccessAction(startup)),
               catchError(error => {

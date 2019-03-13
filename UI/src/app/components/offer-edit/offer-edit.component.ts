@@ -3,12 +3,12 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AppState} from '../../store';
 import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
-import {isLoading} from '../../store/selectors/catalog.selector';
 import {skipWhile, take} from 'rxjs/operators';
 import {updateRouterState} from '../../store/actions/router.actions';
 import {createOfferAction} from '../../store/actions/offer.actions';
 import {Offer} from '../../model/Offer';
 import {ActivatedRoute} from '@angular/router';
+import {isSelected} from '../../store/selectors/offer.selector';
 
 @Component({
   selector: 'app-offer-edit',
@@ -19,8 +19,8 @@ export class OfferEditComponent implements OnInit {
 
   offerForm: FormGroup;
 
-  @select(isLoading)
-  isLoading: Observable<boolean>;
+  @select(isSelected)
+  isSelected: Observable<boolean>;
 
   constructor(private ngRedux: NgRedux<AppState>,
               private route: ActivatedRoute,
@@ -50,7 +50,7 @@ export class OfferEditComponent implements OnInit {
 
   createOffer() {
     this.ngRedux.dispatch(createOfferAction({...this.offerForm.value}));
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+    this.isSelected.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => {
         this.ngRedux.dispatch(updateRouterState('/catalog'));
       });
