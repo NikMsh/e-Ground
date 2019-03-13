@@ -37,7 +37,8 @@ public class SwaggerConfig {
                 "API to work with Processor",
                 "1",
                 "",
-                new Contact("Stsiapan Balashenka", "", "boloshenko.s@gmail.com"),
+                new Contact("Stsiapan Balashenka", "",
+                        "boloshenko.s@gmail.com"),
                 "", "", Collections.emptyList());
     }
 }

@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * Class of Controller Advice.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @ControllerAdvice(annotations = RestController.class)
 @Slf4j
 public class GlobalExceptionController {
@@ -14,7 +20,8 @@ public class GlobalExceptionController {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    private String handleEntityNotFoundException(EntityNotFoundException exception) {
+    private String handleEntityNotFoundException
+            (EntityNotFoundException exception) {
         return errorBuilderMessage(exception);
     }
 

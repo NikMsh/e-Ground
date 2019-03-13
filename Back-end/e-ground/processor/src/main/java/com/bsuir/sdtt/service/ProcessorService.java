@@ -9,6 +9,12 @@ import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Class of processor service.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 public interface ProcessorService {
     OrderDto addToFavorite(CreateOrderParameterDto createOrderParameter);
 
@@ -24,7 +30,8 @@ public interface ProcessorService {
 
     OfferDto getOfferById(UUID id);
 
-    List<OfferDto> getOffersByFilter(String category, String priceFrom, String priceTo);
+    List<OfferDto> getOffersByFilter(String category,
+                                     String priceFrom, String priceTo);
 
     List<OrderDto> getOrderByCustomerId(UUID id);
 

@@ -4,6 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Class of Controller Advice.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @ControllerAdvice(annotations = RestController.class)
 @Slf4j
 public class GlobalExceptionController {

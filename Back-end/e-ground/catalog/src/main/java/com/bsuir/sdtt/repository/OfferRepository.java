@@ -9,21 +9,14 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interface of Offer repository that extends CrudRepository. Contains CRUD methods and methods for updating offer.
+ * Interface of Offer repository that extends CrudRepository.
+ * Contains CRUD methods and methods for updating offer.
  *
  * @author Stsiapan Balashenka
  * @version 1.0
  */
 @Repository
 public interface OfferRepository extends CrudRepository<Offer, UUID> {
-    /**
-     * Method that finds Offer object by Price in database.
-     *
-     * @param price parameter to be searched
-     * @return List of founded objects
-     */
-    List<Offer> findAllByPrice(double price);
-
     /**
      * Method that finds Offer object by Category in database.
      *

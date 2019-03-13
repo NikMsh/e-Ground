@@ -6,6 +6,13 @@ import lombok.Data;
 
 import java.util.UUID;
 
+/**
+ * Class of Order Create Parameter.
+ * Used to create order from offer.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Data
 @Builder
 @AllArgsConstructor

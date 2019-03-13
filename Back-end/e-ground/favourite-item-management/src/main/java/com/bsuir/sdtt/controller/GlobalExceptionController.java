@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * Class of Controller Advice.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @ControllerAdvice(annotations = RestController.class)
 @Slf4j
 public class GlobalExceptionController {

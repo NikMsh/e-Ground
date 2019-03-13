@@ -27,6 +27,9 @@ public class CategoryController {
      */
     private final CategoryService categoryService;
 
+    /**
+     * Field of Model Mapper converter.
+     */
     private ModelMapper modelMapper;
 
     /**

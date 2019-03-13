@@ -11,6 +11,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+/**
+ * Class of Favourite Item Management Client.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Component
 @Slf4j
 public class FavouriteItemManagementClient {
@@ -32,7 +38,8 @@ public class FavouriteItemManagementClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OrderDto> responseEntity = restTemplate.postForEntity(finalUrl.toString(), orderDto, OrderDto.class);
+        ResponseEntity<OrderDto> responseEntity = restTemplate
+                .postForEntity(finalUrl.toString(), orderDto, OrderDto.class);
 
         log.info("Order DTO: {}", responseEntity.getBody());
         return responseEntity.getBody();
@@ -43,7 +50,8 @@ public class FavouriteItemManagementClient {
 
         HttpHeaders headers = new HttpHeaders();
         StringBuilder finalUrl = new StringBuilder(baseUrl);
-        finalUrl.append(FavouriteItemClientManagementProperty.API_V1_INVENTORY_ORDERS_CUSTOMER_ID);
+        finalUrl.append(FavouriteItemClientManagementProperty
+                .API_V1_INVENTORY_ORDERS_CUSTOMER_ID);
         finalUrl.append(id);
 
         log.info("Final URL: {}", finalUrl.toString());
@@ -51,9 +59,12 @@ public class FavouriteItemManagementClient {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>("", headers);
 
-        ResponseEntity<OrderDto[]> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.GET, entity, OrderDto[].class);
+        ResponseEntity<OrderDto[]> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        entity, OrderDto[].class);
 
-        log.info("Size Orders DTO: {}", Objects.requireNonNull(responseEntity.getBody()).length);
+        log.info("Size Orders DTO: {}", Objects
+                .requireNonNull(responseEntity.getBody()).length);
 
         return Arrays.asList(responseEntity.getBody());
     }

@@ -12,6 +12,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+/**
+ * Class of Catalog Client
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Component
 @Slf4j
 public class CatalogClient {
@@ -33,7 +39,8 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto> responseEntity = restTemplate.postForEntity(finalUrl.toString(), offerDto, OfferDto.class);
+        ResponseEntity<OfferDto> responseEntity = restTemplate
+                .postForEntity(finalUrl.toString(), offerDto, OfferDto.class);
 
         log.info("Offer DTO: {}", responseEntity.getBody());
         return responseEntity.getBody();
@@ -52,7 +59,9 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.PUT, entity, OfferDto.class);
+        ResponseEntity<OfferDto> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.PUT,
+                        entity, OfferDto.class);
 
         log.info("Offer DTO: {}", responseEntity.getBody());
 
@@ -68,15 +77,19 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.GET, getHttpEntityHeader(), OfferDto.class);
+        ResponseEntity<OfferDto> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        getHttpEntityHeader(), OfferDto.class);
 
         log.info("Offer DTO: {}", responseEntity.getBody());
 
         return responseEntity.getBody();
     }
 
-    public List<OfferDto> getOffersDtoByFilter(String category, String priceFrom, String priceTo) {
-        log.info("Start method CatalogClient.getOffersDtoByFilter Tags = {} Category = {} Price From = {} Price To = {}",
+    public List<OfferDto> getOffersDtoByFilter
+            (String category, String priceFrom, String priceTo) {
+        log.info("Start method CatalogClient.getOffersDtoByFilter" +
+                        " Category = {} Price From = {} Price To = {}",
                 category, priceFrom, priceTo);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
@@ -116,9 +129,12 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<CategoryDto[]> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.GET, getHttpEntityHeader(), CategoryDto[].class);
+        ResponseEntity<CategoryDto[]> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        getHttpEntityHeader(), CategoryDto[].class);
 
-        log.info("Size Categories DTO: {}", Objects.requireNonNull(responseEntity.getBody()).length);
+        log.info("Size Categories DTO: {}", Objects
+                .requireNonNull(responseEntity.getBody()).length);
 
         return Arrays.asList(responseEntity.getBody());
     }
@@ -126,9 +142,12 @@ public class CatalogClient {
     private List<OfferDto> getResponseEntity(StringBuilder finalUrl) {
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto[]> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.GET, getHttpEntityHeader(), OfferDto[].class);
+        ResponseEntity<OfferDto[]> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        getHttpEntityHeader(), OfferDto[].class);
 
-        log.info("Size Orders DTO: {}", Objects.requireNonNull(responseEntity.getBody()).length);
+        log.info("Size Orders DTO: {}", Objects
+                .requireNonNull(responseEntity.getBody()).length);
 
         return Arrays.asList(responseEntity.getBody());
     }

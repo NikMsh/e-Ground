@@ -10,6 +10,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
+/**
+ * Class of Customer Data Transfer Object.
+ * Used to transfer data between application subsystems.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Data
 @Builder
 @AllArgsConstructor

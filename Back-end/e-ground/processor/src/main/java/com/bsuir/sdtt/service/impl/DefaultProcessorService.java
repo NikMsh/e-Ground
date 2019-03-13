@@ -16,6 +16,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Class of processor service.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Service
 @Slf4j
 public class DefaultProcessorService implements ProcessorService {
@@ -26,7 +32,8 @@ public class DefaultProcessorService implements ProcessorService {
     private final CustomerManagementClient customerManagementClient;
 
     @Autowired
-    public DefaultProcessorService(CatalogClient catalogClient, FavouriteItemManagementClient favouriteItemManagement,
+    public DefaultProcessorService(CatalogClient catalogClient,
+                                   FavouriteItemManagementClient favouriteItemManagement,
                                    CustomerManagementClient customerManagementClient) {
         this.catalogClient = catalogClient;
         this.favouriteItemManagementClient = favouriteItemManagement;
@@ -43,13 +50,15 @@ public class DefaultProcessorService implements ProcessorService {
         CustomerDto customerDto = customerManagementClient.getCustomerDto(customerId);
         OfferDto offerDto = catalogClient.getOfferDto(itemId);
 
-        log.info("Start method DefaultProcessorService.createOrder customerId = {}", customerId);
+        log.info("Start method DefaultProcessorService.createOrder customerId = {}",
+                customerId);
 
         if (customerId.equals(customerDto.getId())) {
             orderDto.setCustomerId(customerId);
             orderDto.setName(customerDto.getName());
             orderDto.setEmail(customerDto.getEmail());
-            orderDto.setTotalPrice(offerDto.getPrice() * createOrderParameter.getItemCount());
+            orderDto.setTotalPrice(offerDto.getPrice() * createOrderParameter
+                    .getItemCount());
             orderDto.setOrderItemCount(createOrderParameter.getItemCount());
 
             favouriteItemManagementClient.save(orderDto);

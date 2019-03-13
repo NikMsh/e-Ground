@@ -29,7 +29,8 @@ public class DefaultOfferService implements OfferService {
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public DefaultOfferService(OfferRepository offerRepository, CategoryRepository categoryRepository) {
+    public DefaultOfferService(OfferRepository offerRepository,
+                               CategoryRepository categoryRepository) {
         this.offerRepository = offerRepository;
         this.categoryRepository = categoryRepository;
     }
@@ -61,7 +62,8 @@ public class DefaultOfferService implements OfferService {
     }
 
     @Override
-    public List<Offer> findAllByFilter(String category, String priceFrom, String priceTo) {
+    public List<Offer> findAllByFilter(String category, String priceFrom,
+                                       String priceTo) {
         Iterable<Offer> saveOffer;
 
         Category foundCategory = null;
@@ -95,7 +97,8 @@ public class DefaultOfferService implements OfferService {
         }
 
         for (Offer offer : saveOffer) {
-            if (offer.getPrice() >= priceFromTemp && offer.getPrice() < priceToTemp) {
+            if (offer.getPrice() >= priceFromTemp
+                    && offer.getPrice() < priceToTemp) {
                 foundOffers.add(offer);
             }
         }
@@ -111,7 +114,8 @@ public class DefaultOfferService implements OfferService {
      */
     @Override
     public Offer findById(UUID id) {
-        return offerRepository.findById(id).orElseThrow(NullPointerException::new);
+        return offerRepository.findById(id)
+                .orElseThrow(NullPointerException::new);
     }
 
     /**
@@ -148,7 +152,9 @@ public class DefaultOfferService implements OfferService {
      */
     @Override
     public Offer changeCategory(UUID offerId, String category) {
-        Offer offer = offerRepository.findById(offerId).orElseThrow(NullPointerException::new);
+        Offer offer = offerRepository
+                .findById(offerId)
+                .orElseThrow(NullPointerException::new);
         Category categoryByName = categoryRepository.findFirstByName(category);
         offer.setCategory(categoryByName);
         Offer savedOffer = offerRepository.save(offer);

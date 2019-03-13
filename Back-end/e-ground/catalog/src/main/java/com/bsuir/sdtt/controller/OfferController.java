@@ -29,12 +29,20 @@ public class OfferController {
      */
     private final OfferService offerService;
 
+    /**
+     * Field of Category Repository.
+     */
     private final CategoryRepository categoryRepository;
 
+    /**
+     * Field of Model Mapper converter.
+     */
     private final ModelMapper modelMapper;
 
     @Autowired
-    public OfferController(OfferService offerService, CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public OfferController(OfferService offerService,
+                           CategoryRepository categoryRepository,
+                           ModelMapper modelMapper) {
         this.offerService = offerService;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper; }
@@ -49,9 +57,12 @@ public class OfferController {
     public OfferDto create(@Validated @RequestBody OfferDto offerDto) {
         Offer offerTemp = new Offer();
         modelMapper.map(offerDto, offerTemp);
-        Category category = categoryRepository.findFirstByName(offerDto.getCategory());
-        if (category == null || category.getName().equals(offerTemp.getCategory().getName())) {
-            Category categorySave = categoryRepository.save(new Category(offerDto.getCategory()));
+        Category category = categoryRepository
+                .findFirstByName(offerDto.getCategory());
+        if (category == null || category.getName()
+                .equals(offerTemp.getCategory().getName())) {
+            Category categorySave = categoryRepository
+                    .save(new Category(offerDto.getCategory()));
             offerTemp.setCategory(categorySave);
         } else {
             offerTemp.setCategory(category);
@@ -120,16 +131,18 @@ public class OfferController {
      * @return updated Offer
      */
     @PutMapping(path = "/{offerId}/categories/{categoryName}")
-    public OfferDto changeCategory(@PathVariable("offerId") UUID offerId, @PathVariable("categoryName") String categoryName) {
+    public OfferDto changeCategory(@PathVariable("offerId") UUID offerId,
+                        @PathVariable("categoryName") String categoryName) {
         OfferDto offerDtoTemp = new OfferDto();
         modelMapper.map(offerService.changeCategory(offerId, categoryName), offerDtoTemp);
         return offerDtoTemp;
     }
 
     @GetMapping(path = "/filter")
-    public List<OfferDto> getAllByFilter(@RequestParam(value = "category", required = false) String category,
-                                         @RequestParam(value = "priceFrom", required = false) String priceFrom,
-                                         @RequestParam(value = "priceTo", required = false) String priceTo) {
+    public List<OfferDto> getAllByFilter(
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "priceFrom", required = false) String priceFrom,
+            @RequestParam(value = "priceTo", required = false) String priceTo) {
         List<Offer> offersTemp = offerService.findAllByFilter(category, priceFrom, priceTo);
         List<OfferDto> offersDtoTemp = new ArrayList<>();
         toOfferDtoList(offersTemp, offersDtoTemp);

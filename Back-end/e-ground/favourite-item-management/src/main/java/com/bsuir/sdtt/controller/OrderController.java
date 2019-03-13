@@ -28,6 +28,9 @@ public class OrderController {
      */
     private final OrderService orderService;
 
+    /**
+     * Field of Model Mapper converter.
+     */
     private ModelMapper modelMapper;
 
     /**

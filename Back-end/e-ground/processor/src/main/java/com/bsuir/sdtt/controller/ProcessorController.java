@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Class of Processor REST Controller.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/v1/processor")
@@ -25,17 +31,20 @@ public class ProcessorController {
     }
 
     @PostMapping(path = "/orders")
-    public OrderDto addToFavorites(@Validated @RequestBody CreateOrderParameterDto createOrderParameter) {
+    public OrderDto addToFavorites(@Validated @RequestBody
+                                  CreateOrderParameterDto createOrderParameter) {
         return processorService.addToFavorite(createOrderParameter);
     }
 
     @PostMapping(path = "/customers")
-    public CustomerDto createCustomer(@Validated @RequestBody CustomerDto customerDto) {
+    public CustomerDto createCustomer(@Validated @RequestBody
+                                     CustomerDto customerDto) {
         return processorService.createCustomer(customerDto);
     }
 
     @PutMapping(path = "/customers")
-    public CustomerDto updateCustomer(@Validated @RequestBody CustomerDto customerDto) {
+    public CustomerDto updateCustomer(@Validated @RequestBody
+                                      CustomerDto customerDto) {
         return processorService.updateCustomer(customerDto);
     }
 
@@ -50,9 +59,10 @@ public class ProcessorController {
     }
 
     @GetMapping(path = "/offers/filter")
-    public List<OfferDto> getOffersByFilter(@RequestParam(value = "category", required = false) String category,
-                                            @RequestParam(value = "priceFrom", required = false) String priceFrom,
-                                            @RequestParam(value = "priceTo", required = false) String priceTo) {
+    public List<OfferDto> getOffersByFilter(
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "priceFrom", required = false) String priceFrom,
+            @RequestParam(value = "priceTo", required = false) String priceTo) {
         return processorService.getOffersByFilter(category, priceFrom, priceTo);
     }
 

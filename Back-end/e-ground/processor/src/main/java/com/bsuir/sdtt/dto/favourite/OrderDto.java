@@ -9,6 +9,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+/**
+ * Class of Order Data Transfer Object. Used to transfer data between application subsystems.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Data
 @Builder
 @AllArgsConstructor

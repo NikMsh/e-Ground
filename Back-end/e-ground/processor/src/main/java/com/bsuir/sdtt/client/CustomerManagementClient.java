@@ -12,6 +12,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 import java.util.UUID;
 
+/**
+ * Class of Customer Management Client.
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Component
 @Slf4j
 public class CustomerManagementClient {
@@ -33,7 +39,9 @@ public class CustomerManagementClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<CustomerDto> responseEntity = restTemplate.postForEntity(finalUrl.toString(), customerDto, CustomerDto.class);
+        ResponseEntity<CustomerDto> responseEntity = restTemplate
+                .postForEntity(finalUrl.toString(),
+                        customerDto, CustomerDto.class);
 
         log.info("Customer DTO: {}", responseEntity.getBody());
         return responseEntity.getBody();
@@ -51,7 +59,9 @@ public class CustomerManagementClient {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<CustomerDto> entity = new HttpEntity<>(customerDto, headers);
 
-        ResponseEntity<CustomerDto> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.PUT, entity, CustomerDto.class);
+        ResponseEntity<CustomerDto> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.PUT,
+                        entity, CustomerDto.class);
 
         log.info("Customer DTO: {}", responseEntity.getBody());
 
@@ -71,7 +81,9 @@ public class CustomerManagementClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<CustomerDto> responseEntity = restTemplate.exchange(finalUrl.toString(), HttpMethod.GET, entity, CustomerDto.class);
+        ResponseEntity<CustomerDto> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        entity, CustomerDto.class);
 
         log.info("Customer DTO: {}", responseEntity.getBody());
 
