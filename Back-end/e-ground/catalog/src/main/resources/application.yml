@@ -1,11 +1,12 @@
 server:
-  port: 8081
+  port: ${CATALOG_SERVER_PORT:8081}
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/catalog
-    username: postgres
-    password: 1234
+    url: ${CATALOG_DB_URL:jdbc:postgresql://localhost:5432/catalog}
+    username: ${CATALOG_DB_USERNAME:postgres}
+    password: ${CATALOG_DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
      ddl-auto: create-drop
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false

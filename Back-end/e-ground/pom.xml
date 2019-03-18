@@ -6,8 +6,8 @@
 
     <groupId>com.bsuir.sdtt</groupId>
     <artifactId>e-ground</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>0.1.0</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>catalog</module>
