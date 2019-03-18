@@ -84,7 +84,7 @@ services:
     image: postgres
     container_name: favourite-item-management-postgres
     environment:
-      POSTGRES_DB: favourite-item-management-postgres
+      POSTGRES_DB: favourite-item-management
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
     volumes:
