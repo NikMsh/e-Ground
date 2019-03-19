@@ -44,12 +44,12 @@ services:
     image: processor:latest
     container_name: processor
     environment:
-      - CATALOG_HOST=http://192.168.99.100
-      - CATALOG_PORT=9091
-      - CUSTOMER_MANAGEMENT_HOST=http://192.168.99.100
-      - CUSTOMER_MANAGEMENT_PORT=9092
-      - FAVOURITE_ITEM_MANAGEMENT_HOST=http://192.168.99.100
-      - FAVOURITE_ITEM_MANAGEMENT_PORT=9093
+      - CATALOG_HOST=http://catalog
+      - CATALOG_PORT=8081
+      - CUSTOMER_MANAGEMENT_HOST=http://customer-management
+      - CUSTOMER_MANAGEMENT_PORT=8082
+      - FAVOURITE_ITEM_MANAGEMENT_HOST=http://favourite-item-management
+      - FAVOURITE_ITEM_MANAGEMENT_PORT=8083
     ports:
       - 9090:8080
     restart: on-failure
