@@ -19,14 +19,12 @@ export class CatalogEpic {
   fetchOffers$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(FETCH_OFFERS).pipe(
       switchMap(({}) => {
-        return this.catalogService
-          .getCatalogList()
-          .pipe(
-            map(offers => fetchOffersSuccessAction(TransformService.transformToMap(offers))),
+        return this.catalogService.getCatalogList().pipe(
+           map(offers => fetchOffersSuccessAction(TransformService.transformToMap(offers))),
             catchError(error => {
               return of(fetchOffersFailedAction(error));
             })
-          );
+        );
       })
     );
   };

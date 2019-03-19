@@ -19,7 +19,7 @@
     <button mat-button (click)="openSingUp()" style="font-size: 16px">Sign up</button>
   </div>
 
-  <span *ngIf="ls.getItem('currentUser')"  style="font-size: 18px; margin-right: 20px; "> {{(currentUser | async)?.login}} </span>
+  <span *ngIf="ls.getItem('selectCurrentUser')" style="font-size: 18px; margin-right: 20px; "> {{(currentUser | async)?.login}} </span>
   <button mat-button (click)="logout()" *ngIf="(currentUser | async)"> Logout </button>
 </mat-toolbar>
 

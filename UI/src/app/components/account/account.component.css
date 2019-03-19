@@ -1,5 +1,4 @@
 .profile-form {
-
   min-width: 150px;
   max-width: 700px;
   display: -webkit-flex;
@@ -31,14 +30,9 @@
   display: flex;
 }
 
-.profile-but {
-
-}
-
 .button-wrapper {
   display: -webkit-flex;
   display: flex;
   padding-top: 50px;
   padding-left: 474px;
 }
-

@@ -35,6 +35,7 @@ import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.com
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { OfferEditComponent } from './components/offer-edit/offer-edit.component';
 import { OfferComponent } from './components/offer/offer.component';
+import { AccountComponent } from './components/account/account.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -86,7 +87,8 @@ const customNotifierOptions: NotifierOptions = {
     UserSidenavComponent,
     CatalogComponent,
     OfferEditComponent,
-    OfferComponent
+    OfferComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

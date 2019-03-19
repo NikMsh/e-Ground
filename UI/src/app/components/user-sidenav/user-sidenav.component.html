@@ -1,5 +1,5 @@
 <mat-sidenav-container class="example-container">
-  <!--<mat-sidenav #sidenav mode="side" *ngIf="currentUser|async" [(opened)]="opened">-->
+  <!--<mat-sidenav #sidenav mode="side" *ngIf="selectCurrentUser|async" [(opened)]="opened">-->
   <mat-sidenav #sidenav mode="side">
     <ng-template [ngIf]="(opened|async)">
       <p><a routerLink="/offer-edit"> Create offer </a></p>
