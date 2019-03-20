@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-edit.component.css']
 })
 export class AccountEditComponent implements OnInit {
+  isLoading = false;
 
   constructor() { }
 
