@@ -1,0 +1,10 @@
+<main>
+  <div class="spinner" *ngIf="isLoading | async; else accountTemplate">
+    <mat-spinner class="center-spinner"  mode="indeterminate"
+                 color="primary">
+    </mat-spinner>
+  </div>
+  <ng-template #accountTemplate>
+
+  </ng-template>
+</main>
