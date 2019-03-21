@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {User} from '../model/User';
 import {catchError} from 'rxjs/operators';
@@ -9,6 +9,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class AccountService {
   apiUrl = '/api/v1/processor';
+  accountUrl = '/api/account/';
 
   user: User = {
     id: '213',
@@ -29,6 +30,13 @@ export class AccountService {
 
 
   constructor(private http: HttpClient) {
+  }
+
+  updateAccount(detailAccountDTO: any): Observable<any> {
+    console.log(detailAccountDTO);
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+    return this.http.put<any>(this.accountUrl+'update/'+detailAccountDTO.id, detailAccountDTO, options)
+      .pipe(catchError((error: any) => throwError(error.error)));
   }
 
   getUserById(id: string): Observable<User> {

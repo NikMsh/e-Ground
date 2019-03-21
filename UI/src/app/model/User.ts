@@ -1,5 +1,7 @@
 import {Account} from './Account';
 
+
+//???????? why interface ??
 export interface User {
   account: Account;
   id: string;
@@ -8,3 +10,20 @@ export interface User {
   email?: string;
   token?: Token;
 }
+
+export const defaultUser: User = {
+  id: null,
+  login: '',
+  password: '',
+  email: '',
+  token: {
+    accessToken: '',
+    type: ''
+  },
+  account: {
+    name: '',
+    surname: '',
+    age: 0,
+    phoneNumber: '',
+  }
+};
