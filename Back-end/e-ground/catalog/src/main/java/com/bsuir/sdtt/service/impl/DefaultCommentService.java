@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Service
 public class DefaultCommentService implements CommentService {
     private final CommentRepository commentRepository;

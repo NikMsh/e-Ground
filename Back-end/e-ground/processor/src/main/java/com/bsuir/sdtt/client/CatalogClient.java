@@ -1,6 +1,7 @@
 package com.bsuir.sdtt.client;
 
 import com.bsuir.sdtt.dto.catalog.CategoryDto;
+import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
 import com.bsuir.sdtt.util.CatalogClientProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -68,6 +69,29 @@ public class CatalogClient {
         return responseEntity.getBody();
     }
 
+    public OfferDto addCommentToOffer(UUID id, CommentDto commentDto) {
+        log.info("Start method CatalogClient.addCommentToOffer: Id = {}, {}",
+                id, commentDto);
+
+        StringBuilder finalUrl = new StringBuilder(baseUrl);
+        finalUrl.append(CatalogClientProperty.API_CATALOG_OFFERS);
+        finalUrl.append(id);
+
+        log.info("Final URL: {}", finalUrl.toString());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<CommentDto> entity = new HttpEntity<>(commentDto, headers);
+
+        ResponseEntity<OfferDto> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.PUT,
+                        entity, OfferDto.class);
+
+        log.info("Offer DTO: {}", responseEntity.getBody());
+
+        return responseEntity.getBody();
+    }
+
     public OfferDto getOfferDto(UUID id) {
         log.info("Start method CatalogClient.getOfferDto Id = {}", id);
 
@@ -125,7 +149,6 @@ public class CatalogClient {
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CatalogClientProperty.API_CATALOG_CATEGORIES);
-        finalUrl.append("?");
 
         log.info("Final URL: {}", finalUrl.toString());
 
@@ -134,6 +157,25 @@ public class CatalogClient {
                         getHttpEntityHeader(), CategoryDto[].class);
 
         log.info("Size Categories DTO: {}", Objects
+                .requireNonNull(responseEntity.getBody()).length);
+
+        return Arrays.asList(responseEntity.getBody());
+    }
+
+    public List<CommentDto> getAllCommentsByOfferId(UUID id) {
+        log.info("Start method CatalogClient.getAllCommentsByOfferId ID {}", id);
+
+        StringBuilder finalUrl = new StringBuilder(baseUrl);
+        finalUrl.append(CatalogClientProperty.API_CATALOG_COMMENTS);
+        finalUrl.append(id);
+
+        log.info("Final URL: {}", finalUrl.toString());
+
+        ResponseEntity<CommentDto[]> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        getHttpEntityHeader(), CommentDto[].class);
+
+        log.info("Size Comments DTO: {}", Objects
                 .requireNonNull(responseEntity.getBody()).length);
 
         return Arrays.asList(responseEntity.getBody());

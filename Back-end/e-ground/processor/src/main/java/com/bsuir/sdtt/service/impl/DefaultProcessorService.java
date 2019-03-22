@@ -4,9 +4,11 @@ import com.bsuir.sdtt.client.CatalogClient;
 import com.bsuir.sdtt.client.CustomerManagementClient;
 import com.bsuir.sdtt.client.FavouriteItemManagementClient;
 import com.bsuir.sdtt.dto.catalog.CategoryDto;
+import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
 import com.bsuir.sdtt.dto.customer.CustomerDto;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
+import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
 import com.bsuir.sdtt.service.ProcessorService;
 import lombok.extern.slf4j.Slf4j;
@@ -89,10 +91,30 @@ public class DefaultProcessorService implements ProcessorService {
     }
 
     @Override
+    public OfferDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto) {
+        log.debug("Start method DefaultProcessorService.addCommentToOffer" +
+                " Customer DTO = {}", addCommentToOfferDto);
+
+        CommentDto commentDto = CommentDto.builder()
+                .customerId(addCommentToOfferDto.getCustomerId())
+                .message(addCommentToOfferDto.getMessage())
+                .build();
+
+        return catalogClient.addCommentToOffer(addCommentToOfferDto.getOfferId(), commentDto);
+    }
+
+    @Override
     public OfferDto updateOffer(OfferDto offerDto) {
         log.debug("Start method DefaultProcessorService.updateOffer Offer DTO = {}", offerDto);
 
         return catalogClient.update(offerDto);
+    }
+
+    @Override
+    public List<CommentDto> getAllCommentsByOfferId(UUID id){
+        log.debug("Start method DefaultProcessorService.getAllCommentsByOfferId ID = {}", id);
+
+        return catalogClient.getAllCommentsByOfferId(id);
     }
 
     @Override

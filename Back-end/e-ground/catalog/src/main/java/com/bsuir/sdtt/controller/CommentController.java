@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "api/v1/catalog/comments")
@@ -31,7 +36,7 @@ public class CommentController {
         this.modelMapper = modelMapper;
     }
 
-    @PutMapping(path = "/{offerId}")
+    @GetMapping(path = "/{offerId}")
     public List<CommentDto> getAllCommentsByOfferId(@PathVariable("offerId") UUID offerId){
         List<Comment> commentsTemp = commentService.getAllCommentsByOfferId(offerId);
         List<CommentDto> commentsDtoTemp = new ArrayList<>();

@@ -1,9 +1,11 @@
 package com.bsuir.sdtt.service;
 
 import com.bsuir.sdtt.dto.catalog.CategoryDto;
+import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
 import com.bsuir.sdtt.dto.customer.CustomerDto;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
+import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
 
 import java.util.List;
@@ -25,6 +27,10 @@ public interface ProcessorService {
     OfferDto createOffer(OfferDto offerDto);
 
     OfferDto updateOffer(OfferDto offerDto);
+
+    OfferDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto);
+
+    List<CommentDto> getAllCommentsByOfferId(UUID id);
 
     CustomerDto getCustomerById(UUID id);
 
