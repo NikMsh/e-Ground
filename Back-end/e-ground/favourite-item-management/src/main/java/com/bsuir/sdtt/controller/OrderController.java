@@ -60,6 +60,21 @@ public class OrderController {
     }
 
     /**
+     * Method that save updated object.
+     *
+     * @param orderDto updated order that needs to save
+     * @return updated and saved order
+     */
+    @PutMapping
+    public OrderDto update(@Validated @RequestBody OrderDto orderDto) {
+        Order order = new Order();
+        modelMapper.map(orderDto, order);
+        OrderDto orderDtoTemp = new OrderDto();
+        modelMapper.map(orderService.update(order), orderDtoTemp);
+        return orderDtoTemp;
+    }
+
+    /**
      * Method that finds an object.
      *
      * @param id UUID of the object to be found
@@ -90,21 +105,6 @@ public class OrderController {
         List<Order> orders = orderService.findAll();
         toOrdersDtoList(orders, ordersDtoTemp);
         return ordersDtoTemp;
-    }
-
-    /**
-     * Method that save updated object.
-     *
-     * @param orderDto updated order that needs to save
-     * @return updated and saved order
-     */
-    @PutMapping
-    public OrderDto update(@Validated @RequestBody OrderDto orderDto) {
-        Order order = new Order();
-        modelMapper.map(orderDto, order);
-        OrderDto orderDtoTemp = new OrderDto();
-        modelMapper.map(orderService.update(order), orderDtoTemp);
-        return orderDtoTemp;
     }
 
     /**

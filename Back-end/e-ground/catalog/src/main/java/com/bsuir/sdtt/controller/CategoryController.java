@@ -59,6 +59,21 @@ public class CategoryController {
     }
 
     /**
+     * Method that save updated object.
+     *
+     * @param categoryDto updated category that needs to save
+     * @return updated and saved category
+     */
+    @PutMapping
+    public CategoryDto update(@Validated @RequestBody CategoryDto categoryDto) {
+        Category categoryTemp = new Category();
+        modelMapper.map(categoryDto, categoryTemp);
+        CategoryDto categoryDtoTemp = new CategoryDto();
+        modelMapper.map(categoryService.update(categoryTemp), categoryDtoTemp);
+        return categoryDtoTemp;
+    }
+
+    /**
      * Method that finds an object.
      *
      * @param id Long of the object to be found
@@ -88,21 +103,6 @@ public class CategoryController {
         }
 
         return categoriesDtoTemp;
-    }
-
-    /**
-     * Method that save updated object.
-     *
-     * @param categoryDto updated category that needs to save
-     * @return updated and saved category
-     */
-    @PutMapping
-    public CategoryDto update(@Validated @RequestBody CategoryDto categoryDto) {
-        Category categoryTemp = new Category();
-        modelMapper.map(categoryDto, categoryTemp);
-        CategoryDto categoryDtoTemp = new CategoryDto();
-        modelMapper.map(categoryService.update(categoryTemp), categoryDtoTemp);
-        return categoryDtoTemp;
     }
 
     /**

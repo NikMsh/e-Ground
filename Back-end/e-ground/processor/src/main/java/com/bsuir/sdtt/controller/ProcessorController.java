@@ -44,15 +44,15 @@ public class ProcessorController {
         return processorService.createCustomer(customerDto);
     }
 
+    @PostMapping(path = "/offers")
+    public OfferDto createOffer(@Validated @RequestBody OfferDto offerDto) {
+        return processorService.createOffer(offerDto);
+    }
+
     @PutMapping(path = "/customers")
     public CustomerDto updateCustomer(@Validated @RequestBody
                                               CustomerDto customerDto) {
         return processorService.updateCustomer(customerDto);
-    }
-
-    @PostMapping(path = "/offers")
-    public OfferDto createOffer(@Validated @RequestBody OfferDto offerDto) {
-        return processorService.createOffer(offerDto);
     }
 
     @PutMapping(path = "/offers")

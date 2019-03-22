@@ -59,6 +59,22 @@ public class CustomerController {
     }
 
     /**
+     * Method that save updated object.
+     *
+     * @param customerDto updated customer that needs to save
+     * @return updated and saved customer
+     */
+    @PutMapping
+    public CustomerDto update(@Validated @RequestBody CustomerDto customerDto) {
+        Customer customer = new Customer();
+        modelMapper.map(customerDto, customer);
+        CustomerDto customerDtoTemp = new CustomerDto();
+        modelMapper.map(customerService.update(customer), customerDtoTemp);
+        return customerDtoTemp;
+
+    }
+
+    /**
      * Method that finds an object.
      *
      * @param id UUID of the object to be found
@@ -82,22 +98,6 @@ public class CustomerController {
         List<Customer> customers = customerService.findAll();
         toCustomersDtoList(customers, customersDtoTemp);
         return customersDtoTemp;
-    }
-
-    /**
-     * Method that save updated object.
-     *
-     * @param customerDto updated customer that needs to save
-     * @return updated and saved customer
-     */
-    @PutMapping
-    public CustomerDto update(@Validated @RequestBody CustomerDto customerDto) {
-        Customer customer = new Customer();
-        modelMapper.map(customerDto, customer);
-        CustomerDto customerDtoTemp = new CustomerDto();
-        modelMapper.map(customerService.update(customer), customerDtoTemp);
-        return customerDtoTemp;
-
     }
 
     /**

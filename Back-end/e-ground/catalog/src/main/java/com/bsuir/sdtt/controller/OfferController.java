@@ -106,13 +106,18 @@ public class OfferController {
     }
 
     /**
-     * Method that delete object.
+     * Method that changes Category to Offer.
      *
-     * @param id object that needs to delete
+     * @param offerId      Offer Long
+     * @param categoryName Category to change
+     * @return updated Offer
      */
-    @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable("id") UUID id) {
-        offerService.delete(id);
+    @PutMapping(path = "/{offerId}/categories/{categoryName}")
+    public OfferDto changeCategory(@PathVariable("offerId") UUID offerId,
+                                   @PathVariable("categoryName") String categoryName) {
+        OfferDto offerDtoTemp = new OfferDto();
+        modelMapper.map(offerService.changeCategory(offerId, categoryName), offerDtoTemp);
+        return offerDtoTemp;
     }
 
     /**
@@ -141,21 +146,6 @@ public class OfferController {
         return offersDtoTemp;
     }
 
-    /**
-     * Method that changes Category to Offer.
-     *
-     * @param offerId      Offer Long
-     * @param categoryName Category to change
-     * @return updated Offer
-     */
-    @PutMapping(path = "/{offerId}/categories/{categoryName}")
-    public OfferDto changeCategory(@PathVariable("offerId") UUID offerId,
-                        @PathVariable("categoryName") String categoryName) {
-        OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.changeCategory(offerId, categoryName), offerDtoTemp);
-        return offerDtoTemp;
-    }
-
     @GetMapping(path = "/filter")
     public List<OfferDto> getAllByFilter(
             @RequestParam(value = "category", required = false) String category,
@@ -165,6 +155,16 @@ public class OfferController {
         List<OfferDto> offersDtoTemp = new ArrayList<>();
         toOfferDtoList(offersTemp, offersDtoTemp);
         return offersDtoTemp;
+    }
+
+    /**
+     * Method that delete object.
+     *
+     * @param id object that needs to delete
+     */
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable("id") UUID id) {
+        offerService.delete(id);
     }
 
     private void toOfferDtoList(List<Offer> offersTemp, List<OfferDto> offersDtoTemp){
