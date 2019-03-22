@@ -1,7 +1,9 @@
 package com.bsuir.sdtt.controller;
 
+import com.bsuir.sdtt.dto.CommentDto;
 import com.bsuir.sdtt.dto.OfferDto;
 import com.bsuir.sdtt.entity.Category;
+import com.bsuir.sdtt.entity.Comment;
 import com.bsuir.sdtt.entity.Offer;
 import com.bsuir.sdtt.repository.CategoryRepository;
 import com.bsuir.sdtt.service.OfferService;
@@ -67,6 +69,7 @@ public class OfferController {
         } else {
             offerTemp.setCategory(category);
         }
+
         OfferDto offerDtoTemp = new OfferDto();
         modelMapper.map(offerService.create(offerTemp), offerDtoTemp);
         return offerDtoTemp;
@@ -84,6 +87,21 @@ public class OfferController {
         modelMapper.map(offerDto, offerTemp);
         OfferDto offerDtoTemp = new OfferDto();
         modelMapper.map(offerService.update(offerTemp), offerDtoTemp);
+        return offerDtoTemp;
+    }
+
+    /**
+     * Method that let add comment to offer.
+     *
+     * @param commentDto comment
+     * @return updated and saved offer
+     */
+    @PutMapping(path = "/{id}")
+    public OfferDto addComment(@PathVariable("id") UUID id, @Validated @RequestBody CommentDto commentDto) {
+        Comment comment = new Comment();
+        modelMapper.map(commentDto, comment);
+        OfferDto offerDtoTemp = new OfferDto();
+        modelMapper.map(offerService.addComment(id, comment), offerDtoTemp);
         return offerDtoTemp;
     }
 

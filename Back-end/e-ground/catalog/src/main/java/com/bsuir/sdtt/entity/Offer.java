@@ -6,6 +6,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -38,8 +40,8 @@ public class Offer extends BaseEntity {
     /**
      * Field of Offer category.
      */
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Category category;
 
     /**
@@ -48,6 +50,9 @@ public class Offer extends BaseEntity {
     @NotNull
     @Basic(optional = false)
     private double price;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 
     /**
      * Constructor without params that create object without initialization fields.

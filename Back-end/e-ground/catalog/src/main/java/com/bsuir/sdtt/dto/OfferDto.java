@@ -6,7 +6,8 @@ import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -47,6 +48,8 @@ public class OfferDto {
     @NotNull
     @Min(0)
     private double price;
+
+    private List<CommentDto> comments = new ArrayList<>();
 
     public OfferDto() {
 

@@ -1,9 +1,11 @@
 package com.bsuir.sdtt.service.impl;
 
 import com.bsuir.sdtt.entity.Category;
+import com.bsuir.sdtt.entity.Comment;
 import com.bsuir.sdtt.entity.Offer;
 import com.bsuir.sdtt.exception.EntityNotFoundException;
 import com.bsuir.sdtt.repository.CategoryRepository;
+import com.bsuir.sdtt.repository.CommentRepository;
 import com.bsuir.sdtt.repository.OfferRepository;
 import com.bsuir.sdtt.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,14 @@ public class DefaultOfferService implements OfferService {
 
     private final CategoryRepository categoryRepository;
 
+    private final CommentRepository commentRepository;
+
     @Autowired
     public DefaultOfferService(OfferRepository offerRepository,
-                               CategoryRepository categoryRepository) {
+                               CategoryRepository categoryRepository, CommentRepository commentRepository) {
         this.offerRepository = offerRepository;
         this.categoryRepository = categoryRepository;
+        this.commentRepository = commentRepository;
     }
 
     /**
@@ -127,6 +132,15 @@ public class DefaultOfferService implements OfferService {
     @Override
     public Offer update(Offer offer) {
         return create(offer);
+    }
+
+    @Override
+    public Offer addComment(UUID id, Comment comment){
+        Offer offer = offerRepository.findById(id).orElseThrow(NullPointerException::new);
+        comment.setOffer(offer);
+        offer.getComments().add(comment);
+        commentRepository.save(comment);
+        return update(offer);
     }
 
     /**

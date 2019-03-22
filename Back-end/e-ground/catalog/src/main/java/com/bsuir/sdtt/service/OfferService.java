@@ -1,5 +1,6 @@
 package com.bsuir.sdtt.service;
 
+import com.bsuir.sdtt.entity.Comment;
 import com.bsuir.sdtt.entity.Offer;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public interface OfferService {
     Offer findById(UUID id);
 
     Offer update(Offer offer);
+
+    Offer addComment(UUID id, Comment comment);
 
     void delete(UUID id);
 
