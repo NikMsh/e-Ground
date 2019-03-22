@@ -9,4 +9,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    docproperties.hibernate.temp.use_jdbc_metadata_defaults: false
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
