@@ -4,10 +4,10 @@ import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {skipWhile, take} from 'rxjs/operators';
 import {fetchUserAction} from '../../store/actions/account.actions';
-import {User} from "../../model/User";
-import {selectOfferAction} from "../../store/actions/catalog.actions";
-import {ActivatedRoute} from "@angular/router";
-import {isLoading, selectCurrentUser} from "../../store/selectors/account.selector";
+import {User} from '../../model/User';
+import {selectOfferAction} from '../../store/actions/catalog.actions';
+import {ActivatedRoute} from '@angular/router';
+import {isLoading, selectCurrentUser} from '../../store/selectors/account.selector';
 
 @Component({
   selector: 'app-account',

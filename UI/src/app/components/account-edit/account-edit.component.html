@@ -8,23 +8,36 @@
     <div class="flex-wrapper">
       <div class="account-edit">
         <div class="form-wrapper">
-          <form class="profile-form">
+          <form novalidate [formGroup]="accountForm" class="profile-form">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="First Name" value="Kirill">
+              <input matInput formControlName="name" placeholder="Name" value="{{accountForm.get('name').value}}" >
+              <mat-error *ngIf="accountForm.get('name').hasError('required') && accountForm.get('name').touched">
+                This field is required
+              </mat-error>
+              <mat-error *ngIf="accountForm.get('name').hasError('maxlength')">First name must be less than 35
+                characters
+              </mat-error>
+              <mat-error *ngIf="accountForm.get('name').hasError('pattern')">Invalid symbol</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Surname" value="Petrov">
+              <input matInput formControlName="surname" placeholder="Surname" value="{{accountForm.get('surname').value}}">
+              <mat-error *ngIf="accountForm.get('surname').hasError('maxlength')">Last name must be less than 35
+                characters
+              </mat-error>
+              <mat-error *ngIf="accountForm.get('surname').hasError('pattern')">Invalid symbol</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Age" value="20">
+              <input matInput formControlName="age" placeholder="Age" value="{{accountForm.get('age').value}}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Phone Number" value="Sicphy">
+              <input matInput formControlName="phoneNumber" placeholder="Phone Number" value="{{accountForm.get('phoneNumber').value}}">
             </mat-form-field>
           </form>
         </div>
         <div class="button-wrapper">
-          <button mat-raised-button class="profile-edit-but">Edit</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid"
+                  (click)="updateAccount(accountForm)">Save</button>
+          <button mat-raised-button color="primary" routerLink="/account/{{userId}}" (click)="goBack()">Cancel</button>
         </div>
       </div>
     </div>
