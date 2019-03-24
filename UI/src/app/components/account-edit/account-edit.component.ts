@@ -63,10 +63,10 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   }
 
   changeAccount(form: FormGroup): User {
-    this.updatedAccount.account.name = form.getRawValue().firstName;
-    this.updatedAccount.account.surname = form.getRawValue().lastName;
-    this.updatedAccount.account.age = form.getRawValue().birthday;
-    this.updatedAccount.account.phoneNumber = form.getRawValue().aboutMe;
+    this.updatedAccount.account.name = form.getRawValue().name;
+    this.updatedAccount.account.surname = form.getRawValue().surname;
+    this.updatedAccount.account.age = form.getRawValue().age;
+    this.updatedAccount.account.phoneNumber = form.getRawValue().phoneNumber;
     return this.updatedAccount;
   }
 

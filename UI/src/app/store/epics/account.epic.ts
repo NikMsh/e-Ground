@@ -33,7 +33,6 @@ export class AccountEpic {
               return of(updateAccountFailedAction(error));
             })
           );
-
       })
     );
   };

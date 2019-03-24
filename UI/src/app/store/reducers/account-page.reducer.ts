@@ -38,4 +38,4 @@ export const accountPageReducer: Reducer<AccountPageState> = (state: AccountPage
     }
   }
 };
-//object.assign
+// object.assign

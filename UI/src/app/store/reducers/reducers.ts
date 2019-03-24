@@ -4,7 +4,7 @@ import {userSideNavReducer} from './user-side-nav.reducer';
 import {catalogReducer} from './catalog.reducer';
 import {routerReducer} from '@angular-redux/router';
 import {offerPageReducer} from './offer-page.reducer';
-import {accountPageReducer} from "./account-page.reducer";
+import {accountPageReducer} from './account-page.reducer';
 
 export const reducers: Reducer = combineReducers({
   currentUserState: currentUserReducer,
