@@ -37,6 +37,7 @@ import { OfferEditComponent } from './components/offer-edit/offer-edit.component
 import { OfferComponent } from './components/offer/offer.component';
 import { AccountComponent } from './components/account/account.component';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -90,7 +91,8 @@ const customNotifierOptions: NotifierOptions = {
     OfferEditComponent,
     OfferComponent,
     AccountComponent,
-    AccountEditComponent
+    AccountEditComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
