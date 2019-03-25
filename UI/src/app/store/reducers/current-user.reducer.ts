@@ -1,6 +1,11 @@
 import {Reducer} from 'redux';
+import {
+  CLEAR_USER_ERROR_MESSAGE,
+  LOGIN_USER,
+  LOGIN_USER_FAILED,
+  UPDATE_CURRENT_USER
+} from '../actions/current-user.actions';
 import {User} from '../../model/User';
-
 
 export interface CurrentUserState {
   readonly currentUser: User;
@@ -16,5 +21,22 @@ const INITIAL_STATE = {
 
 
 export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUserState = INITIAL_STATE, action) => {
-  return state;
+  switch (action.type) {
+    case UPDATE_CURRENT_USER: {
+      return {...state, currentUser: action.payload.user, isLoading: false, errorMessage: null};
+    }
+    case LOGIN_USER: {
+      return {...state, isLoading: true, errorMessage: null};
+    }
+    case LOGIN_USER_FAILED: {
+      return {...state, isLoading: false, errorMessage: action.payload.errorMessage};
+    }
+    case CLEAR_USER_ERROR_MESSAGE: {
+      return {...state, errorMessage: null};
+    }
+    default: {
+      return state;
+    }
+  }
+
 };
