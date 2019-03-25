@@ -3,6 +3,7 @@ import {UserSideNavState} from './reducers/user-side-nav.reducer';
 import {CatalogState} from './reducers/catalog.reducer';
 import {OfferPageState} from './reducers/offer-page.reducer';
 import {AccountPageState} from './reducers/account-page.reducer';
+import {DialogState} from "./reducers/dialogs.reducer";
 
 export interface AppState {
   readonly router?: string;
@@ -11,10 +12,10 @@ export interface AppState {
   readonly catalogState?: CatalogState;
   readonly offerPageState?: OfferPageState;
   readonly accountPageState?: AccountPageState;
+  readonly dialogsState?: DialogState;
   /*readonly startupsState?: StartupsState;
   readonly startupPageState?: StartupPageState;
   readonly router?: string;
-  readonly dialogsState?: DialogState;
   readonly currentUserState?: CurrentUserState;
   readonly startupSearchToolbarState?: StartupSearchToolbarState;
   readonly resumeState?: ResumeState;
