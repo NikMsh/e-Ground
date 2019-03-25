@@ -6,7 +6,6 @@ import {first} from 'rxjs/internal/operators';
 import {DialogResult} from '../../../model/dialog-result';
 import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../../../store';
-import {loginUserAction} from '../../../store/actions/current-user.actions';
 import {NotifierService} from 'angular-notifier';
 
 @Component({

@@ -5,6 +5,7 @@ import {catalogReducer} from './catalog.reducer';
 import {routerReducer} from '@angular-redux/router';
 import {offerPageReducer} from './offer-page.reducer';
 import {accountPageReducer} from './account-page.reducer';
+import {resetPasswordReducer} from './reset-password.reducer';
 
 export const reducers: Reducer = combineReducers({
   currentUserState: currentUserReducer,
@@ -12,5 +13,6 @@ export const reducers: Reducer = combineReducers({
   catalogState: catalogReducer,
   router: routerReducer,
   offerPageState: offerPageReducer,
-  accountPageState: accountPageReducer
+  accountPageState: accountPageReducer,
+  resetPasswordState: resetPasswordReducer,
 });

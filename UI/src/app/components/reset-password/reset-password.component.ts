@@ -1,21 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {isLoading, selectErrorMessage} from '../../store/selectors/current-user.selector';
+import {isLoading} from '../../store/selectors/current-user.selector';
 import {NgRedux, select} from '@angular-redux/store';
-import {Credential} from '../../model/Credential';
-import {SignUpComponent} from '../dialogs/sign-up/sign-up.component';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DialogResult} from '../../model/dialog-result';
-import {loginUserAction} from '../../store/actions/current-user.actions';
-import {first, skipWhile, take} from 'rxjs/internal/operators';
+import {skipWhile, take} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs/index';
 import {AppState} from '../../store/index';
-import {NgxPermissionsService} from 'ngx-permissions';
 import {UserService} from '../../services/user.service';
 import {ResetPasswordService} from '../../services/reset-password.service';
-import {showDialogAction} from '../../store/actions/dialogs.actions';
-import {SignInComponent} from '../dialogs/sign-in/sign-in.component';
 import {updateRouterState} from '../../store/actions/router.actions';
 import {savePassword} from '../../store/actions/reset-password.actions';
 
@@ -104,7 +96,7 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
     // this.resetPasswordService.updatePassword(this.userId, this.token, this.resetPasswordForm.get('password').value).subscribe();
-    this.ngRedux.dispatch(savePassword({id:this.userId, token: this.token , password:this.resetPasswordForm.get('password').value}))
+    this.ngRedux.dispatch(savePassword({id: this.userId, token: this.token , password: this.resetPasswordForm.get('password').value}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/mainpage')));
     this.loading = true;

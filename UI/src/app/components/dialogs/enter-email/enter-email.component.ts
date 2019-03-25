@@ -1,20 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Role} from '../../../model/Role';
 import {isLoading, selectErrorMessage} from '../../../store/selectors/current-user.selector';
 import {NgRedux, select} from '@angular-redux/store';
-import {Credential} from '../../../model/Credential';
-import {SignUpComponent} from '../sign-up/sign-up.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DialogResult} from '../../../model/dialog-result';
-import {loginUserAction} from '../../../store/actions/current-user.actions';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs/index';
 import {AppState} from '../../../store';
 import {NgxPermissionsService} from 'ngx-permissions';
 import {sendResetPasswordEmail} from '../../../store/actions/reset-password.actions';
-import {SignInComponent} from '../sign-in/sign-in.component';
 
 @Component({
   selector: 'app-enter-email',

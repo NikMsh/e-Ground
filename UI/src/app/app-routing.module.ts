@@ -5,7 +5,8 @@ import {CatalogComponent} from './components/catalog/catalog.component';
 import {OfferEditComponent} from './components/offer-edit/offer-edit.component';
 import {OfferComponent} from './components/offer/offer.component';
 import {AccountComponent} from './components/account/account.component';
-import {AccountEditComponent} from "./components/account-edit/account-edit.component";
+import {AccountEditComponent} from './components/account-edit/account-edit.component';
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main-page', pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'offer/:id', component: OfferComponent},
   {path: 'offer-edit', component: OfferEditComponent},
   {path: 'catalog', component: CatalogComponent},
+  {path: 'changePassword', component: ResetPasswordComponent},
   {path: '**', redirectTo: 'main-page'}
 ];
 

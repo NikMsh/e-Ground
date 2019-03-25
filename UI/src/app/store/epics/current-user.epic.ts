@@ -7,8 +7,6 @@ import {
   LOGIN_USER,
   loginUserFailedAction,
   LOGOUT_USER,
-  UPDATE_BALANCE,
-  updateBalanceSuccessAction,
   updateCurrentUserAction
 } from '../actions/current-user.actions';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -17,7 +15,7 @@ import {GlobalUserStorageService} from '../../services/global-storage.service';
 import {AccountService} from '../../services/account.service';
 import {ChatServerService} from '../../services/chat-server.service';
 import {NotifierService} from 'angular-notifier';
-import {updateAccountSuccessAction} from "../actions/accounts.actions";
+import {updateAccountSuccessAction} from '../actions/account.actions';
 
 @Injectable()
 export class CurrentUserEpic {
@@ -51,7 +49,7 @@ export class CurrentUserEpic {
     );
   };
 
-  updateBalance$ = (action$: ActionsObservable<AnyAction>) => {
+  /*updateBalance$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(UPDATE_BALANCE).pipe(
       switchMap(({payload}) => {
         return this.accountService
@@ -72,7 +70,7 @@ export class CurrentUserEpic {
           );
       })
     );
-  };
+  };*/
 
   // verifyUserEmail$ = (action$: ActionsObservable<AnyAction>) => {
   //   return action$.ofType(VERIFY_USER_EMAIL).pipe(
