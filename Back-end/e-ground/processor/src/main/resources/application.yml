@@ -1,18 +1,21 @@
 server:
-  port: 8080
+  port: ${PROCESSOR_SERVER_PORT:8080}
 catalog:
-  host: http://localhost
-  port: 8081
+  host: ${CATALOG_HOST:http://localhost}
+  port: ${CATALOG_PORT:8082}
   url: ${catalog.host}:${catalog.port}
 customer-management:
-  host: http://localhost
-  port: 8082
+  host: ${CUSTOMER_MANAGEMENT_HOST:http://localhost}
+  port: ${CUSTOMER_MANAGEMENT_PORT:8086}
   url: ${customer-management.host}:${customer-management.port}
-inventory:
-  host: http://localhost
-  port: 8083
-  url: ${inventory.host}:${inventory.port}
-message-management:
-  host: http://localhost
-  port: 8084
-  url: ${message-management.host}:${message-management.port}
+favourite-item-management:
+  host: ${FAVOURITE_ITEM_MANAGEMENT_HOST:http://localhost}
+  port: ${FAVOURITE_ITEM_MANAGEMENT_PORT:8083}
+  url: ${favourite-item-management.host}:${favourite-item-management.port}
+logging:
+  file: logs/production_app.log
+  pattern:
+    file: "%d %-5level [%thread] %logger{0}: %msg%n"
+    console: "%d %-5level [%thread] %logger{0}: %msg%n"
+  level:
+    com.bsuir.sdtt: DEBUG

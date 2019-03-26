@@ -1,10 +1,10 @@
 server:
-  port: ${CATALOG_SERVER_PORT:8082}
+  port: ${FAVOURITE_ITEM_MANAGEMENT_SERVER_PORT:8083}
 spring:
   datasource:
-    url: ${CATALOG_DB_URL:jdbc:postgresql://localhost:5432/catalog}
-    username: ${CATALOG_DB_USERNAME:postgres}
-    password: ${CATALOG_DB_PASSWORD:1234}
+    url: ${FAVOURITE_ITEM_MANAGEMENT_DB_URL:jdbc:postgresql://localhost:5432/favourite-item-management}
+    username: ${FAVOURITE_ITEM_MANAGEMENT_DB_USERNAME:postgres}
+    password: ${FAVOURITE_ITEM_MANAGEMENT_DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,7 +16,4 @@ logging:
     file: "%d %-5level [%thread] %logger{0}: %msg%n"
     console: "%d %-5level [%thread] %logger{0}: %msg%n"
   level:
-      com.bsuir.sdtt: DEBUG
-
-
-
+    com.bsuir.sdtt: DEBUG
