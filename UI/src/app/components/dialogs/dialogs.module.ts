@@ -6,13 +6,15 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { EnterEmailComponent } from './enter-email/enter-email.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../../material';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    ScrollingModule
   ],
   declarations: [DialogsComponent, SignInComponent,
     SignUpComponent, EnterEmailComponent],

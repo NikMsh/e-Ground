@@ -34,6 +34,10 @@ export class SignUpComponent implements OnInit {
 
   private initializeForm() {
     this.registerForm = this.fb.group({
+      name: ['', [Validators.maxLength(40)]],
+      surname: ['', [Validators.maxLength(40)]],
+      age: ['', [Validators.maxLength(3)]],
+      phoneNumber: ['', [Validators.minLength(6), Validators.maxLength(20)]],
       login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
@@ -43,6 +47,22 @@ export class SignUpComponent implements OnInit {
 
   checkPasswords(group: FormGroup) {
     return group.get('password').value === group.get('confirmPassword').value ? null : {notSame: true};
+  }
+
+  get name(): FormControl {
+    return this.registerForm.get('name') as FormControl;
+  }
+
+  get surname(): FormControl {
+    return this.registerForm.get('surname') as FormControl;
+  }
+
+  get age(): FormControl {
+    return this.registerForm.get('age') as FormControl;
+  }
+
+  get phoneNumber(): FormControl {
+    return this.registerForm.get('phoneNumber') as FormControl;
   }
 
   get login(): FormControl {
