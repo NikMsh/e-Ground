@@ -68,4 +68,16 @@ public class Customer extends BaseEntity {
      */
     public Customer() {
     }
+
+    /**
+     * Method that set values except the password from another customer
+     * @param customer
+     */
+    public void update(Customer customer) {
+        name = customer.name;
+        surname = customer.surname;
+        email = customer.email;
+        age = customer.age;
+        phoneNumber = customer.phoneNumber;
+    }
 }

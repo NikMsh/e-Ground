@@ -1,22 +1,23 @@
 package com.bsuir.sdtt.service.impl;
 
 import com.bsuir.sdtt.entity.Order;
-import com.bsuir.sdtt.exception.EntityNotFoundException;
 import com.bsuir.sdtt.repository.OrderRepository;
 import com.bsuir.sdtt.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Class of order service that allows you to work with a category and implements OrderItemService.
  *
  * @author Stsiapan Balashenka
- * @version 1.0
+ * @version 1.1
  */
 @Service
 @Transactional
@@ -62,21 +63,29 @@ public class DefaultOrderService implements OrderService {
         return createdOrders;
     }
 
-    /**
+
+   /**
      * Method that finds an object in database.
      *
      * @param id Long of the object to be found
      * @return founded object or NullPointerException
      */
     @Override
-    public Order findById(UUID id) {
-        return orderRepository.findById(id).orElseThrow(NullPointerException::new);
+    public Order findById(UUID id) throws EntityNotFoundException {
+        Optional<Order> order =  orderRepository.findById(id);
+        order.<EntityNotFoundException>orElseThrow(()->{
+            throw new EntityNotFoundException("Order with id = "
+                    + id.toString() + " not found");
+        });
+        return order.get();
     }
 
     @Override
     public List<Order> findByCustomerId(UUID customerId) {
         return orderRepository.findAllByCustomerId(customerId);
     }
+
+
     /**
      * Method that save updated object.
      *
@@ -87,6 +96,7 @@ public class DefaultOrderService implements OrderService {
     public Order update(Order order) {
         return create(order);
     }
+
 
     /**
      * Method that delete object.

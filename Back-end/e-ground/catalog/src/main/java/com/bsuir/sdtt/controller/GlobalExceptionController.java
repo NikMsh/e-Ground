@@ -1,9 +1,10 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
 
 /**
  * Class of Controller Advice.

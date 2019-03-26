@@ -72,21 +72,18 @@ public class DefaultProcessorService implements ProcessorService {
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
         log.debug("Start method DefaultProcessorService.createCustomer Customer DTO = {}", customerDto);
-
         return customerManagementClient.save(customerDto);
     }
 
     @Override
     public CustomerDto updateCustomer(CustomerDto customerDto) {
         log.debug("Start method DefaultProcessorService.updateCustomer Customer DTO = {}", customerDto);
-
         return customerManagementClient.update(customerDto);
     }
 
     @Override
     public OfferDto createOffer(OfferDto offerDto) {
         log.debug("Start method DefaultProcessorService.createOffer Offer DTO = {}", offerDto);
-
         return catalogClient.save(offerDto);
     }
 
@@ -106,7 +103,6 @@ public class DefaultProcessorService implements ProcessorService {
     @Override
     public OfferDto updateOffer(OfferDto offerDto) {
         log.debug("Start method DefaultProcessorService.updateOffer Offer DTO = {}", offerDto);
-
         return catalogClient.update(offerDto);
     }
 
@@ -120,7 +116,6 @@ public class DefaultProcessorService implements ProcessorService {
     @Override
     public OfferDto getOfferById(UUID id) {
         log.info("Start method DefaultProcessorService.getOfferById ID = {}", id);
-
         return catalogClient.getOfferDto(id);
     }
 
@@ -134,21 +129,18 @@ public class DefaultProcessorService implements ProcessorService {
     @Override
     public CustomerDto getCustomerById(UUID id) {
         log.info("Start method DefaultProcessorService.getCustomersByEmail ID = {}", id);
-
         return customerManagementClient.getCustomerDto(id);
     }
 
     @Override
     public List<OrderDto> getOrderByCustomerId(UUID id) {
         log.info("Start method DefaultProcessorService.getOrderById ID = {}", id);
-
         return favouriteItemManagementClient.getOrdersDto(id);
     }
 
     @Override
     public List<CategoryDto> getAllCategories() {
         log.info("Start method DefaultProcessorService.getAllCategories");
-
         return catalogClient.getAllCategories();
     }
 }

@@ -1,22 +1,24 @@
 package com.bsuir.sdtt.service.impl;
 
 import com.bsuir.sdtt.entity.Customer;
-import com.bsuir.sdtt.exception.EntityNotFoundException;
 import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.CustomerService;
+import com.bsuir.sdtt.validation.CustomerValidator;
+import com.bsuir.sdtt.validation.ValidationType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Class of customer service that allows you to work with a customer and implements CustomerService.
  *
- * @author Stsiapan Balashenka
- * @version 1.0
+ * @author Stsiapan Balashenka, Eugene Korenik
+ * @version 1.1
  */
 @Service
 @Transactional
@@ -26,14 +28,22 @@ public class DefaultCustomerService implements CustomerService {
      */
     private final CustomerRepository customerRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+    private final CustomerValidator customerValidator;
+
     /**
      * Constructor that accepts a object CustomerDao class.
      *
      * @param customerRepository object of CustomerRepository class
      */
     @Autowired
-    public DefaultCustomerService(CustomerRepository customerRepository) {
+    public DefaultCustomerService(CustomerRepository customerRepository,
+                                  PasswordEncoder passwordEncoder,
+                                  CustomerValidator customerValidator) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.customerValidator = customerValidator;
     }
 
     /**
@@ -43,8 +53,16 @@ public class DefaultCustomerService implements CustomerService {
      * @return saved object of Customer class
      */
     @Override
-    public Customer create(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer create(Customer customer) throws EntityExistsException {
+        String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_CREATING);
+        if(!errorMessage.isEmpty()) {
+            throw new EntityExistsException(errorMessage);
+        }
+
+        String password = passwordEncoder.encode(customer.getPassword());
+        customer.setPassword(password);
+        customerRepository.save(customer);
+        return customer;
     }
 
     /**
@@ -54,8 +72,10 @@ public class DefaultCustomerService implements CustomerService {
      * @return founded object or NullPointerException
      */
     @Override
-    public Customer findById(UUID id) {
-        return customerRepository.findById(id).orElseThrow(NullPointerException::new);
+    public Customer findById(UUID id) throws EntityNotFoundException {
+        return customerRepository.findById(id).<EntityNotFoundException>orElseThrow(() -> {
+            throw new EntityNotFoundException("Customer with id =" + id.toString()
+                    + " not found");});
     }
 
     /**
@@ -80,8 +100,25 @@ public class DefaultCustomerService implements CustomerService {
      * @return updated and saved customer
      */
     @Override
-    public Customer update(Customer customer) {
-        return create(customer);
+    public Customer update(Customer customer) throws EntityExistsException {
+        String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_UPDATING);
+        if(!errorMessage.isEmpty()) {
+            throw new EntityExistsException(errorMessage);
+        }
+        return customerRepository.save(customer);
+    }
+
+    /**
+     * Method that update customer password
+     *
+     * @param customer customer with updated password needs to save
+     * @return updated and saved customer
+     */
+    public Customer updatePassword(Customer customer) {
+        String password = customer.getPassword();
+        String newPassword = passwordEncoder.encode(password);
+        customer.setPassword(newPassword);
+        return customerRepository.save(customer);
     }
 
     /**
@@ -90,11 +127,7 @@ public class DefaultCustomerService implements CustomerService {
      * @param id object that needs to delete
      */
     @Override
-    public void delete(UUID id) {
-        try {
-            customerRepository.delete(findById(id));
-        } catch (Exception e) {
-            throw new EntityNotFoundException(e.getMessage());
-        }
+    public void delete(UUID id) throws EntityNotFoundException {
+        customerRepository.delete(findById(id));
     }
 }

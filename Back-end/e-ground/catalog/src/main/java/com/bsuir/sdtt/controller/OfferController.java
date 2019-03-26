@@ -7,6 +7,7 @@ import com.bsuir.sdtt.entity.Comment;
 import com.bsuir.sdtt.entity.Offer;
 import com.bsuir.sdtt.repository.CategoryRepository;
 import com.bsuir.sdtt.service.OfferService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * @author Stsiapan Balashenka
  * @version 1.0
  */
+@Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "api/v1/catalog/offers")
@@ -57,6 +59,7 @@ public class OfferController {
      */
     @PostMapping
     public OfferDto create(@Validated @RequestBody OfferDto offerDto) {
+        log.debug("In create method offer controller");
         Offer offerTemp = new Offer();
         modelMapper.map(offerDto, offerTemp);
         Category category = categoryRepository
@@ -83,6 +86,7 @@ public class OfferController {
      */
     @PutMapping
     public OfferDto update(@Validated @RequestBody OfferDto offerDto) {
+        log.debug("In update method offer controller");
         Offer offerTemp = new Offer();
         modelMapper.map(offerDto, offerTemp);
         OfferDto offerDtoTemp = new OfferDto();
@@ -115,6 +119,7 @@ public class OfferController {
     @PutMapping(path = "/{offerId}/categories/{categoryName}")
     public OfferDto changeCategory(@PathVariable("offerId") UUID offerId,
                                    @PathVariable("categoryName") String categoryName) {
+        log.debug("In changeCategory method offer controller");
         OfferDto offerDtoTemp = new OfferDto();
         modelMapper.map(offerService.changeCategory(offerId, categoryName), offerDtoTemp);
         return offerDtoTemp;
@@ -128,6 +133,7 @@ public class OfferController {
      */
     @GetMapping(path = "/{id}")
     public OfferDto getById(@PathVariable("id") UUID id) {
+        log.debug("In getById method offer controller");
         OfferDto offerDtoTemp = new OfferDto();
         modelMapper.map(offerService.findById(id), offerDtoTemp);
         return offerDtoTemp;
@@ -140,6 +146,7 @@ public class OfferController {
      */
     @GetMapping
     public List<OfferDto> getAll() {
+        log.debug("In getAll method offer controller");
         List<Offer> offersTemp = offerService.findAll();
         List<OfferDto> offersDtoTemp = new ArrayList<>();
         toOfferDtoList(offersTemp, offersDtoTemp);
@@ -151,6 +158,7 @@ public class OfferController {
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "priceFrom", required = false) String priceFrom,
             @RequestParam(value = "priceTo", required = false) String priceTo) {
+        log.debug("In getAllByFilter method offer controller");
         List<Offer> offersTemp = offerService.findAllByFilter(category, priceFrom, priceTo);
         List<OfferDto> offersDtoTemp = new ArrayList<>();
         toOfferDtoList(offersTemp, offersDtoTemp);
@@ -164,6 +172,7 @@ public class OfferController {
      */
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable("id") UUID id) {
+        log.debug("In delete method offer controller");
         offerService.delete(id);
     }
 

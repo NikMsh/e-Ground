@@ -3,6 +3,7 @@ package com.bsuir.sdtt.controller;
 import com.bsuir.sdtt.dto.CustomerDto;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.service.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +19,7 @@ import java.util.UUID;
  * @author Stsiapan Balashenka
  * @version 1.0
  */
+@Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "api/v1/customer-management/customers")
@@ -51,6 +53,7 @@ public class CustomerController {
      */
     @PostMapping
     public CustomerDto create(@Validated @RequestBody CustomerDto customerDto) {
+        log.debug("In create customer controller method");
         Customer customer = new Customer();
         modelMapper.map(customerDto, customer);
         CustomerDto customerDtoTemp = new CustomerDto();
@@ -66,12 +69,28 @@ public class CustomerController {
      */
     @PutMapping
     public CustomerDto update(@Validated @RequestBody CustomerDto customerDto) {
+        log.debug("In update customer controller method");
         Customer customer = new Customer();
         modelMapper.map(customerDto, customer);
         CustomerDto customerDtoTemp = new CustomerDto();
         modelMapper.map(customerService.update(customer), customerDtoTemp);
         return customerDtoTemp;
 
+    }
+
+    /**
+     * Method that update user password
+     *@param customerDto customer dto with updated password
+     * @return customer with updated password
+     */
+    @PutMapping(headers = "action=updatePassword")
+    public CustomerDto updatePassword(@Validated @RequestBody CustomerDto customerDto) {
+        log.debug("In updatePassword customer controller method");
+        Customer customer = new Customer();
+        modelMapper.map(customerDto, customer);
+        CustomerDto customerDtoTemp = new CustomerDto();
+        modelMapper.map(customerService.updatePassword(customer), customerDtoTemp);
+        return customerDtoTemp;
     }
 
     /**
@@ -82,6 +101,7 @@ public class CustomerController {
      */
     @GetMapping(path = "/{id}")
     public CustomerDto getById(@PathVariable("id") UUID id) {
+        log.debug("In getById customer controller method");
         CustomerDto customerDtoTemp = new CustomerDto();
         modelMapper.map(customerService.findById(id), customerDtoTemp);
         return customerDtoTemp;
@@ -94,6 +114,7 @@ public class CustomerController {
      */
     @GetMapping
     public List<CustomerDto> getAll() {
+        log.debug("In getAll customer controller method");
         List<CustomerDto> customersDtoTemp = new ArrayList<>();
         List<Customer> customers = customerService.findAll();
         toCustomersDtoList(customers, customersDtoTemp);
@@ -107,6 +128,7 @@ public class CustomerController {
      */
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable("id") UUID id) {
+        log.debug("In delete customer controller method");
         customerService.delete(id);
     }
 

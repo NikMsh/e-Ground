@@ -3,6 +3,7 @@ package com.bsuir.sdtt.controller;
 import com.bsuir.sdtt.dto.CategoryDto;
 import com.bsuir.sdtt.entity.Category;
 import com.bsuir.sdtt.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +19,7 @@ import java.util.UUID;
  * @author Stsiapan Balashenka
  * @version 1.0
  */
+@Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "api/v1/catalog/categories")
@@ -51,6 +53,7 @@ public class CategoryController {
      */
     @PostMapping
     public CategoryDto create(@Validated @RequestBody CategoryDto categoryDto) {
+        log.debug("In create method category controller");
         Category categoryTemp = new Category();
         modelMapper.map(categoryDto, categoryTemp);
         CategoryDto categoryDtoTemp = new CategoryDto();
@@ -66,6 +69,7 @@ public class CategoryController {
      */
     @PutMapping
     public CategoryDto update(@Validated @RequestBody CategoryDto categoryDto) {
+        log.debug("In update method category controller");
         Category categoryTemp = new Category();
         modelMapper.map(categoryDto, categoryTemp);
         CategoryDto categoryDtoTemp = new CategoryDto();
@@ -81,6 +85,7 @@ public class CategoryController {
      */
     @GetMapping(path = "/{id}")
     public CategoryDto getById(@PathVariable("id") UUID id) {
+        log.debug("In getById method category controller");
         CategoryDto categoryDtoTemp = new CategoryDto();
         modelMapper.map(categoryService.findById(id), categoryDtoTemp);
         return categoryDtoTemp;
@@ -93,6 +98,7 @@ public class CategoryController {
      */
     @GetMapping
     public List<CategoryDto> getAll() {
+        log.debug("In getAll method category controller");
         List<CategoryDto> categoriesDtoTemp = new ArrayList<>();
         List<Category> categoriesTemp = categoryService.findAll();
 
@@ -112,6 +118,7 @@ public class CategoryController {
      */
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable("id") UUID id) {
+        log.debug("In delete method category controller");
         categoryService.delete(id);
     }
 }
