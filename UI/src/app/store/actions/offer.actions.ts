@@ -1,8 +1,8 @@
 import {Offer} from '../../model/Offer';
 
-export const CREATE_OFFER = '[Offer] Create offer';
-export const CREATE_OFFER_SUCCESS = '[Offer] Create offer success';
-export const CREATE_OFFER_FAILED = '[Offer] Create offer failed';
+export const CREATE_OFFER = 'CREATE_OFFER';
+export const CREATE_OFFER_SUCCESS = 'CREATE_OFFER_SUCCESS';
+export const CREATE_OFFER_FAILED = 'CREATE_OFFER_FAILED';
 
 
 export function createOfferAction(offer: Offer) {

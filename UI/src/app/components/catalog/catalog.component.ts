@@ -28,4 +28,6 @@ export class CatalogComponent implements OnInit {
       .subscribe(() => this.ngRedux.dispatch(fetchOffersAction()));
   }
 
+  selectOffer(id: string) {
+  }
 }
