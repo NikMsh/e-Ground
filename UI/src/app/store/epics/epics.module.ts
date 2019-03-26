@@ -3,6 +3,7 @@ import {CatalogEpic} from './catalog.epic';
 import {OfferEpic} from './offer.epic';
 import {AccountEpic} from './account.epic';
 import {ResetPasswordEpic} from './reset-password.epic';
+import {CurrentUserEpic} from './current-user.epic';
 
 @NgModule({
   providers: [

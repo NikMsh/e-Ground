@@ -14,7 +14,7 @@
     </a>
   </nav>
   <div *ngIf="!(currentUser | async)">
-    <button mat-button (click)="openSingIn()" *ngIf="!(currentUser | async)" style="font-size: 16px"> Sing in </button>
+    <button mat-button (click)="openSingIn()" *ngIf="!(currentUser | async)" style="font-size: 16px"> Sign in </button>
     /
     <button mat-button (click)="openSingUp()" style="font-size: 16px">Sign up</button>
   </div>

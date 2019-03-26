@@ -13,14 +13,16 @@ import {
 import {AnyAction} from 'redux';
 import {updateCurrentUserAction} from '../actions/current-user.actions';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
-import {ChatServerService} from '../../services/chat-server.service';
+// import {ChatServerService} from '../../services/chat-server.service';
 import {of} from 'rxjs/index';
 import {NotifierService} from 'angular-notifier';
 
 @Injectable()
 export class ResetPasswordEpic {
-  constructor(private resetPasswordService: ResetPasswordService, private ngRedux: NgRedux<AppState>,
-              private localStorageService: GlobalUserStorageService,private chatService: ChatServerService,
+  constructor(private resetPasswordService: ResetPasswordService,
+              private ngRedux: NgRedux<AppState>,
+              private localStorageService: GlobalUserStorageService,
+              // private chatService: ChatServerService,
               private notifierService: NotifierService) {
   }
 
@@ -35,18 +37,18 @@ export class ResetPasswordEpic {
           );
       })
     );
-  };
+  }
 
   resetPassword$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(SAVE_PASSWORD).pipe(
       switchMap(({payload}) => {
-        console.log('payload'+ payload.resetPassword.id);
+        console.log('payload' + payload.resetPassword.id);
         return this.resetPasswordService
           .updatePassword(payload.resetPassword)
           .pipe(
             map(user => {
                 this.localStorageService.currentUser = {...user};
-                this.chatService.connect(user.token.accessToken, user.account.id);
+                // this.chatService.connect(user.token.accessToken, user.account.id);
                 return updateCurrentUserAction(user);
                 savePasswordSuccessAction();
               }
@@ -58,5 +60,5 @@ export class ResetPasswordEpic {
           );
       })
     );
-  };
+  }
 }

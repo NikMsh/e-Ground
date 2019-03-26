@@ -6,6 +6,7 @@ import {routerReducer} from '@angular-redux/router';
 import {offerPageReducer} from './offer-page.reducer';
 import {accountPageReducer} from './account-page.reducer';
 import {resetPasswordReducer} from './reset-password.reducer';
+import {dialogStateReducer} from './dialogs.reducer';
 
 export const reducers: Reducer = combineReducers({
   currentUserState: currentUserReducer,
@@ -15,4 +16,5 @@ export const reducers: Reducer = combineReducers({
   offerPageState: offerPageReducer,
   accountPageState: accountPageReducer,
   resetPasswordState: resetPasswordReducer,
+  dialogsState: dialogStateReducer
 });

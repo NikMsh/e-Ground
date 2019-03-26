@@ -10,18 +10,18 @@ import {
   updateCurrentUserAction
 } from '../actions/current-user.actions';
 import {AuthenticationService} from '../../services/authentication.service';
-import {UserService} from '../../services/user.service';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
 import {AccountService} from '../../services/account.service';
-import {ChatServerService} from '../../services/chat-server.service';
+// import {ChatServerService} from '../../services/chat-server.service';
 import {NotifierService} from 'angular-notifier';
-import {updateAccountSuccessAction} from '../actions/account.actions';
 
 @Injectable()
 export class CurrentUserEpic {
-  constructor(private authService: AuthenticationService, private localStorageService: GlobalUserStorageService,
+  constructor(private authService: AuthenticationService,
+              private localStorageService: GlobalUserStorageService,
               private accountService: AccountService,
-              private chatService: ChatServerService, private notifierService: NotifierService) {
+             // private chatService: ChatServerService,
+              private notifierService: NotifierService) {
   }
   loginUser$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(LOGIN_USER).pipe(
@@ -31,23 +31,22 @@ export class CurrentUserEpic {
           .pipe(
             map(user => {
               this.localStorageService.currentUser = {...user};
-              this.chatService.connect(user.token.accessToken, user.account.id);
+              // this.chatService.connect(user.token.accessToken, user.account.id);
               return updateCurrentUserAction(user);
             }), catchError(error => of(loginUserFailedAction(error)))
           );
       })
     );
-  };
-
+  }
   logout$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(LOGOUT_USER).pipe(
       switchMap(({}) => {
         this.localStorageService.currentUser = null;
-        this.chatService.disconnect();
+        // this.chatService.disconnect();
         return of(updateCurrentUserAction(null));
       })
     );
-  };
+  }
 
   /*updateBalance$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(UPDATE_BALANCE).pipe(
