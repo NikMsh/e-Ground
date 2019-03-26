@@ -36,7 +36,7 @@ public interface ProcessorService {
 
     OfferDto getOfferById(UUID id);
 
-    List<OfferDto> getOffersByFilter(String category,
+    List<OfferDto> getOffersByFilter(String name, String category,
                                      String priceFrom, String priceTo);
 
     List<OrderDto> getOrderByCustomerId(UUID id);

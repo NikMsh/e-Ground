@@ -92,10 +92,14 @@ public class DefaultProcessorService implements ProcessorService {
         log.debug("Start method DefaultProcessorService.addCommentToOffer" +
                 " Customer DTO = {}", addCommentToOfferDto);
 
-        CommentDto commentDto = CommentDto.builder()
-                .customerId(addCommentToOfferDto.getCustomerId())
-                .message(addCommentToOfferDto.getMessage())
-                .build();
+        CustomerDto customerDto = customerManagementClient.getCustomerDto(addCommentToOfferDto.getCustomerId());
+        CommentDto commentDto = null;
+        if (addCommentToOfferDto.getCustomerId().equals(customerDto.getId())) {
+            commentDto = CommentDto.builder()
+                    .customerId(addCommentToOfferDto.getCustomerId())
+                    .message(addCommentToOfferDto.getMessage())
+                    .build();
+        }
 
         return catalogClient.addCommentToOffer(addCommentToOfferDto.getOfferId(), commentDto);
     }
@@ -107,7 +111,7 @@ public class DefaultProcessorService implements ProcessorService {
     }
 
     @Override
-    public List<CommentDto> getAllCommentsByOfferId(UUID id){
+    public List<CommentDto> getAllCommentsByOfferId(UUID id) {
         log.debug("Start method DefaultProcessorService.getAllCommentsByOfferId ID = {}", id);
 
         return catalogClient.getAllCommentsByOfferId(id);
@@ -120,10 +124,10 @@ public class DefaultProcessorService implements ProcessorService {
     }
 
     @Override
-    public List<OfferDto> getOffersByFilter(String category, String priceFrom, String priceTo) {
+    public List<OfferDto> getOffersByFilter(String name, String category, String priceFrom, String priceTo) {
         log.info("Start method DefaultProcessorService.getOffersByFilter");
 
-        return catalogClient.getOffersDtoByFilter(category, priceFrom, priceTo);
+        return catalogClient.getOffersDtoByFilter(name, category, priceFrom, priceTo);
     }
 
     @Override

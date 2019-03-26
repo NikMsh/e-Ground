@@ -17,7 +17,7 @@ public interface OfferService {
 
     List<Offer> findAll();
 
-    List<Offer> findAllByFilter(String category, String priceFrom, String priceTo);
+    List<Offer> findAllByFilter(String name, String category, String priceFrom, String priceTo);
 
     Offer findById(UUID id);
 

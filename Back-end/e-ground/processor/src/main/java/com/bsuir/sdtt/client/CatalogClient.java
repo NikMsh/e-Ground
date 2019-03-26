@@ -111,7 +111,7 @@ public class CatalogClient {
     }
 
     public List<OfferDto> getOffersDtoByFilter
-            (String category, String priceFrom, String priceTo) {
+            (String name, String category, String priceFrom, String priceTo) {
         log.info("Start method CatalogClient.getOffersDtoByFilter" +
                         " Category = {} Price From = {} Price To = {}",
                 category, priceFrom, priceTo);
@@ -120,13 +120,21 @@ public class CatalogClient {
         finalUrl.append(CatalogClientProperty.API_CATALOG_OFFERS_FILTER);
         finalUrl.append("?");
 
-        if (category != null) {
-            finalUrl.append("category=");
+        if (name != null) {
+            finalUrl.append("name=");
+            finalUrl.append(name);
+        }
+
+        if (category != null && name == null) {
+            finalUrl.append("&category=");
+            finalUrl.append(category);
+        } else if (category != null && name != null) {
+            finalUrl.append("&category=");
             finalUrl.append(category);
         }
 
         if (priceFrom != null && category == null) {
-            finalUrl.append("priceFrom=");
+            finalUrl.append("&priceFrom=");
             finalUrl.append(priceFrom);
         } else if (priceFrom != null && category != null) {
             finalUrl.append("&priceFrom=");
@@ -134,7 +142,7 @@ public class CatalogClient {
         }
 
         if (priceTo != null && priceFrom == null) {
-            finalUrl.append("priceTo=");
+            finalUrl.append("&priceTo=");
             finalUrl.append(priceTo);
         } else if (priceTo != null && priceFrom != null) {
             finalUrl.append("&priceTo=");

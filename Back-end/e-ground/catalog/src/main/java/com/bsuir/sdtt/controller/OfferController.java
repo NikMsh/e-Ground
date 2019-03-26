@@ -62,12 +62,9 @@ public class OfferController {
         log.debug("In create method offer controller");
         Offer offerTemp = new Offer();
         modelMapper.map(offerDto, offerTemp);
-        Category category = categoryRepository
-                .findFirstByName(offerDto.getCategory());
-        if (category == null || category.getName()
-                .equals(offerTemp.getCategory().getName())) {
-            Category categorySave = categoryRepository
-                    .save(new Category(offerDto.getCategory()));
+        Category category = categoryRepository.findFirstByName(offerDto.getCategory());
+        if (category == null) {
+            Category categorySave = categoryRepository.save(new Category(offerDto.getCategory()));
             offerTemp.setCategory(categorySave);
         } else {
             offerTemp.setCategory(category);
@@ -155,11 +152,12 @@ public class OfferController {
 
     @GetMapping(path = "/filter")
     public List<OfferDto> getAllByFilter(
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "priceFrom", required = false) String priceFrom,
             @RequestParam(value = "priceTo", required = false) String priceTo) {
         log.debug("In getAllByFilter method offer controller");
-        List<Offer> offersTemp = offerService.findAllByFilter(category, priceFrom, priceTo);
+        List<Offer> offersTemp = offerService.findAllByFilter(name, category, priceFrom, priceTo);
         List<OfferDto> offersDtoTemp = new ArrayList<>();
         toOfferDtoList(offersTemp, offersDtoTemp);
         return offersDtoTemp;

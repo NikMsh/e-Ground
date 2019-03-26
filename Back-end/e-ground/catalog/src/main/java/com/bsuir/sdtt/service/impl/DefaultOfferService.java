@@ -65,7 +65,7 @@ public class DefaultOfferService implements OfferService {
     }
 
     @Override
-    public List<Offer> findAllByFilter(String category, String priceFrom,
+    public List<Offer> findAllByFilter(String name, String category, String priceFrom,
                                        String priceTo) {
         Iterable<Offer> saveOffer;
 
@@ -93,8 +93,12 @@ public class DefaultOfferService implements OfferService {
             priceToTemp = Double.MAX_VALUE;
         }
 
-        if (category != null) {
+        if (category != null && name == null) {
             saveOffer = offerRepository.findAllByCategory(foundCategory);
+        } else if (category == null && name != null) {
+            saveOffer = offerRepository.findAllByName(name);
+        } else if (category != null && name != null){
+            saveOffer = offerRepository.findAllByNameAndCategory(name, foundCategory);
         } else {
             saveOffer = offerRepository.findAll();
         }

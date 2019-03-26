@@ -24,4 +24,8 @@ public interface OfferRepository extends CrudRepository<Offer, UUID> {
      * @return List of founded objects
      */
     List<Offer> findAllByCategory(Category category);
+
+    List<Offer> findAllByName(String name);
+
+    List<Offer> findAllByNameAndCategory(String name, Category category);
 }

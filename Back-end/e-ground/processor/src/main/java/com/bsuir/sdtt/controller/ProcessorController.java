@@ -73,10 +73,11 @@ public class ProcessorController {
 
     @GetMapping(path = "/offers/filter")
     public List<OfferDto> getOffersByFilter(
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "priceFrom", required = false) String priceFrom,
             @RequestParam(value = "priceTo", required = false) String priceTo) {
-        return processorService.getOffersByFilter(category, priceFrom, priceTo);
+        return processorService.getOffersByFilter(name, category, priceFrom, priceTo);
     }
 
     @GetMapping(path = "/offers/{id}")
