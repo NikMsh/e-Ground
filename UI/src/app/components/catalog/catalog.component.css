@@ -25,13 +25,6 @@
   width: 100%;
 }
 
-
-.cut-long-text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .offer-card-img {
   height: 70%;
   width: 100%;
@@ -69,4 +62,12 @@ span:focus {
 
 button:focus {
   outline: none;
+}
+
+.catalog-main {
+  display: flex;
+  flex-direction: column;
+  margin-right: 70px;
+  margin-left: 70px;
+  margin-top: 5px;
 }

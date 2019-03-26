@@ -35,6 +35,7 @@ import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.com
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { OfferEditComponent } from './components/offer-edit/offer-edit.component';
 import { OfferComponent } from './components/offer/offer.component';
+import { CatalogSearchToolbarComponent } from './components/catalog-search-toolbar/catalog-search-toolbar.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -44,7 +45,7 @@ const customNotifierOptions: NotifierOptions = {
     },
     vertical: {
       position: 'bottom',
-      distance: 50,
+      distance: 60,
       gap: 10
     }
   },
@@ -86,7 +87,8 @@ const customNotifierOptions: NotifierOptions = {
     UserSidenavComponent,
     CatalogComponent,
     OfferEditComponent,
-    OfferComponent
+    OfferComponent,
+    CatalogSearchToolbarComponent
   ],
   imports: [
     BrowserModule,

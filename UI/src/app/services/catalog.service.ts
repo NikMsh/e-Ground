@@ -23,13 +23,18 @@ export class CatalogService {
   }
 
   getCatalogList(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(`${this.apiUrl}/offers/filter`)
-      .pipe(catchError((error: any) => throwError(error.error)));
-     // return of(this.offers);
+    /* return this.http.get<Offer[]>(`${this.apiUrl}/offers/filter`)
+       .pipe(catchError((error: any) => throwError(error.error)));*/
+    return of(this.offers);
   }
 
   createOffer(offer: Offer): Observable<Offer> {
     return this.http.post<Offer>(`${this.apiUrl}/offers`, offer)
+      .pipe(catchError((error: any) => throwError(error)));
+  }
+
+  searchInCatalog(name: string) {
+    return this.http.get<Offer[]>(`${this.apiUrl}/offers/filter`, {params: {name}})
       .pipe(catchError((error: any) => throwError(error)));
   }
 }

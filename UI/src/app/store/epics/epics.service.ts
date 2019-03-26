@@ -13,6 +13,7 @@ export class EpicService {
   getEpics() {
     return combineEpics(
       this.catalogEpic.fetchOffers$,
+      this.catalogEpic.searchOffers$,
       this.offerEpic.createOffer$,
       this.offerEpic.selectOffer$
     );
