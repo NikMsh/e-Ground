@@ -3,31 +3,26 @@
   <cdk-virtual-scroll-viewport style="height: 300px" itemSize="90">
     <mat-form-field>
       <input matInput maxlength="40" placeholder="Name" [formControlName]="'name'" maxLength="40">
-      <mat-error *ngIf="password.invalid">{{getErrorText('password')}}</mat-error>
+      <mat-error *ngIf="name.invalid">{{getErrorText('name')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput maxlength="40" placeholder="Last Name" [formControlName]="'surname'" maxLength="40">
-      <mat-error *ngIf="password.invalid">{{getErrorText('password')}}</mat-error>
+      <mat-error *ngIf="surname.invalid">{{getErrorText('surname')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput type="number" maxlength="3" placeholder="Age" [formControlName]="'age'" maxLength="3">
-      <mat-error *ngIf="password.invalid">{{getErrorText('password')}}</mat-error>
+      <mat-error *ngIf="age.invalid">{{getErrorText('age')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput maxlength="20" placeholder="Phone Number" [formControlName]="'phoneNumber'" maxLength="20">
-      <mat-error *ngIf="password.invalid">{{getErrorText('password')}}</mat-error>
+      <mat-error *ngIf="phoneNumber.invalid">{{getErrorText('phone number')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput maxlength="15" placeholder="Login" [formControlName]="'login'" maxLength="15" required/>
-      <mat-error *ngIf="login.invalid">{{getErrorText('login')}}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput type="email"  maxlength="40" placeholder="Email" [formControlName]="'email'" maxLength="40">
+      <input matInput type="email"  maxlength="40" placeholder="Email" [formControlName]="'email'" maxLength="40" required>
       <mat-error *ngIf="email.invalid">{{getErrorText('email')}}</mat-error>
     </mat-form-field>
 

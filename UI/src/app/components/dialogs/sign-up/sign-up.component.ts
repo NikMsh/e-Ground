@@ -38,7 +38,6 @@ export class SignUpComponent implements OnInit {
       surname: ['', [Validators.maxLength(40)]],
       age: ['', [Validators.maxLength(3)]],
       phoneNumber: ['', [Validators.minLength(6), Validators.maxLength(20)]],
-      login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
@@ -63,10 +62,6 @@ export class SignUpComponent implements OnInit {
 
   get phoneNumber(): FormControl {
     return this.registerForm.get('phoneNumber') as FormControl;
-  }
-
-  get login(): FormControl {
-    return this.registerForm.get('login') as FormControl;
   }
 
   get email(): FormControl {

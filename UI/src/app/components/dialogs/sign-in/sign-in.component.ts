@@ -44,15 +44,15 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.credentialForm = this.formBuilder.group({
-      login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      email: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get login(): FormControl {
-    return this.credentialForm.get('login') as FormControl;
+  get email(): FormControl {
+    return this.credentialForm.get('email') as FormControl;
   }
 
   get password(): FormControl {

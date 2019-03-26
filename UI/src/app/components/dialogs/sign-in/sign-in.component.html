@@ -1,12 +1,12 @@
 <h1 mat-dialog-title> Sign In </h1>
 <form [formGroup]="credentialForm">
   <mat-form-field>
-    <input matInput placeholder="Login" [formControlName]="'login'" maxLength="15"  required/>
-    <mat-error *ngIf="login.invalid">{{getErrorText('login')}}</mat-error>
+    <input matInput type="email"  maxlength="40" placeholder="Email" [formControlName]="'email'" maxLength="40" required>
+    <mat-error *ngIf="email.invalid">{{getErrorText('email')}}</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="password" placeholder="Password" [formControlName]="'password'" maxLength="20">
+    <input matInput type="password" placeholder="Password" [formControlName]="'password'" maxLength="20" required>
     <mat-error *ngIf="password.invalid">{{getErrorText('password')}}</mat-error>
   </mat-form-field>
 
