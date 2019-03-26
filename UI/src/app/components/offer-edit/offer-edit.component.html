@@ -1,5 +1,10 @@
 <main>
   <form [formGroup]="offerForm">
+    <app-image-upload
+      [defaultImage]=""
+      [imageHeight]="250" [imageWidth]="450"
+      [onErrorImage]="'/src/assets/images/defaultImageForOffer.png'">
+    </app-image-upload>
     <div class="edit-form">
       <mat-form-field>
         <mat-label>Название товара</mat-label>
