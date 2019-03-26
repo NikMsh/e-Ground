@@ -38,6 +38,7 @@ import { OfferComponent } from './components/offer/offer.component';
 import { AccountComponent } from './components/account/account.component';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import {DialogsModule} from './components/dialogs/dialogs.module';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -101,6 +102,7 @@ const customNotifierOptions: NotifierOptions = {
     NgReduxRouterModule.forRoot(),
     HttpClientModule,
     FormsModule,
+    DialogsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
