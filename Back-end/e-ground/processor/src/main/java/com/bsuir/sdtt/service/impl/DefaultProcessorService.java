@@ -110,7 +110,7 @@ public class DefaultProcessorService implements ProcessorService {
             OfferDto offerDto = catalogClient.addCommentToOffer(addCommentToOfferDto.getOfferId(), commentDto);
 
             AccountDto accountDto = AccountDto.builder()
-                    .id(commentDto.getId())
+                    .id(customerDto.getId())
                     .name(customerDto.getName())
                     .surname(customerDto.getSurname())
                     .age(customerDto.getAge())
