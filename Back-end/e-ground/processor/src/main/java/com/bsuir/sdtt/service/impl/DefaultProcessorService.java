@@ -8,6 +8,7 @@ import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
 import com.bsuir.sdtt.dto.customer.CustomerDto;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
+import com.bsuir.sdtt.dto.processor.AccountDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
 import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDto;
@@ -85,7 +86,11 @@ public class DefaultProcessorService implements ProcessorService {
     @Override
     public OfferDto createOffer(OfferDto offerDto) {
         log.debug("Start method DefaultProcessorService.createOffer Offer DTO = {}", offerDto);
-        return catalogClient.save(offerDto);
+        OfferDto offerDtoCreated = null;
+        if(customerManagementClient.getCustomerDto(offerDto.getSellerId())!=null){
+            offerDtoCreated = catalogClient.save(offerDto);
+        }
+        return offerDtoCreated;
     }
 
     @Override
@@ -104,10 +109,8 @@ public class DefaultProcessorService implements ProcessorService {
 
             OfferDto offerDto = catalogClient.addCommentToOffer(addCommentToOfferDto.getOfferId(), commentDto);
 
-            customerCommentParameterDto = CustomerCommentParameterDto.builder()
-                    .id(offerDto.getComments().get(offerDto.getComments().size() - 1).getId())
-                    .customerId(customerDto.getId())
-                    .message(addCommentToOfferDto.getMessage())
+            AccountDto accountDto = AccountDto.builder()
+                    .id(commentDto.getId())
                     .name(customerDto.getName())
                     .surname(customerDto.getSurname())
                     .age(customerDto.getAge())
@@ -115,6 +118,11 @@ public class DefaultProcessorService implements ProcessorService {
                     .phoneNumber(customerDto.getPhoneNumber())
                     .build();
 
+            customerCommentParameterDto = CustomerCommentParameterDto.builder()
+                    .id(offerDto.getComments().get(offerDto.getComments().size() - 1).getId())
+                    .message(addCommentToOfferDto.getMessage())
+                    .accountDto(accountDto)
+                    .build();
         }
 
         return customerCommentParameterDto;
