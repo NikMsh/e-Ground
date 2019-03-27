@@ -7,6 +7,7 @@ import com.bsuir.sdtt.dto.customer.CustomerDto;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
+import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public interface ProcessorService {
 
     OfferDto updateOffer(OfferDto offerDto);
 
-    OfferDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto);
+    CustomerCommentParameterDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto);
 
     List<CommentDto> getAllCommentsByOfferId(UUID id);
 

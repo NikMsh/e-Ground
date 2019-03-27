@@ -7,6 +7,7 @@ import com.bsuir.sdtt.dto.customer.CustomerDto;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
+import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDto;
 import com.bsuir.sdtt.service.ProcessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -61,7 +62,7 @@ public class ProcessorController {
     }
 
     @PutMapping(path = "/offers/comments")
-    public OfferDto addCommentToOffer(
+    public CustomerCommentParameterDto addCommentToOffer(
             @Validated @RequestBody AddCommentToOfferParameterDto addCommentToOfferParameterDto) {
         return processorService.addCommentToOffer(addCommentToOfferParameterDto);
     }

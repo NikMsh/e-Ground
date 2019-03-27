@@ -10,6 +10,7 @@ import com.bsuir.sdtt.dto.customer.CustomerDto;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
+import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDto;
 import com.bsuir.sdtt.service.ProcessorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,20 +89,35 @@ public class DefaultProcessorService implements ProcessorService {
     }
 
     @Override
-    public OfferDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto) {
+    public CustomerCommentParameterDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto) {
         log.debug("Start method DefaultProcessorService.addCommentToOffer" +
                 " Customer DTO = {}", addCommentToOfferDto);
 
-        CustomerDto customerDto = customerManagementClient.getCustomerDto(addCommentToOfferDto.getCustomerId());
-        CommentDto commentDto = null;
+        CustomerDto customerDto = customerManagementClient
+                .getCustomerDto(addCommentToOfferDto.getCustomerId());
+        CustomerCommentParameterDto customerCommentParameterDto = null;
         if (addCommentToOfferDto.getCustomerId().equals(customerDto.getId())) {
-            commentDto = CommentDto.builder()
+            CommentDto commentDto = CommentDto.builder()
                     .customerId(addCommentToOfferDto.getCustomerId())
                     .message(addCommentToOfferDto.getMessage())
                     .build();
+
+            OfferDto offerDto = catalogClient.addCommentToOffer(addCommentToOfferDto.getOfferId(), commentDto);
+
+            customerCommentParameterDto = CustomerCommentParameterDto.builder()
+                    .id(offerDto.getComments().get(offerDto.getComments().size() - 1).getId())
+                    .customerId(customerDto.getId())
+                    .message(addCommentToOfferDto.getMessage())
+                    .name(customerDto.getName())
+                    .surname(customerDto.getSurname())
+                    .age(customerDto.getAge())
+                    .email(customerDto.getEmail())
+                    .phoneNumber(customerDto.getPhoneNumber())
+                    .build();
+
         }
 
-        return catalogClient.addCommentToOffer(addCommentToOfferDto.getOfferId(), commentDto);
+        return customerCommentParameterDto;
     }
 
     @Override
