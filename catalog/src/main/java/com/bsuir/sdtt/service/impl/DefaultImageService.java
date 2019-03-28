@@ -32,6 +32,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ *
+ * @author Stsiapan Balashenka
+ * @version 1.0
+ */
 @Service
 public class DefaultImageService implements ImageService {
     private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
