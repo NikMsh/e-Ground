@@ -160,18 +160,16 @@ export class SignUpComponent implements OnInit {
       .pipe(first())
       .subscribe(
         () => {
-          this.login();
-          // this.notifier.notify('success', 'Registration successful. Check your email to activate your account!');
-          // this.onCancelClick();
+          this.notifier.notify('success', 'Registration successful. Check your email to activate your account!');
+          this.onCancelClick();
         },
         error => {
           console.log(error);
           this.error = error;
           this.loading = false;
         });
-    /*this.ngRedux.dispatch(createUserAction(this.convertFromFormToUser()));
-    this.isLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
-      this.registrateError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));*/
+    // this.ngRedux.dispatch(createUserAction(this.convertFromFormToUser()));
+    // this.isLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() => console.log('asd'));
     /*this.userService.register(this.registerForm.value)
       .pipe(first())
       .subscribe(() => {

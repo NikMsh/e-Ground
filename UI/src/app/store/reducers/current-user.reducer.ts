@@ -35,13 +35,7 @@ export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUser
       return {...state, isLoading: false, errorMessage: action.payload.errorMessage};
     }
     case LOGOUT_USER: {
-      return {...state, isLoading: true, errorMessage: null};
-    }
-    case LOGOUT_USER_SUCCESS: {
       return {...state, currentUser: null, isLoading: false, errorMessage: null};
-    }
-    case LOGOUT_USER_FAILED: {
-      return {...state, isLoading: false, errorMessage: action.payload.errorMessage};
     }
     case CLEAR_USER_ERROR_MESSAGE: {
       return {...state, errorMessage: null};

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from '../model/User';
 import {Observable, of, throwError} from 'rxjs/index';
-import {catchError} from 'rxjs/internal/operators';
 import {RegistrationData} from '../model/RegistrationData';
+import {catchError} from 'rxjs/operators';
 
 
 
@@ -27,10 +27,8 @@ export class UserService {
     }
   };
 
-  register(registrationData: RegistrationData) {
+  register(registrationData: RegistrationData): Observable<User> {
     // return this.http.post(`/api/auth/signup`, user);
-    console.log('Registration is successful');
-    console.log(registrationData);
     return of(this.user);
   }
 

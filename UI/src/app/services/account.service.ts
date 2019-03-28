@@ -33,6 +33,7 @@ export class AccountService {
 
   updateAccount(detailAccountDTO: any): Observable<any> {
     console.log(detailAccountDTO);
+    console.log('update account');
     /*const options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
     return this.http.put<any>(this.accountUrl + 'update/' + detailAccountDTO.id, detailAccountDTO, options)
       .pipe(catchError((error: any) => throwError(error.error)));*/

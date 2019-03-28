@@ -23,10 +23,10 @@ export class UserEpic {
           .register(payload.registrationData)
           .pipe(
             map(user => {
-              this.localStorageService.currentUser = {...user};
               this.notifierService.notify('success', 'Create login successful');
               return createUserSuccessAction(user);
-            }), catchError(error => {
+            }),
+            catchError(error => {
               this.notifierService.notify('error', 'Create user failed');
               return of(createUserFailedAction(error)); })
           );
