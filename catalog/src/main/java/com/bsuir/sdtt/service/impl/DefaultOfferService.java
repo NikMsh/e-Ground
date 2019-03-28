@@ -6,11 +6,15 @@ import com.bsuir.sdtt.entity.Offer;
 import com.bsuir.sdtt.repository.CategoryRepository;
 import com.bsuir.sdtt.repository.CommentRepository;
 import com.bsuir.sdtt.repository.OfferRepository;
+import com.bsuir.sdtt.service.ImageService;
 import com.bsuir.sdtt.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,12 +34,15 @@ public class DefaultOfferService implements OfferService {
 
     private final CommentRepository commentRepository;
 
+    private final ImageService imageService;
+
     @Autowired
     public DefaultOfferService(OfferRepository offerRepository,
-                               CategoryRepository categoryRepository, CommentRepository commentRepository) {
+                               CategoryRepository categoryRepository, CommentRepository commentRepository, ImageService imageService) {
         this.offerRepository = offerRepository;
         this.categoryRepository = categoryRepository;
         this.commentRepository = commentRepository;
+        this.imageService = imageService;
     }
 
     /**
@@ -45,7 +52,14 @@ public class DefaultOfferService implements OfferService {
      * @return saved object of Offer class
      */
     @Override
-    public Offer create(Offer offer) {
+    public Offer create(Offer offer, String image) {
+        if (image != null && !image.equals("")) {
+            try {
+                setImage(offer, image);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         return offerRepository.save(offer);
     }
 
@@ -132,8 +146,18 @@ public class DefaultOfferService implements OfferService {
      * @return updated and saved offer
      */
     @Override
-    public Offer update(Offer offer) {
-        return create(offer);
+    public Offer update(Offer offer, String image) {
+        if (image != null && !image.equals("")) {
+            try {
+                if (offer.getImageId() != null && offer.getCompressedImageId() != null) {
+                    imageService.deleteImageFromGoogleDrive(offer.getImageId(), offer.getCompressedImageId());
+                }
+                setImage(offer, image);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return offerRepository.save(offer);
     }
 
     @Override
@@ -142,7 +166,7 @@ public class DefaultOfferService implements OfferService {
         comment.setOffer(offer);
         offer.getComments().add(comment);
         commentRepository.save(comment);
-        return update(offer);
+        return offerRepository.save(offer);
     }
 
     /**
@@ -171,5 +195,19 @@ public class DefaultOfferService implements OfferService {
         offer.setCategory(categoryByName);
         Offer savedOffer = offerRepository.save(offer);
         return savedOffer;
+    }
+
+    private void setImage(Offer offer, String image) throws IOException, GeneralSecurityException {
+        File imageFile = imageService.convertStringToFile(image);
+        String imageId = imageService.saveImageToGoogleDrive(imageFile);
+
+        String comressedImagePath = imageService.compressionImage(imageFile);
+        File comressedImageFile = new File(comressedImagePath);
+        String comressedImageId = imageService.saveImageToGoogleDrive(comressedImageFile);
+
+        offer.setImageId(imageId);
+        offer.setCompressedImageId(comressedImageId);
+        imageFile.delete();
+        comressedImageFile.delete();
     }
 }

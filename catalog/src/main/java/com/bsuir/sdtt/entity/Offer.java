@@ -22,6 +22,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "offers")
 public class Offer extends BaseEntity {
+    private String imageId;
+
+    private String compressedImageId;
+
     /**
      * Necessarily field of Offer name.
      */
