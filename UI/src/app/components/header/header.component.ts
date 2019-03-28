@@ -11,6 +11,7 @@ import {updateRouterState} from '../../store/actions/router.actions';
 import {SignUpComponent} from '../dialogs/sign-up/sign-up.component';
 import {showDialogAction} from '../../store/actions/dialogs.actions';
 import {hideUserSideNavAction} from '../../store/actions/user-side-nav.actions';
+import {skipWhile, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -35,6 +36,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+   /* this.currentUser.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() =>
+        this.error.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));*/
   }
 
   openSingIn(): void {

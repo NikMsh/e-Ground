@@ -6,13 +6,11 @@ import {catchError, map, switchMap} from 'rxjs/operators';
 import {
   LOGIN_USER,
   loginUserFailedAction,
-  LOGOUT_USER,
-  updateCurrentUserAction
+  loginUserSuccessAction
 } from '../actions/current-user.actions';
 import {AuthenticationService} from '../../services/authentication.service';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
 import {AccountService} from '../../services/account.service';
-// import {ChatServerService} from '../../services/chat-server.service';
 import {NotifierService} from 'angular-notifier';
 
 @Injectable()
@@ -20,7 +18,6 @@ export class CurrentUserEpic {
   constructor(private authService: AuthenticationService,
               private localStorageService: GlobalUserStorageService,
               private accountService: AccountService,
-             // private chatService: ChatServerService,
               private notifierService: NotifierService) {
   }
   loginUser$ = (action$: ActionsObservable<AnyAction>) => {
@@ -31,14 +28,16 @@ export class CurrentUserEpic {
           .pipe(
             map(user => {
               this.localStorageService.currentUser = {...user};
-              // this.chatService.connect(user.token.accessToken, user.account.id);
-              return updateCurrentUserAction(user);
-            }), catchError(error => of(loginUserFailedAction(error)))
+              this.notifierService.notify('success', 'User login successful');
+              return loginUserSuccessAction(user);
+            }), catchError(error => {
+              this.notifierService.notify('error', 'Login user failed');
+              return of(loginUserFailedAction(error)); })
           );
       })
     );
   }
-  logout$ = (action$: ActionsObservable<AnyAction>) => {
+  /*logout$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(LOGOUT_USER).pipe(
       switchMap(({}) => {
         this.localStorageService.currentUser = null;
@@ -46,7 +45,7 @@ export class CurrentUserEpic {
         return of(updateCurrentUserAction(null));
       })
     );
-  }
+  }*/
 
   /*updateBalance$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(UPDATE_BALANCE).pipe(

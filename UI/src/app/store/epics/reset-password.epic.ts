@@ -11,11 +11,11 @@ import {
   sendResetPasswordEmailSuccessAction
 } from '../actions/reset-password.actions';
 import {AnyAction} from 'redux';
-import {updateCurrentUserAction} from '../actions/current-user.actions';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
 // import {ChatServerService} from '../../services/chat-server.service';
 import {of} from 'rxjs/index';
 import {NotifierService} from 'angular-notifier';
+import {loginUserSuccessAction} from "../actions/current-user.actions";
 
 @Injectable()
 export class ResetPasswordEpic {
@@ -49,7 +49,7 @@ export class ResetPasswordEpic {
             map(user => {
                 this.localStorageService.currentUser = {...user};
                 // this.chatService.connect(user.token.accessToken, user.account.id);
-                return updateCurrentUserAction(user);
+                return loginUserSuccessAction(user);
                 savePasswordSuccessAction();
               }
             ),

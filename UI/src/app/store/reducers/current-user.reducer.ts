@@ -2,8 +2,11 @@ import {Reducer} from 'redux';
 import {
   CLEAR_USER_ERROR_MESSAGE,
   LOGIN_USER,
+  LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILED,
-  UPDATE_CURRENT_USER
+  LOGOUT_USER,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_FAILED
 } from '../actions/current-user.actions';
 import {User} from '../../model/User';
 
@@ -22,13 +25,22 @@ const INITIAL_STATE = {
 
 export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUserState = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UPDATE_CURRENT_USER: {
-      return {...state, currentUser: action.payload.user, isLoading: false, errorMessage: null};
-    }
     case LOGIN_USER: {
       return {...state, isLoading: true, errorMessage: null};
     }
+    case LOGIN_USER_SUCCESS: {
+      return {...state, currentUser: action.payload.user, isLoading: false, errorMessage: null};
+    }
     case LOGIN_USER_FAILED: {
+      return {...state, isLoading: false, errorMessage: action.payload.errorMessage};
+    }
+    case LOGOUT_USER: {
+      return {...state, isLoading: true, errorMessage: null};
+    }
+    case LOGOUT_USER_SUCCESS: {
+      return {...state, currentUser: null, isLoading: false, errorMessage: null};
+    }
+    case LOGOUT_USER_FAILED: {
       return {...state, isLoading: false, errorMessage: action.payload.errorMessage};
     }
     case CLEAR_USER_ERROR_MESSAGE: {
@@ -38,5 +50,4 @@ export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUser
       return state;
     }
   }
-
 };

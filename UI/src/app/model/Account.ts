@@ -1,7 +1,6 @@
-export interface Account {
+export class Account {
   name: string;
   surname: string;
   age: number;
   phoneNumber: string;
-  token?: Token;
 }

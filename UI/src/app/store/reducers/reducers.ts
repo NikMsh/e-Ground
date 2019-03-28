@@ -7,6 +7,7 @@ import {offerPageReducer} from './offer-page.reducer';
 import {accountPageReducer} from './account-page.reducer';
 import {resetPasswordReducer} from './reset-password.reducer';
 import {dialogStateReducer} from './dialogs.reducer';
+import {userReducer} from './user.reducer';
 
 export const reducers: Reducer = combineReducers({
   currentUserState: currentUserReducer,
@@ -16,5 +17,6 @@ export const reducers: Reducer = combineReducers({
   offerPageState: offerPageReducer,
   accountPageState: accountPageReducer,
   resetPasswordState: resetPasswordReducer,
-  dialogsState: dialogStateReducer
+  dialogsState: dialogStateReducer,
+  userState: userReducer
 });

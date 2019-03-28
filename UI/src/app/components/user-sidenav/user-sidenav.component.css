@@ -1,6 +1,11 @@
 .example-container {
   height: 85vh;
 }
+
+.side-content {
+  text-align: center;
+}
+
 mat-sidenav{
   background-color: grey;
   color: white;

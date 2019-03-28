@@ -2,10 +2,9 @@ import {Account} from './Account';
 
 
 //???????? why interface ??
-export interface User {
+export class User {
   account: Account;
   id: string;
-  login: string;
   password?: string;
   email?: string;
   token?: Token;
@@ -13,7 +12,6 @@ export interface User {
 
 export const defaultUser: User = {
   id: null,
-  login: '',
   password: '',
   email: '',
   token: {

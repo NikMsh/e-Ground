@@ -24,7 +24,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  updatedAccount: User;
+  updatedUser: User;
   isCompareDateError: boolean;
 
   @select(isLoading)
@@ -47,7 +47,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.isLoading.pipe(skipWhile(result => result), take(1))
       .subscribe(() => this.ngRedux.select(state => selectAccountForEdit(state))
         .subscribe(user => {
-          this.updatedAccount = user;
+          this.updatedUser = user;
           this.initializeForm(user);
         }));
   }
@@ -62,16 +62,16 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     );
   }
 
-  changeAccount(form: FormGroup): User {
-    this.updatedAccount.account.name = form.getRawValue().name;
-    this.updatedAccount.account.surname = form.getRawValue().surname;
-    this.updatedAccount.account.age = form.getRawValue().age;
-    this.updatedAccount.account.phoneNumber = form.getRawValue().phoneNumber;
-    return this.updatedAccount;
+  updateAccount(form: FormGroup): User {
+    this.updatedUser.account.name = form.getRawValue().name;
+    this.updatedUser.account.surname = form.getRawValue().surname;
+    this.updatedUser.account.age = form.getRawValue().age;
+    this.updatedUser.account.phoneNumber = form.getRawValue().phoneNumber;
+    return this.updatedUser;
   }
 
-  updateAccount(form) {
-    this.ngRedux.dispatch(updateAccountAction({...this.changeAccount(form)}));
+  updateUser(form) {
+    this.ngRedux.dispatch(updateAccountAction({...this.updateAccount(form)}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/account/' + this.userId)));
   }

@@ -19,7 +19,7 @@ export const accountPageReducer: Reducer<AccountPageState> = (state: AccountPage
       return {...state, isLoading: true};
     }
     case UPDATE_ACCOUNT_SUCCESS: {
-      return {...state, ...action.payload, isLoading: false};
+      return {...state, user: action.payload.user, isLoading: false};
     }
     case UPDATE_ACCOUNT_FAILED: {
       return {...state, isLoading: false};

@@ -13,7 +13,6 @@ export class AccountService {
 
   user: User = {
     id: '213',
-    login: 'Sicphy',
     password: '1798',
     email: 'kirill@mail.ru',
     token: {

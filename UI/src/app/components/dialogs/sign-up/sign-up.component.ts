@@ -2,11 +2,19 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
-import {first} from 'rxjs/internal/operators';
-import {DialogResult} from '../../../model/dialog-result';
-import {NgRedux} from '@angular-redux/store';
+import {first, skipWhile, take} from 'rxjs/internal/operators';
+import {DialogResult} from '../../../model/DialogResult';
+import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../../store';
 import {NotifierService} from 'angular-notifier';
+import {createUserAction} from '../../../store/actions/user.actions';
+import {RegistrationData} from '../../../model/RegistrationData';
+import {selectErrorMessage, isLoading} from '../../../store/selectors/user.selector';
+import {Observable} from 'rxjs';
+import {selectErrorMessage as selectLoginErrorMessage} from '../../../store/selectors/current-user.selector';
+import {isLoading as loginIsLoading} from '../../../store/selectors/current-user.selector';
+import {loginUserAction} from '../../../store/actions/current-user.actions';
+import {Credential} from '../../../model/Credential';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,9 +24,22 @@ import {NotifierService} from 'angular-notifier';
 export class SignUpComponent implements OnInit {
 
   registerForm: FormGroup;
+  registrationData: RegistrationData;
   loading = false;
   submitted = false;
   error = '';
+
+  @select(selectLoginErrorMessage)
+  loginError: Observable<string>;
+
+  @select(selectErrorMessage)
+  registrateError: Observable<string>;
+
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
+  @select(loginIsLoading)
+  loginLoading: Observable<boolean>;
 
   constructor(private fb: FormBuilder,
               public dialogRef: MatDialogRef<SignUpComponent>,
@@ -85,6 +106,26 @@ export class SignUpComponent implements OnInit {
     this.dialogRef.close(DialogResult.CLOSE);
   }
 
+  private createCredentialForm(): Credential {
+    return {
+      email: this.registerForm.get('email').value,
+      password: this.registerForm.get('password').value
+    };
+  }
+
+  private convertFromFormToUser(): RegistrationData {
+    return {
+      email: this.registerForm.get('email').value,
+      password: this.registerForm.get('password').value,
+      account: {
+        name: this.registerForm.get('name').value as string,
+        surname: this.registerForm.get('surname').value as string,
+        age: this.registerForm.get('age').value as number,
+        phoneNumber: this.registerForm.get('phoneNumber').value as string
+      }
+    };
+  }
+
   private getErrorMessage(control: FormControl): string {
     let errorMessage = '';
     if (control.errors) {
@@ -97,9 +138,15 @@ export class SignUpComponent implements OnInit {
       if (control.errors['minlength']) {
         errorMessage = 'Min length - 6 symbols';
       }
-
     }
     return errorMessage;
+  }
+
+  login() {
+    console.log('I am in login now');
+    this.ngRedux.dispatch(loginUserAction(this.createCredentialForm()));
+    this.loginLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
+          this.loginError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
   }
 
   onSubmit() {
@@ -109,22 +156,36 @@ export class SignUpComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.userService.register(this.registerForm.value)
+    this.userService.register(this.convertFromFormToUser())
       .pipe(first())
       .subscribe(
         () => {
-          // this.ngRedux.dispatch(loginUserAction(
-          //   {login: this.registerForm.controls['login'].value,
-          //     password: this.registerForm.controls['password'].value}
-          //     ));
-          this.notifier.notify('success', 'Registration successful. Check your email to activate your account!');
-          this.onCancelClick();
+          this.login();
+          // this.notifier.notify('success', 'Registration successful. Check your email to activate your account!');
+          // this.onCancelClick();
         },
         error => {
           console.log(error);
           this.error = error;
           this.loading = false;
         });
+    /*this.ngRedux.dispatch(createUserAction(this.convertFromFormToUser()));
+    this.isLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
+      this.registrateError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));*/
+    /*this.userService.register(this.registerForm.value)
+      .pipe(first())
+      .subscribe(() => {
+          this.ngRedux.dispatch(createUserAction(this.convertFromFormToUser()));
+          this.isLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
+            this.registrateError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
+           // this.notifier.notify('success', 'Registration successful. Check your email to activate your account!');
+           // this.onCancelClick();
+        },
+        error => {
+          console.log(error);
+          this.error = error;
+          this.loading = false;
+        });*/
   }
 
 }

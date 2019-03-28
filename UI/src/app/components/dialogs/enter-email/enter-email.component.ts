@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isLoading, selectErrorMessage} from '../../../store/selectors/current-user.selector';
 import {NgRedux, select} from '@angular-redux/store';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DialogResult} from '../../../model/dialog-result';
+import {DialogResult} from '../../../model/DialogResult';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs/index';
 import {AppState} from '../../../store';

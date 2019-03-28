@@ -36,7 +36,7 @@
         </div>
         <div class="button-wrapper">
           <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid"
-                  (click)="updateAccount(accountForm)">Save</button>
+                  (click)="updateUser(accountForm)">Save</button>
           <button mat-raised-button color="primary" routerLink="/account/{{userId}}" (click)="goBack()">Cancel</button>
         </div>
       </div>

@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {skipWhile, take} from 'rxjs/internal/operators';
-import {DialogResult} from '../../../model/dialog-result';
+import {DialogResult} from '../../../model/DialogResult';
 import {Credential} from '../../../model/Credential';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../../store';
@@ -90,7 +90,6 @@ export class SignInComponent implements OnInit {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() =>
         this.error.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
-
   }
 
   forgotPassword() {
@@ -101,7 +100,6 @@ export class SignInComponent implements OnInit {
       data: null
     }));
   }
-
 }
 
 

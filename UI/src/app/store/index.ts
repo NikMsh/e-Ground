@@ -5,6 +5,7 @@ import {OfferPageState} from './reducers/offer-page.reducer';
 import {AccountPageState} from './reducers/account-page.reducer';
 import {DialogState} from './reducers/dialogs.reducer';
 import {ResetPasswordState} from './reducers/reset-password.reducer';
+import {UserState} from './reducers/user.reducer';
 
 export interface AppState {
   readonly router?: string;
@@ -15,6 +16,7 @@ export interface AppState {
   readonly accountPageState?: AccountPageState;
   readonly dialogsState?: DialogState;
   readonly resetPasswordState?: ResetPasswordState;
+  readonly userState?: UserState;
   /*readonly startupsState?: StartupsState;
   readonly startupPageState?: StartupPageState;
   readonly router?: string;

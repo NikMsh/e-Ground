@@ -4,6 +4,7 @@ import {OfferEpic} from './offer.epic';
 import {AccountEpic} from './account.epic';
 import {ResetPasswordEpic} from './reset-password.epic';
 import {CurrentUserEpic} from './current-user.epic';
+import {UserEpic} from './user.epic';
 
 @NgModule({
   providers: [
@@ -12,6 +13,7 @@ import {CurrentUserEpic} from './current-user.epic';
     AccountEpic,
     ResetPasswordEpic,
     CurrentUserEpic,
+    UserEpic
   ],
 })
 export class EpicsModule {

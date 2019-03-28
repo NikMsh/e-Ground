@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
 import {User} from '../model/User';
 import {Credential} from '../model/Credential';
 import {NgxPermissionsService} from 'ngx-permissions';
@@ -18,8 +18,27 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  user: User = {
+    id: '213',
+    password: '1798',
+    email: 'kirill@mail.ru',
+    token: {
+      accessToken: 'aaaaaa',
+      type: 'bbbbb'
+    },
+    account: {
+      name: 'kirill',
+      surname: 'petrov',
+      age: 17,
+      phoneNumber: '911',
+    }
+  };
+
   login(credential: Credential) {
-    return this.http.post<any>(`/api/auth/signin`, {login: credential.login, password: credential.password})
-      .pipe(catchError((error) => throwError(error)));
+    /*return this.http.post<any>(`/api/auth/signin`, {email: credential.email, password: credential.password})
+      .pipe(catchError((error) => throwError(error)));*/
+    console.log('Hello world');
+    console.log(credential);
+    return of(this.user);
   }
 }
