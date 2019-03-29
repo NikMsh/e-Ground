@@ -1,6 +1,7 @@
 import {Account} from './Account';
+import {Token} from './Token';
 
-export class User {
+export interface User {
   account: Account;
   id: string;
   password?: string;
