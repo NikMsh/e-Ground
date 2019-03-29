@@ -2,6 +2,7 @@ package com.bsuir.sdtt.repository;
 
 import com.bsuir.sdtt.entity.Category;
 import com.bsuir.sdtt.entity.Offer;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public interface OfferRepository extends CrudRepository<Offer, UUID> {
      */
     List<Offer> findAllByCategory(Category category);
 
-    List<Offer> findAllByName(String name);
+    List<Offer> findAllByNameContaining(String name);
 
-    List<Offer> findAllByNameAndCategory(String name, Category category);
+    List<Offer> findAllByNameContainingAndCategory(String name, Category category);
 }
