@@ -31,9 +31,9 @@ export class OfferService {
   }
 
   getOfferById(offerId: string): Observable<Offer> {
-    /*return this.http.get<Offer>(`${this.apiUrl}/offers/${offerId}`)
-      .pipe(catchError((error: any) => throwError(error.error)));*/
-    return of(this.offer);
+    return this.http.get<Offer>(`${this.apiUrl}/offers/${offerId}`)
+      .pipe(catchError((error: any) => throwError(error.error)));
+   // return of(this.offer);
   }
 
   getOfferComments(offerId: string): Observable<Comment[]> {

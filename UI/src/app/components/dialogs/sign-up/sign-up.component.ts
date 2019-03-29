@@ -117,12 +117,10 @@ export class SignUpComponent implements OnInit {
     return {
       email: this.registerForm.get('email').value,
       password: this.registerForm.get('password').value,
-      account: {
-        name: this.registerForm.get('name').value as string,
-        surname: this.registerForm.get('surname').value as string,
-        age: this.registerForm.get('age').value as number,
-        phoneNumber: this.registerForm.get('phoneNumber').value as string
-      }
+      name: this.registerForm.get('name').value as string,
+      surname: this.registerForm.get('surname').value as string,
+      age: this.registerForm.get('age').value as number,
+      phoneNumber: this.registerForm.get('phoneNumber').value as string
     };
   }
 
@@ -146,7 +144,7 @@ export class SignUpComponent implements OnInit {
     console.log('I am in login now');
     this.ngRedux.dispatch(loginUserAction(this.createCredentialForm()));
     this.loginLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
-          this.loginError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
+      this.loginError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
   }
 
   onSubmit() {

@@ -49,7 +49,7 @@ export class OfferEditComponent implements OnInit {
   }
 
   createOffer() {
-    this.ngRedux.dispatch(createOfferAction({...this.offerForm.value}));
+    this.ngRedux.dispatch(createOfferAction({...this.offerForm.value, id: '5dc346af-c82f-4cc8-aacf-c798d0199e59', sellerId: '5dc346af-c82f-4cc8-aacf-c798d0199e59'}));
     this.isSelected.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => {
         this.ngRedux.dispatch(updateRouterState('/catalog'));
