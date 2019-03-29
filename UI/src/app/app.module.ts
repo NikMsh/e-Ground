@@ -35,9 +35,9 @@ import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.com
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { OfferEditComponent } from './components/offer-edit/offer-edit.component';
 import { OfferComponent } from './components/offer/offer.component';
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import {OfferFeedbackComponent} from './components/offer-feedback/offer-feedback.component';
 import {CatalogSearchToolbarComponent} from './components/catalog-search-toolbar/catalog-search-toolbar.component';
-import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {

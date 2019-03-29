@@ -1,0 +1,9 @@
+.image-loader{
+  width: fit-content;
+  height: auto;
+  text-align: center;
+}
+img{
+  cursor: pointer;
+  margin-bottom: 1%;
+}
