@@ -36,6 +36,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { OfferEditComponent } from './components/offer-edit/offer-edit.component';
 import { OfferComponent } from './components/offer/offer.component';
 import { CatalogSearchToolbarComponent } from './components/catalog-search-toolbar/catalog-search-toolbar.component';
+import { OfferFeedbackComponent } from './components/offer-feedback/offer-feedback.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -88,7 +89,8 @@ const customNotifierOptions: NotifierOptions = {
     CatalogComponent,
     OfferEditComponent,
     OfferComponent,
-    CatalogSearchToolbarComponent
+    CatalogSearchToolbarComponent,
+    OfferFeedbackComponent
   ],
   imports: [
     BrowserModule,

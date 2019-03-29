@@ -15,7 +15,8 @@ export class EpicService {
       this.catalogEpic.fetchOffers$,
       this.catalogEpic.searchOffers$,
       this.offerEpic.createOffer$,
-      this.offerEpic.selectOffer$
+      this.offerEpic.selectOffer$,
+      this.offerEpic.fetchComments$
     );
   }
 }

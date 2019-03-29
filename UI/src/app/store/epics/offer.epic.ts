@@ -5,7 +5,14 @@ import {AppState} from '../index';
 import {ActionsObservable} from 'redux-observable';
 import {AnyAction} from 'redux';
 import {catchError, map, switchMap} from 'rxjs/operators';
-import {CREATE_OFFER, createOfferFailedAction, createOfferSuccessAction} from '../actions/offer.actions';
+import {
+  CREATE_OFFER,
+  createOfferFailedAction,
+  createOfferSuccessAction,
+  FETCH_COMMENTS,
+  fetchCommentsFailedAction,
+  fetchCommentsSuccessAction
+} from '../actions/offer.actions';
 import {of} from 'rxjs';
 import {SELECT_OFFER, selectOfferFailedAction, selectOfferSuccessAction} from '../actions/catalog.actions';
 import {OfferService} from '../../services/offer.service';
@@ -27,9 +34,7 @@ export class OfferEpic {
             map(offer => {
               return createOfferSuccessAction(offer);
             }),
-            catchError(error => {
-              return of(createOfferFailedAction(error));
-            })
+            catchError(error => of(createOfferFailedAction(error)))
           );
       })
     );
@@ -42,21 +47,30 @@ export class OfferEpic {
           this.offerService
             .getOfferById(payload.offerId)
             .pipe(
-              map(startup => selectOfferSuccessAction(startup)),
-              catchError(error => {
-                return of(selectOfferFailedAction(error));
-              })
+              map(offer => selectOfferSuccessAction(offer)),
+              catchError(error => of(selectOfferFailedAction(error)))
             )
           : of(defaultOffer)
             .pipe(
-              map(startup => selectOfferSuccessAction(startup)),
-              catchError(error => {
-                return of(selectOfferFailedAction(error));
-              })
+              map(offer => selectOfferSuccessAction(offer)),
+              catchError(error => of(selectOfferFailedAction(error)))
             );
       })
     );
   }
 
+  fetchComments$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(FETCH_COMMENTS).pipe(
+      switchMap(({payload}) => {
+          return this.offerService
+            .getOfferComments(payload.offerId)
+            .pipe(
+              map(comments => fetchCommentsSuccessAction(comments)),
+              catchError(error => of(fetchCommentsFailedAction(error)))
+            );
+        }
+      )
+    );
+  }
 }
 
