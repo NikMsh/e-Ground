@@ -52,7 +52,7 @@ export class OfferComponent implements OnInit {
   checkPermissionToEdit(offer: Offer) {
     /*this.permissionToEdit = startup.startupRoles
       .find(value => value.accountId ===
-        this.ngRedux.getState().currentUserState.currentUser.account.id && value.roleName === 'MODERATOR') !== undefined;*/
+        this.ngRedux.getState().currentUserState.selectCurrentUser.profile.id && value.roleName === 'MODERATOR') !== undefined;*/
   }
 
   get currentUserAccountId(): string {

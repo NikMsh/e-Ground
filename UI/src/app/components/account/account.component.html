@@ -1,0 +1,42 @@
+<main>
+  <div class="spinner" *ngIf="isLoading | async;else account">
+    <mat-spinner mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+
+  <ng-template #account>
+    <div *ngIf="(user|async) !== null; else userNotFound">
+      <div class="user-info">
+        <div>
+          <mat-card class="image-wrapper">
+            <img class="profile-img"
+              src="../../../assets/images/defaultImageForItem.jpg"
+              alt="../../../assets/images/defaultImageForItem.jpg"><img/>
+          </mat-card>
+        </div>
+        <div class="form-and-buttons">
+          <div class="form-wrapper">
+              <h1>{{ (user|async)?.account.name }} {{ (user|async)?.account.surname }}</h1>
+              <h3>Phone number: {{ (user|async)?.account.phoneNumber }}</h3>
+              <h3>Age: {{ (user|async)?.account.age }}</h3>
+          </div>
+          <div class="profile-buttons">
+            <div class="button-wrapper">
+              <button mat-raised-button color="primary" class="profile-but">Write message</button>
+            </div>
+            <div class="edit-button-wrapper">
+              <button mat-raised-button color="primary" routerLink="/account-edit/{{id}}" class="profile-but">
+                Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</main>
+
+<ng-template #userNotFound>
+  <h2 align="center">Sorry. Such user is not found </h2>
+</ng-template>
+
+<!-- *ngFor="let accountData of (user|async)?.account | keyvalue"> -->

@@ -1,8 +1,25 @@
-export interface User {
+import {Account} from './Account';
+
+export class User {
+  account: Account;
   id: string;
-  login: string;
   password?: string;
   email?: string;
-  nonBlock: boolean;
   token?: Token;
 }
+
+export const defaultUser: User = {
+  id: null,
+  password: '',
+  email: '',
+  token: {
+    accessToken: '',
+    type: ''
+  },
+  account: {
+    name: '',
+    surname: '',
+    age: 0,
+    phoneNumber: '',
+  }
+};

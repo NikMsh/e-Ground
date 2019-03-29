@@ -38,6 +38,10 @@ import { OfferComponent } from './components/offer/offer.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import {OfferFeedbackComponent} from './components/offer-feedback/offer-feedback.component';
 import {CatalogSearchToolbarComponent} from './components/catalog-search-toolbar/catalog-search-toolbar.component';
+import { AccountComponent } from './components/account/account.component';
+import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import {DialogsModule} from './components/dialogs/dialogs.module';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -92,7 +96,10 @@ const customNotifierOptions: NotifierOptions = {
     OfferComponent,
     CatalogSearchToolbarComponent,
     OfferFeedbackComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    AccountComponent,
+    AccountEditComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +108,7 @@ const customNotifierOptions: NotifierOptions = {
     NgReduxRouterModule.forRoot(),
     HttpClientModule,
     FormsModule,
+    DialogsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
