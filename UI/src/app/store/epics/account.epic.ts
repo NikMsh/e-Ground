@@ -40,7 +40,8 @@ export class AccountEpic {
   fetchUser$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(FETCH_USER).pipe(
       switchMap(({payload}) => {
-        return this.accountService.getUserById(payload.userId)
+        return this.accountService
+          .getUserById(payload.userId)
             .pipe(map(user => fetchUserSuccessAction(user)),
               catchError(error => {
                 return of(fetchUserFailedAction(error));
