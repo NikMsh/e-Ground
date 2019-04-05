@@ -3,6 +3,7 @@ package com.bsuir.sdtt.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
@@ -50,10 +52,4 @@ public class Order extends BaseEntity {
     @NotNull
     private int orderItemCount;
 
-
-    /**
-     * Constructor without params that create object without initialization fields.
-     */
-    public Order() {
-    }
 }

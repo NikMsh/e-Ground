@@ -33,31 +33,27 @@ public class CustomerValidator {
 
         Optional<Customer> withSuchPhone = customerRepository
                 .findByPhoneNumber(phoneNumber);
-        if(withSuchPhone.isPresent()) {
-            if(validationType == ValidationType.FOR_CREATING ||
-                    (validationType == ValidationType.FOR_UPDATING &&
-                            withSuchPhone.get().getId().compareTo(customer.getId()) != 0)) {
-                errorBuilder.append(buildErrorMessage("phone", phoneNumber));
-            }
+        if (withSuchPhone.isPresent() && validationType == ValidationType.FOR_CREATING ||
+                (validationType == ValidationType.FOR_UPDATING &&
+                        withSuchPhone.get().getId().compareTo(customer.getId()) != 0)) {
+            errorBuilder.append(buildErrorMessage("phone", phoneNumber));
         }
 
         Optional<Customer> withSuchEmail = customerRepository.findByEmail(email);
-        if(withSuchEmail.isPresent()) {
-            if (validationType == ValidationType.FOR_CREATING ||
-                    (validationType == ValidationType.FOR_UPDATING &&
-                            withSuchEmail.get().getId().compareTo(customer.getId()) != 0)) {
-                errorBuilder.append(buildErrorMessage("email", email));
-            }
+        if (withSuchEmail.isPresent() && validationType == ValidationType.FOR_CREATING ||
+                (validationType == ValidationType.FOR_UPDATING &&
+                        withSuchEmail.get().getId().compareTo(customer.getId()) != 0)) {
+            errorBuilder.append(buildErrorMessage("email", email));
         }
         return errorBuilder.toString();
     }
 
     private String buildErrorMessage(String type, String value) {
         StringBuilder builder = new StringBuilder("Customer with such ");
-        builder.append(type);
-        builder.append(" (");
-        builder.append(value);
-        builder.append(") already exist");
+        builder.append(type)
+                .append(" (")
+                .append(value)
+                .append(") already exist");
         return builder.toString();
     }
 }

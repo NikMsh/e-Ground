@@ -24,7 +24,4 @@ public class CategoryDto {
      */
     @NotNull
     private String name;
-
-    public CategoryDto() {
-    }
 }

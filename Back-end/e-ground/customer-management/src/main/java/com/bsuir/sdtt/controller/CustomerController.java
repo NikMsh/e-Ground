@@ -75,7 +75,6 @@ public class CustomerController {
         CustomerDto customerDtoTemp = new CustomerDto();
         modelMapper.map(customerService.update(customer), customerDtoTemp);
         return customerDtoTemp;
-
     }
 
     /**

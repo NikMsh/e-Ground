@@ -6,6 +6,10 @@ package com.bsuir.sdtt.util;
  * @version 1.0
  */
 public abstract class FavouriteItemClientManagementProperty {
+
+    private FavouriteItemClientManagementProperty() {
+    }
+
     public static final String API_V1_INVENTORY_ORDERS
             = "/api/v1/inventory/orders";
 

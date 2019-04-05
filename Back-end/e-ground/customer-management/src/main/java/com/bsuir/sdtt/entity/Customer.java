@@ -3,15 +3,14 @@ package com.bsuir.sdtt.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * Class of customer that extends BaseEntity class.
@@ -22,6 +21,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "customers")
 public class Customer extends BaseEntity {
@@ -63,11 +63,10 @@ public class Customer extends BaseEntity {
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
 
-    /**
-     * Constructor without params that create object without initialization fields.
-     */
-    public Customer() {
-    }
+
+    @OneToMany
+    private List<Message> messages;
+
 
     /**
      * Method that set values except the password from another customer

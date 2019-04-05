@@ -6,6 +6,10 @@ package com.bsuir.sdtt.util;
  * @version 1.0
  */
 public abstract class CatalogClientProperty {
+
+    private CatalogClientProperty() {
+    }
+
     public static final String API_CATALOG_OFFERS
             = "/api/v1/catalog/offers/";
 

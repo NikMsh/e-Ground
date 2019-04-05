@@ -121,32 +121,25 @@ public class CatalogClient {
         finalUrl.append("?");
 
         if (name != null) {
-            finalUrl.append("name=");
-            finalUrl.append(name);
+            finalUrl.append("name=").append(name);
         }
 
         if (category != null && name == null) {
-            finalUrl.append("&category=");
-            finalUrl.append(category);
-        } else if (category != null && name != null) {
-            finalUrl.append("&category=");
-            finalUrl.append(category);
+            finalUrl.append("&category=").append(category);
+        } else if (category != null) {
+            finalUrl.append("&category=").append(category);
         }
 
         if (priceFrom != null && category == null) {
-            finalUrl.append("&priceFrom=");
-            finalUrl.append(priceFrom);
-        } else if (priceFrom != null && category != null) {
-            finalUrl.append("&priceFrom=");
-            finalUrl.append(priceFrom);
+            finalUrl.append("&priceFrom=").append(priceFrom);
+        } else if (priceFrom != null) {
+            finalUrl.append("&priceFrom=").append(priceFrom);
         }
 
         if (priceTo != null && priceFrom == null) {
-            finalUrl.append("&priceTo=");
-            finalUrl.append(priceTo);
-        } else if (priceTo != null && priceFrom != null) {
-            finalUrl.append("&priceTo=");
-            finalUrl.append(priceTo);
+            finalUrl.append("&priceTo=").append(priceTo);
+        } else if (priceTo != null) {
+            finalUrl.append("&priceTo=").append(priceTo);
         }
 
         return getResponseEntity(finalUrl);
@@ -205,8 +198,6 @@ public class CatalogClient {
     private HttpEntity<String> getHttpEntityHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<>("", headers);
-
-        return entity;
+        return new HttpEntity<>("", headers);
     }
 }

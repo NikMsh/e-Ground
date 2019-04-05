@@ -55,7 +55,4 @@ public class AccountDto {
     @NotNull
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
-
-    public AccountDto() {
-    }
 }

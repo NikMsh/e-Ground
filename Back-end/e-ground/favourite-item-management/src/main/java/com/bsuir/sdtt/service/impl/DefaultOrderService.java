@@ -64,20 +64,19 @@ public class DefaultOrderService implements OrderService {
     }
 
 
-   /**
+    /**
      * Method that finds an object in database.
      *
      * @param id Long of the object to be found
      * @return founded object or NullPointerException
      */
     @Override
-    public Order findById(UUID id) throws EntityNotFoundException {
-        Optional<Order> order =  orderRepository.findById(id);
-        order.<EntityNotFoundException>orElseThrow(()->{
+    public Order findById(UUID id) {
+        Optional<Order> order = orderRepository.findById(id);
+        return order.<EntityNotFoundException>orElseThrow(() -> {
             throw new EntityNotFoundException("Order with id = "
                     + id.toString() + " not found");
         });
-        return order.get();
     }
 
     @Override

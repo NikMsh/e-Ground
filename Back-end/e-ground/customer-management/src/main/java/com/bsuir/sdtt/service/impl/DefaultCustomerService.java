@@ -53,9 +53,9 @@ public class DefaultCustomerService implements CustomerService {
      * @return saved object of Customer class
      */
     @Override
-    public Customer create(Customer customer) throws EntityExistsException {
+    public Customer create(Customer customer) {
         String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_CREATING);
-        if(!errorMessage.isEmpty()) {
+        if (!errorMessage.isEmpty()) {
             throw new EntityExistsException(errorMessage);
         }
 
@@ -72,10 +72,11 @@ public class DefaultCustomerService implements CustomerService {
      * @return founded object or NullPointerException
      */
     @Override
-    public Customer findById(UUID id) throws EntityNotFoundException {
+    public Customer findById(UUID id) {
         return customerRepository.findById(id).<EntityNotFoundException>orElseThrow(() -> {
             throw new EntityNotFoundException("Customer with id =" + id.toString()
-                    + " not found");});
+                    + " not found");
+        });
     }
 
     /**
@@ -100,9 +101,9 @@ public class DefaultCustomerService implements CustomerService {
      * @return updated and saved customer
      */
     @Override
-    public Customer update(Customer customer) throws EntityExistsException {
+    public Customer update(Customer customer) {
         String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_UPDATING);
-        if(!errorMessage.isEmpty()) {
+        if (!errorMessage.isEmpty()) {
             throw new EntityExistsException(errorMessage);
         }
         return customerRepository.save(customer);
@@ -127,7 +128,7 @@ public class DefaultCustomerService implements CustomerService {
      * @param id object that needs to delete
      */
     @Override
-    public void delete(UUID id) throws EntityNotFoundException {
+    public void delete(UUID id) {
         customerRepository.delete(findById(id));
     }
 }
