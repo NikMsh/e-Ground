@@ -116,6 +116,7 @@ public class DefaultImageService implements ImageService {
 
     @Override
     public void deleteImageFromGoogleDrive(String imageId, String compressImageId) throws GeneralSecurityException, IOException {
+
         if (imageId != null && compressImageId != null && !imageId.isEmpty() && !compressImageId.isEmpty()) {
             getDriveService().files().delete(imageId).execute();
             getDriveService().files().delete(compressImageId).execute();

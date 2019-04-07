@@ -64,6 +64,9 @@ public class DefaultProcessorService implements ProcessorService {
             orderDto.setTotalPrice(offerDto.getPrice() * createOrderParameter
                     .getItemCount());
             orderDto.setOrderItemCount(createOrderParameter.getItemCount());
+            orderDto.setImage(offerDto.getImage());
+            orderDto.setImageId(offerDto.getImageId());
+            orderDto.setCompressedImageId(offerDto.getCompressedImageId());
 
             favouriteItemManagementClient.save(orderDto);
         }
