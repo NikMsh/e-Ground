@@ -22,6 +22,12 @@ import java.util.UUID;
 public class OfferDto {
     private UUID id;
 
+    private String imageId;
+
+    private String compressedImageId;
+
+    private String image;
+
     /**
      * Field of seller ID.
      */

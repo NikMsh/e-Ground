@@ -3,6 +3,7 @@ package com.bsuir.sdtt.service.impl;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.CustomerService;
+import com.bsuir.sdtt.service.ImageService;
 import com.bsuir.sdtt.validation.CustomerValidator;
 import com.bsuir.sdtt.validation.ValidationType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
 /**
@@ -28,6 +32,8 @@ public class DefaultCustomerService implements CustomerService {
      */
     private final CustomerRepository customerRepository;
 
+    private final ImageService imageService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final CustomerValidator customerValidator;
@@ -36,12 +42,14 @@ public class DefaultCustomerService implements CustomerService {
      * Constructor that accepts a object CustomerDao class.
      *
      * @param customerRepository object of CustomerRepository class
+     * @param imageService object of ImageService class
      */
     @Autowired
     public DefaultCustomerService(CustomerRepository customerRepository,
-                                  PasswordEncoder passwordEncoder,
+                                  ImageService imageService, PasswordEncoder passwordEncoder,
                                   CustomerValidator customerValidator) {
         this.customerRepository = customerRepository;
+        this.imageService = imageService;
         this.passwordEncoder = passwordEncoder;
         this.customerValidator = customerValidator;
     }
@@ -53,12 +61,18 @@ public class DefaultCustomerService implements CustomerService {
      * @return saved object of Customer class
      */
     @Override
-    public Customer create(Customer customer) throws EntityExistsException {
+    public Customer create(Customer customer, String image) throws EntityExistsException {
         String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_CREATING);
         if(!errorMessage.isEmpty()) {
             throw new EntityExistsException(errorMessage);
         }
-
+        if (image != null && !image.equals("")) {
+            try {
+                setImage(customer, image);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         String password = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(password);
         customerRepository.save(customer);
@@ -100,10 +114,21 @@ public class DefaultCustomerService implements CustomerService {
      * @return updated and saved customer
      */
     @Override
-    public Customer update(Customer customer) throws EntityExistsException {
+    public Customer update(Customer customer, String image) throws EntityExistsException {
         String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_UPDATING);
         if(!errorMessage.isEmpty()) {
             throw new EntityExistsException(errorMessage);
+        }
+        if (image != null && !image.equals("")) {
+            try {
+                if (customer.getImageId() != null && customer.getCompressedImageId() != null) {
+                    imageService.deleteImageFromGoogleDrive(customer.getImageId(),
+                            customer.getCompressedImageId());
+                }
+                setImage(customer, image);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         return customerRepository.save(customer);
     }
@@ -129,5 +154,19 @@ public class DefaultCustomerService implements CustomerService {
     @Override
     public void delete(UUID id) throws EntityNotFoundException {
         customerRepository.delete(findById(id));
+    }
+
+    private void setImage(Customer offer, String image) throws IOException, GeneralSecurityException {
+        File imageFile = imageService.convertStringToFile(image);
+        String imageId = imageService.saveImageToGoogleDrive(imageFile);
+
+        String comressedImagePath = imageService.compressionImage(imageFile);
+        File comressedImageFile = new File(comressedImagePath);
+        String comressedImageId = imageService.saveImageToGoogleDrive(comressedImageFile);
+
+        offer.setImageId(imageId);
+        offer.setCompressedImageId(comressedImageId);
+        imageFile.delete();
+        comressedImageFile.delete();
     }
 }

@@ -23,6 +23,12 @@ import java.util.UUID;
 public class CustomerDto {
     private UUID id;
 
+    private String imageId;
+
+    private String compressedImageId;
+
+    private String image;
+
     /**
      * Field of customer name.
      */

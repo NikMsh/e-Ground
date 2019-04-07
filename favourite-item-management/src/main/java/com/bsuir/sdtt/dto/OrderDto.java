@@ -21,6 +21,12 @@ import java.util.UUID;
 public class OrderDto {
     private UUID id;
 
+    private String imageId;
+
+    private String compressedImageId;
+
+    private String image;
+
     @NotNull
     private UUID customerId;
 

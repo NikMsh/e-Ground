@@ -23,6 +23,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
+    private String imageId;
+
+    private String compressedImageId;
+
     @NotNull
     private UUID customerId;
 

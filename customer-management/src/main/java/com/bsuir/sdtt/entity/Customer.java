@@ -25,6 +25,10 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Table(name = "customers")
 public class Customer extends BaseEntity {
+    private String imageId;
+
+    private String compressedImageId;
+
     /**
      * Field of customer name.
      */

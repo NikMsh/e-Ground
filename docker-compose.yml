@@ -10,7 +10,7 @@ services:
     depends_on:
       - catalog-postgres
     ports:
-      - 9091:8081
+      - 9091:8082
     restart: on-failure
 
   customer-management:
@@ -22,7 +22,7 @@ services:
     depends_on:
       - customer-management-postgres
     ports:
-      - 9092:8082
+      - 9092:8086
     restart: on-failure
 
   favourite-item-management:
@@ -51,7 +51,7 @@ services:
       - FAVOURITE_ITEM_MANAGEMENT_HOST=http://favourite-item-management
       - FAVOURITE_ITEM_MANAGEMENT_PORT=8083
     ports:
-      - 9090:8080
+      - 9090:8081
     restart: on-failure
 
   catalog-postgres:

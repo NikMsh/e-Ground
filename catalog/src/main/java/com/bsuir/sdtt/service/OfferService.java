@@ -13,7 +13,7 @@ import java.util.UUID;
  * @version 1.0
  */
 public interface OfferService {
-    Offer create(Offer offer);
+    Offer create(Offer offer, String image);
 
     List<Offer> findAll();
 
@@ -21,7 +21,7 @@ public interface OfferService {
 
     Offer findById(UUID id);
 
-    Offer update(Offer offer);
+    Offer update(Offer offer, String image);
 
     Offer addComment(UUID id, Comment comment);
 

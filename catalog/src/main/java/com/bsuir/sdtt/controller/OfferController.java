@@ -71,7 +71,7 @@ public class OfferController {
         }
 
         OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.create(offerTemp), offerDtoTemp);
+        modelMapper.map(offerService.create(offerTemp, offerDto.getImage()), offerDtoTemp);
         return offerDtoTemp;
     }
 
@@ -87,7 +87,7 @@ public class OfferController {
         Offer offerTemp = new Offer();
         modelMapper.map(offerDto, offerTemp);
         OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.update(offerTemp), offerDtoTemp);
+        modelMapper.map(offerService.update(offerTemp, offerDto.getImage()), offerDtoTemp);
         return offerDtoTemp;
     }
 

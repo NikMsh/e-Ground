@@ -14,13 +14,13 @@ import java.util.UUID;
  * @version 1.1
  */
 public interface CustomerService {
-    Customer create(Customer customer) throws EntityExistsException;
+    Customer create(Customer customer, String image) throws EntityExistsException;
 
     Customer findById(UUID id);
 
     List<Customer> findAll();
 
-    Customer update(Customer customer) throws EntityNotFoundException;
+    Customer update(Customer customer, String image) throws EntityNotFoundException;
 
     Customer updatePassword(Customer customer);
 

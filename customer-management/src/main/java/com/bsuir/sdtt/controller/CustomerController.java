@@ -57,7 +57,7 @@ public class CustomerController {
         Customer customer = new Customer();
         modelMapper.map(customerDto, customer);
         CustomerDto customerDtoTemp = new CustomerDto();
-        modelMapper.map(customerService.create(customer), customerDtoTemp);
+        modelMapper.map(customerService.create(customer, customerDto.getImage()), customerDtoTemp);
         return customerDtoTemp;
     }
 
@@ -73,7 +73,7 @@ public class CustomerController {
         Customer customer = new Customer();
         modelMapper.map(customerDto, customer);
         CustomerDto customerDtoTemp = new CustomerDto();
-        modelMapper.map(customerService.update(customer), customerDtoTemp);
+        modelMapper.map(customerService.update(customer, customerDto.getImage()), customerDtoTemp);
         return customerDtoTemp;
 
     }

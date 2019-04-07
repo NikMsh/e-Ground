@@ -57,6 +57,7 @@ public class DefaultProcessorService implements ProcessorService {
         log.info("Start method DefaultProcessorService.createOrder customerId = {}",
                 customerId);
 
+        OrderDto savedOrderDto = null;
         if (customerId.equals(customerDto.getId())) {
             orderDto.setCustomerId(customerId);
             orderDto.setName(customerDto.getName());
@@ -64,11 +65,13 @@ public class DefaultProcessorService implements ProcessorService {
             orderDto.setTotalPrice(offerDto.getPrice() * createOrderParameter
                     .getItemCount());
             orderDto.setOrderItemCount(createOrderParameter.getItemCount());
-
-            favouriteItemManagementClient.save(orderDto);
+            orderDto.setImage(offerDto.getImage());
+            orderDto.setImageId(offerDto.getImageId());
+            orderDto.setCompressedImageId(offerDto.getCompressedImageId());
+            savedOrderDto = favouriteItemManagementClient.save(orderDto);
         }
 
-        return orderDto;
+        return savedOrderDto;
     }
 
     @Override
