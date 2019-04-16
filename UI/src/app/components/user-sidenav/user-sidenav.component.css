@@ -16,9 +16,10 @@ mat-sidenav{
 }
 
 .absolutPositionButton{
-  position: absolute;
-  width: 50px;
-  padding: -16px;
+}
+
+.absolutPositionHideButton{
+  visibility: hidden;
 }
 
 p {

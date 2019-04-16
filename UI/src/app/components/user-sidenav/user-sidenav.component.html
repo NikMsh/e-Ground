@@ -13,7 +13,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <button mat-button	 class="absolutePositionButton" (click)="open()" *ngIf="!(opened|async)">
+    <button mat-button [ngClass]="(opened | async) ? 'absolutPositionHideButton': 'absolutPositionButton'" (click)="open()">
       ...
     </button>
     <ng-content></ng-content>

@@ -39,8 +39,8 @@ export class AccountService {
   }
 
   getUserById(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/customers/${id}`)
-      .pipe(catchError((error: any) => throwError(error.error)));
-    // return of(this.user);
+    /*return this.http.get<User>(`${this.apiUrl}/customers/${id}`)
+      .pipe(catchError((error: any) => throwError(error.error)));*/
+    return of(this.user);
   }
 }
