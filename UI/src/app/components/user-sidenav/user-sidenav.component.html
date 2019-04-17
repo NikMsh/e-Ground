@@ -6,6 +6,8 @@
       <mat-divider></mat-divider>
       <p class="side-content"><a routerLink="/offer-edit"> Create offer </a></p>
       <mat-divider></mat-divider>
+      <p class="side-content"><a routerLink="/conversations"> Conversations </a></p>
+      <mat-divider></mat-divider>
       <p>
         <button mat-button (click)="close()" style="font-size: 15px"> Hide</button>
       </p>
@@ -13,7 +15,8 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <button mat-button [ngClass]="(opened | async) ? 'absolutPositionHideButton': 'absolutPositionButton'" (click)="open()">
+    <button mat-button [ngClass]="(opened | async) ? 'absolutPositionHideButton': 'absolutPositionButton'"
+            (click)="open()">
       ...
     </button>
     <ng-content></ng-content>

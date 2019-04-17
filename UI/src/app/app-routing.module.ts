@@ -7,8 +7,9 @@ import {OfferComponent} from './components/offer/offer.component';
 import {AccountComponent} from './components/account/account.component';
 import {AccountEditComponent} from './components/account-edit/account-edit.component';
 import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
-import {AuthGuard} from "./guards/auth.guard";
-import {AccountEditGuard} from "./guards/account-edit.guard";
+import {AccountEditGuard} from './guards/account-edit.guard';
+import {ConversationComponent} from './components/conversation/conversation.component';
+import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main-page', pathMatch: 'full'},
@@ -19,6 +20,8 @@ const routes: Routes = [
   {path: 'offer-edit/:id', component: OfferEditComponent},
   {path: 'catalog', component: CatalogComponent},
   {path: 'changePassword', component: ResetPasswordComponent},
+  {path: 'conversations/:id', component: ConversationComponent},
+  {path: 'conversations', component: ConversationListComponent},
   {path: '**', redirectTo: 'main-page'}
 ];
 
