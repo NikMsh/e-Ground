@@ -7,7 +7,6 @@ import {DialogResult} from '../../../model/DialogResult';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../../store';
 import {NotifierService} from 'angular-notifier';
-import {createUserAction} from '../../../store/actions/user.actions';
 import {RegistrationData} from '../../../model/RegistrationData';
 import {selectErrorMessage, isLoading} from '../../../store/selectors/user.selector';
 import {Observable} from 'rxjs';
@@ -55,8 +54,8 @@ export class SignUpComponent implements OnInit {
 
   private initializeForm() {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.maxLength(40)]],
-      surname: ['', [Validators.maxLength(40)]],
+      firstName: ['', [Validators.maxLength(40)]],
+      lastName: ['', [Validators.maxLength(40)]],
       age: ['', [Validators.maxLength(3)]],
       phoneNumber: ['', [Validators.minLength(6), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]],
@@ -69,12 +68,12 @@ export class SignUpComponent implements OnInit {
     return group.get('password').value === group.get('confirmPassword').value ? null : {notSame: true};
   }
 
-  get name(): FormControl {
-    return this.registerForm.get('name') as FormControl;
+  get firstName(): FormControl {
+    return this.registerForm.get('firstName') as FormControl;
   }
 
-  get surname(): FormControl {
-    return this.registerForm.get('surname') as FormControl;
+  get lastName(): FormControl {
+    return this.registerForm.get('lastName') as FormControl;
   }
 
   get age(): FormControl {
@@ -118,8 +117,9 @@ export class SignUpComponent implements OnInit {
       email: this.registerForm.get('email').value,
       password: this.registerForm.get('password').value,
       account: {
-        name: this.registerForm.get('name').value as string,
-        surname: this.registerForm.get('surname').value as string,
+        id: '',
+        firstName: this.registerForm.get('firstName').value as string,
+        lastName: this.registerForm.get('lastName').value as string,
         age: this.registerForm.get('age').value as number,
         phoneNumber: this.registerForm.get('phoneNumber').value as string
       }

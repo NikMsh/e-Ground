@@ -30,7 +30,7 @@ export class OfferEditComponent implements OnInit {
 
   ngOnInit() {
     this.offerForm = this.fb.group({
-        name: ['', Validators.required],
+        firstName: ['', Validators.required],
         category: ['', Validators.required],
         description: ['', Validators.required],
         price: ['', Validators.pattern('[1-9][0-9]{0,4}')]
@@ -40,7 +40,7 @@ export class OfferEditComponent implements OnInit {
 
   private initializeForm(offer: Offer) {
     this.offerForm = this.fb.group({
-        name: [offer.name, Validators.required],
+        firstName: [offer.name, Validators.required],
         category: [offer.category, Validators.required],
         description: ['', Validators.required],
         price: [offer.price, Validators.pattern('[1-9][0-9]{0,4}')]

@@ -13,7 +13,7 @@ export const catalogSearchToolbarReducer:
   Reducer<CatalogSearchToolbarState> = (state: CatalogSearchToolbarState = INITIAL_STATE, action): CatalogSearchToolbarState => {
   switch (action.type) {
     case UPDATE_CATALOG_SEARCH_PARAMS:
-      return {...state, catalogSearchParams: action.payload.name};
+      return {...state, catalogSearchParams: action.payload.firstName};
     default:
       return state;
   }

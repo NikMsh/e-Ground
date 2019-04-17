@@ -9,6 +9,7 @@ import {resetPasswordReducer} from './reset-password.reducer';
 import {dialogStateReducer} from './dialogs.reducer';
 import {userReducer} from './user.reducer';
 import {catalogSearchToolbarReducer} from './catalog-search-toolbar.reducer';
+import {conversationsReducer} from './conversation.reducer';
 
 export const reducers: Reducer = combineReducers({
   currentUserState: currentUserReducer,
@@ -20,5 +21,6 @@ export const reducers: Reducer = combineReducers({
   accountPageState: accountPageReducer,
   resetPasswordState: resetPasswordReducer,
   dialogsState: dialogStateReducer,
-  userState: userReducer
+  userState: userReducer,
+  conversationState: conversationsReducer
 });

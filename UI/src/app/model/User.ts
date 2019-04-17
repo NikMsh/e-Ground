@@ -18,8 +18,9 @@ export const defaultUser: User = {
     type: ''
   },
   account: {
-    name: '',
-    surname: '',
+    id: '',
+    firstName: '',
+    lastName: '',
     age: 0,
     phoneNumber: '',
   }

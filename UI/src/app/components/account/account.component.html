@@ -16,7 +16,7 @@
         </div>
         <div class="form-and-buttons">
           <div class="form-wrapper">
-              <h1>{{ (user|async)?.account.name }} {{ (user|async)?.account.surname }}</h1>
+              <h1>{{ (user|async)?.account.firstName }} {{ (user|async)?.account.lastName }}</h1>
               <h3>Phone number: {{ (user|async)?.account.phoneNumber }}</h3>
               <h3>Age: {{ (user|async)?.account.age }}</h3>
           </div>

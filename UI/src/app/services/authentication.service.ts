@@ -19,8 +19,9 @@ export class AuthenticationService {
 
   user: User = {
     account: {
-      name: 'Kirill',
-      surname: 'Friend',
+      id: '',
+      firstName: 'Kirill',
+      lastName: 'Friend',
       age: 303,
       phoneNumber: '2144231423'
     },

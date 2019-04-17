@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {Observable} from 'rxjs/index';
+import {Observable} from 'rxjs';
 import {isLoading, selectCurrentUser, selectAccountForEdit} from '../../store/selectors/account.selector';
 import {fetchUserAction, updateAccountAction} from '../../store/actions/account.actions';
 import {NgRedux, select} from '@angular-redux/store';
@@ -54,8 +54,8 @@ export class AccountEditComponent implements OnInit, OnDestroy {
 
   private initializeForm(user: User) {
     this.accountForm = this.formBuilder.group({
-        name: [user.account.name, [Validators.required, Validators.maxLength(35), Validators.pattern(/^[A-z0-9]*$/)]],
-        surname: [user.account.surname, [Validators.maxLength(35), Validators.pattern(/^[A-z0-9]*$/)]],
+        firstName: [user.account.firstName, [Validators.required, Validators.maxLength(35), Validators.pattern(/^[A-z0-9]*$/)]],
+        lastName: [user.account.lastName, [Validators.maxLength(35), Validators.pattern(/^[A-z0-9]*$/)]],
         age: [user.account.age],
         phoneNumber: [user.account.phoneNumber]
       }
@@ -63,8 +63,8 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   }
 
   updateAccount(form: FormGroup): User {
-    this.updatedUser.account.name = form.getRawValue().name;
-    this.updatedUser.account.surname = form.getRawValue().surname;
+    this.updatedUser.account.firstName = form.getRawValue().firstName;
+    this.updatedUser.account.lastName = form.getRawValue().lastName;
     this.updatedUser.account.age = form.getRawValue().age;
     this.updatedUser.account.phoneNumber = form.getRawValue().phoneNumber;
     return this.updatedUser;

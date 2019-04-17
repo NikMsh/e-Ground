@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 import {User} from '../model/User';
 
 @Injectable({
@@ -15,8 +14,9 @@ export class AccountService {
 
   user: User = {
     account: {
-      name: 'Kirill',
-      surname: 'Friend',
+      id: '',
+      firstName: 'Kirill',
+      lastName: 'Friend',
       age: 303,
       phoneNumber: '2144231423'
     },

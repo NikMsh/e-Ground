@@ -2,13 +2,13 @@
 <form [formGroup]="registerForm">
   <cdk-virtual-scroll-viewport style="height: 300px" itemSize="90">
     <mat-form-field>
-      <input matInput maxlength="40" placeholder="Name" [formControlName]="'name'" maxLength="40">
-      <mat-error *ngIf="name.invalid">{{getErrorText('name')}}</mat-error>
+      <input matInput maxlength="40" placeholder="First name" [formControlName]="'firstName'" maxLength="40">
+      <mat-error *ngIf="firstName.invalid">{{getErrorText('firstName')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput maxlength="40" placeholder="Last Name" [formControlName]="'surname'" maxLength="40">
-      <mat-error *ngIf="surname.invalid">{{getErrorText('surname')}}</mat-error>
+      <input matInput maxlength="40" placeholder="Last name" [formControlName]="'lastName'" maxLength="40">
+      <mat-error *ngIf="lastName.invalid">{{getErrorText('lastName')}}</mat-error>
     </mat-form-field>
 
     <mat-form-field>

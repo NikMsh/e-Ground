@@ -25,11 +25,11 @@
               <mat-error *ngIf="accountForm.get('name').hasError('pattern')">Invalid symbol</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput formControlName="surname" placeholder="Surname" value="{{accountForm.get('surname').value}}">
-              <mat-error *ngIf="accountForm.get('surname').hasError('maxlength')">Last name must be less than 35
+              <input matInput formControlName="lastName" placeholder="Last name" value="{{accountForm.get('lastName').value}}">
+              <mat-error *ngIf="accountForm.get('lastName').hasError('maxlength')">Last name must be less than 35
                 characters
               </mat-error>
-              <mat-error *ngIf="accountForm.get('surname').hasError('pattern')">Invalid symbol</mat-error>
+              <mat-error *ngIf="accountForm.get('lastName').hasError('pattern')">Invalid symbol</mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
               <input matInput formControlName="age" placeholder="Age" value="{{accountForm.get('age').value}}">

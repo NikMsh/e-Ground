@@ -7,7 +7,7 @@
     <div class="offer-page-carcass" *ngIf="(offer|async) !== null; else offerNotFound">
       <div class="offer-page-info-carcass">
         <div class="offer-info">
-          <h1>{{(offer | async)?.name}}</h1>
+          <h1>{{(offer | async)?.firstName}}</h1>
           <div class="offer-image">
             <mat-card style="background-color: #e3e5e8">
               <img class="offer-image-parameters"

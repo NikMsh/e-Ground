@@ -13,11 +13,15 @@ import {MaterialModule} from './material';
 import {
   MatButtonModule,
   MatCardModule,
-  MatChipsModule, MatDatepickerModule,
+  MatChipsModule,
+  MatDatepickerModule,
   MatDialogModule,
-  MatIconModule, MatInputModule,
+  MatIconModule,
+  MatInputModule,
   MatListModule,
-  MatMenuModule, MatNativeDateModule, MatProgressBarModule
+  MatMenuModule,
+  MatNativeDateModule,
+  MatProgressBarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {EpicsModule} from './store/epics/epics.module';
@@ -28,20 +32,23 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxPermissionsModule} from 'ngx-permissions';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import {GlobalUserStorageService} from './services/global-user-storage.service';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { MainPageComponent } from './components/main-page/main-page.component';
-import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.component';
-import { CatalogComponent } from './components/catalog/catalog.component';
-import { OfferEditComponent } from './components/offer-edit/offer-edit.component';
-import { OfferComponent } from './components/offer/offer.component';
-import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import {HeaderComponent} from './components/header/header.component';
+import {FooterComponent} from './components/footer/footer.component';
+import {MainPageComponent} from './components/main-page/main-page.component';
+import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
+import {CatalogComponent} from './components/catalog/catalog.component';
+import {OfferEditComponent} from './components/offer-edit/offer-edit.component';
+import {OfferComponent} from './components/offer/offer.component';
+import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {OfferFeedbackComponent} from './components/offer-feedback/offer-feedback.component';
 import {CatalogSearchToolbarComponent} from './components/catalog-search-toolbar/catalog-search-toolbar.component';
-import { AccountComponent } from './components/account/account.component';
-import { AccountEditComponent } from './components/account-edit/account-edit.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import {AccountComponent} from './components/account/account.component';
+import {AccountEditComponent} from './components/account-edit/account-edit.component';
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
 import {DialogsModule} from './components/dialogs/dialogs.module';
+import {ConversationComponent} from './components/conversation/conversation.component';
+import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
+import {ChatServerService} from './services/chat-server.service';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -99,7 +106,9 @@ const customNotifierOptions: NotifierOptions = {
     ImageUploadComponent,
     AccountComponent,
     AccountEditComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ConversationComponent,
+    ConversationListComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +152,8 @@ export class AppModule {
               private ngReduxRouter: NgReduxRouter,
               private epicService: EpicService,
               private devTools: DevToolsExtension,
-              private storageService: GlobalUserStorageService) {
+              private storageService: GlobalUserStorageService,
+              private chatService: ChatServerService) {
     const epics = this.epicService.getEpics();
     const middleware = createEpicMiddleware();
     let enhancers = [];
@@ -153,5 +163,9 @@ export class AppModule {
     ngRedux.configureStore(reducers, this.storageService.getInitialState(), [middleware, thunkMiddlware, createLogger()], enhancers);
     middleware.run(epics as any);
     ngReduxRouter.initialize((state: AppState) => state.router);
+    if (this.ngRedux.getState().currentUserState.currentUser) {
+      this.chatService.connect(this.ngRedux.getState().currentUserState.currentUser.token.accessToken,
+        this.ngRedux.getState().currentUserState.currentUser.id);
+    }
   }
 }

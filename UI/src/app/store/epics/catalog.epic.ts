@@ -43,7 +43,7 @@ export class CatalogEpic {
     return action$.ofType(SEARCH_OFFERS).pipe(
       switchMap(({payload}) => {
         return this.catalogService
-          .searchInCatalog(payload.name)
+          .searchInCatalog(payload.firstName)
           .pipe(
             map((offers) => searchOffersSuccessAction(TransformService.transformToMap(offers))),
             catchError(error => {
