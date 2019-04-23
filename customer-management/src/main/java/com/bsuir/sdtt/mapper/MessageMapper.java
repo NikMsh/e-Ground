@@ -6,20 +6,28 @@ import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.ConversationService;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 @Mapper(componentModel = "spring")
-public abstract class MessageMapper {
+public class MessageMapper {
 
-    @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
     private ConversationService conversationService;
+
+    @Autowired
+    public MessageMapper(CustomerRepository customerRepository,
+                         ConversationService conversationService) {
+        this.customerRepository = customerRepository;
+        this.conversationService = conversationService;
+    }
 
     public Message messageDTOtoMessage(MessageDTO messageDTO) {
         Message m = new Message();
@@ -49,5 +57,9 @@ public abstract class MessageMapper {
                 .build();
     }
 
-    public abstract List<MessageDTO> messageToMessageDTO(Collection<Message> messages);
+    public List<MessageDTO> messageToMessageDTO(Collection<Message> messages) {
+        List<MessageDTO> messagesDTO = new ArrayList<>();
+        messages.forEach(m -> messagesDTO.add(messageToMessageDTO(m)));
+        return messagesDTO;
+    }
 }

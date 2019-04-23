@@ -14,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConversationDTO {
+
     private UUID id;
     private Customer firstCustomer;
     private Customer secondCustomer;

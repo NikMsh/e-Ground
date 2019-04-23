@@ -1,14 +1,13 @@
 package com.bsuir.sdtt.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class MessageDTO {
 
@@ -20,5 +19,5 @@ public class MessageDTO {
 
     private String message;
 
-    private LocalDateTime creationDate;
+    private Timestamp creationDate;
 }

@@ -6,22 +6,30 @@ import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.MessageService;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
-import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 @Mapper(componentModel = "spring")
-public abstract class ConversationMapper {
+public class ConversationMapper {
+
+    private CustomerRepository customerRepository;
+    private MessageService messageService;
+    private MessageMapper messageMapper;
 
     @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private MessageService messageService;
-    @Autowired
-    private MessageMapper messageMapper;
+    public ConversationMapper(CustomerRepository customerRepository,
+                              MessageService messageService,
+                              MessageMapper messageMapper) {
+        this.customerRepository = customerRepository;
+        this.messageService = messageService;
+        this.messageMapper = messageMapper;
+    }
 
     public ConversationDTO conversationToConversationDTO(Conversation conversation) {
         conversation.getMessages().sort(Collections.reverseOrder());
@@ -44,5 +52,10 @@ public abstract class ConversationMapper {
                 .build();
     }
 
-    public abstract List<ConversationDTO> conversationDTOtoConversation(Collection<Conversation> conversations);
+    public List<ConversationDTO> conversationDTOtoConversation(Collection<Conversation> conversations) {
+        List<ConversationDTO> conversationsDTO = new ArrayList<>();
+        conversations.forEach((c)->
+            conversationsDTO.add(conversationToConversationDTO(c)));
+        return conversationsDTO;
+    }
 }

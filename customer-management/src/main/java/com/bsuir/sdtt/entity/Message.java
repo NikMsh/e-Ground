@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -36,6 +36,6 @@ public class Message extends BaseEntity {
     private String body;
 
     @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+    private Timestamp creationDate;
 }
 
