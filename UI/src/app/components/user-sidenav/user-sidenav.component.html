@@ -15,9 +15,9 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <button mat-button [ngClass]="(opened | async) ? 'absolutPositionHideButton': 'absolutPositionButton'"
+    <button mat-button [ngClass]="((opened | async) || !(currentUser | async)) ? 'absolutPositionHideButton': 'absolutPositionButton'"
             (click)="open()">
-      ...
+      <mat-icon svgIcon="thumbs-up">send</mat-icon>
     </button>
     <ng-content></ng-content>
 

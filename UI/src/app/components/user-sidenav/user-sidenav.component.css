@@ -16,9 +16,11 @@ mat-sidenav{
 }
 
 .absolutPositionButton{
+  outline: none;
 }
 
 .absolutPositionHideButton{
+  outline: none;
   visibility: hidden;
 }
 
