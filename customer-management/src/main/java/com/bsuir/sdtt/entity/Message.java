@@ -1,26 +1,36 @@
 package com.bsuir.sdtt.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-@Data
-@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "messages")
-public class Message extends BaseEntity {
+@Getter
+@Setter
+@Entity
+@Table(name = "message")
+public class Message {
 
-    private UUID senderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
 
-    private UUID receiverId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id")
+    private Customer sender;
 
-    private String message;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_id")
+    private Customer receiver;
 
+    private String body;
+
+    @Column(name = "creation_date")
     private LocalDateTime date;
 }
+

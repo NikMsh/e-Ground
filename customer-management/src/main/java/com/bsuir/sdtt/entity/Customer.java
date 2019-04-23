@@ -1,17 +1,16 @@
 package com.bsuir.sdtt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * Class of customer that extends BaseEntity class.
@@ -66,6 +65,14 @@ public class Customer extends BaseEntity {
     @Column(unique = true)
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "secondAccount", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Conversation> conversationList;
+
+    @OneToMany(mappedBy = "secondAccount", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Conversation> otherConversationList;
 
     /**
      * Constructor without params that create object without initialization fields.
