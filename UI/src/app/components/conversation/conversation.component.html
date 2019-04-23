@@ -16,11 +16,11 @@
       </mat-list>
       <div class="input-form">
         <mat-form-field class="mat-form-field-input">
-  <textarea [(ngModel)]='defaultTextAreaValue' class="text-area-input" matInput placeholder="Input a message"
-            maxlength="100"
-            cdkTextareaAutosize="false" #inputArea
-            (keydown)="onKey($event)">
-  </textarea>
+          <textarea [(ngModel)]='defaultTextAreaValue' class="text-area-input" matInput placeholder="Input a message"
+                    maxlength="100"
+                    cdkTextareaAutosize="false" #inputArea
+                    (keydown)="onKey($event)">
+          </textarea>
         </mat-form-field>
         <button mat-raised-button class="send-button" (click)='sendMessage(inputArea.value)'>
           <mat-icon matSuffix>send</mat-icon>

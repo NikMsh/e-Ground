@@ -4,21 +4,19 @@
   <img class="pointer" src="/src/assets/images/Logo.png" routerLink="/main-page">
 -->
 
-  <nav mat-tab-nav-bar style="margin-left: auto; margin-right: auto">
-    <a mat-tab-link style="height: 68px; width: 300px; font-size: 16px"
-       *ngFor="let link of navLinks"
-       [routerLink]="link.path"
-       routerLinkActive #rla="routerLinkActive"
-       [active]="rla.isActive" >
-      {{link.label}}
+  <nav mat-tab-nav-bar class="nav-bar">
+    <a mat-tab-link class="category-link" *ngFor="let link of navLinks" [routerLink]="link.path"
+       routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"> {{link.label}}
     </a>
   </nav>
   <div *ngIf="!(currentUser | async)">
-    <button mat-button (click)="openSingIn()" *ngIf="!(currentUser | async)" style="font-size: 16px"> Sign in </button>
+    <button mat-button (click)="openSingIn()" *ngIf="!(currentUser | async)" style="font-size: 20px; font-weight: 300">
+      Sign in </button>
     /
-    <button mat-button (click)="openSingUp()" style="font-size: 16px">Sign up</button>
+    <button mat-button (click)="openSingUp()" style="font-size: 20px; font-weight: 300">Sign up</button>
   </div>
 
-  <button mat-button (click)="logout()" *ngIf="(currentUser | async)"> Logout </button>
+  <button mat-button (click)="logout()" *ngIf="(currentUser | async)" style="font-weight: 300; font-size: 20px">
+  Logout </button>
 </mat-toolbar>
 

@@ -30,6 +30,7 @@ export class ConversationListComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ng on init conversation');
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() =>
         this.ngRedux.dispatch(fetchConversationsAction(this.ngRedux.getState().currentUserState.currentUser.account.id))

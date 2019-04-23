@@ -22,5 +22,5 @@ export const reducers: Reducer = combineReducers({
   resetPasswordState: resetPasswordReducer,
   dialogsState: dialogStateReducer,
   userState: userReducer,
-  conversationState: conversationsReducer
+  conversationsState: conversationsReducer
 });

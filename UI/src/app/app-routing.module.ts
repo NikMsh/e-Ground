@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'account/:id', component: AccountComponent},
   {path: 'account-edit/:id', component: AccountEditComponent, canActivate: [AccountEditGuard]},
   {path: 'offer/:id', component: OfferComponent},
-  {path: 'offer-edit/:id', component: OfferEditComponent},
+  {path: 'offer-edit', component: OfferEditComponent},
   {path: 'catalog', component: CatalogComponent},
   {path: 'changePassword', component: ResetPasswordComponent},
   {path: 'conversations/:id', component: ConversationComponent},

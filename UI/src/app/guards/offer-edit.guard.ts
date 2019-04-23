@@ -29,7 +29,8 @@ export class OfferEditGuard implements CanActivate {
     // console.log("Id update router state", this.id);
     this.offer.subscribe(value => this.currentOffer = value);
     this.user.subscribe(value => this.currentUser = value);
-    if (this.currentOffer && (this.currentUser.id === this.currentOffer.userId)) {
+    //if (this.currentOffer && (this.currentUser.id === this.currentOffer.userId)) {
+    if (this.currentOffer) {
       return true;
     }
     //this.ngRedux.dispatch(updateRouterState('account/' + this.id));

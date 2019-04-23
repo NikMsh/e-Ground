@@ -1,6 +1,6 @@
 <main>
-  <form [formGroup]="offerForm">
-    <app-image-upload
+  <form [formGroup]="offerForm" class="form-wrapper">
+    <app-image-upload class="image-edit"
       [defaultImage]=""
       [imageHeight]="250" [imageWidth]="450"
       [onErrorImage]="'/src/assets/images/defaultImageForOffer.png'">
