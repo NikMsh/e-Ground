@@ -7,6 +7,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  navLinks = [{
+    path: '/about',
+    label: 'About',
+    isActive: true
+  }];
+
   constructor() {
   }
 
