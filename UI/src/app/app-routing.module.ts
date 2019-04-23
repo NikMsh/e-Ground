@@ -10,6 +10,7 @@ import {ResetPasswordComponent} from './components/reset-password/reset-password
 import {AccountEditGuard} from './guards/account-edit.guard';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
+import {AboutComponent} from "./components/about/about.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'main-page', pathMatch: 'full'},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'changePassword', component: ResetPasswordComponent},
   {path: 'conversations/:id', component: ConversationComponent},
   {path: 'conversations', component: ConversationListComponent},
+  {path: 'about', component: AboutComponent},
   {path: '**', redirectTo: 'main-page'}
 ];
 

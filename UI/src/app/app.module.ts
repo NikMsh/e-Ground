@@ -49,6 +49,7 @@ import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
 import {ChatServerService} from './services/chat-server.service';
+import { AboutComponent } from './components/about/about.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -108,7 +109,8 @@ const customNotifierOptions: NotifierOptions = {
     AccountEditComponent,
     ResetPasswordComponent,
     ConversationComponent,
-    ConversationListComponent
+    ConversationListComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
