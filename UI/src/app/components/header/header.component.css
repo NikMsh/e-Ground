@@ -9,16 +9,19 @@
 }
 
 .category-link {
+  color: black;
   height: 68px;
-  width: 300px;
+  width: 150px;
   font-size: 20px;
   font-weight: 500;
-  margin-left: 200px;
   text-decoration: none;
+
 }
 
-
 .nav-bar {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
   margin-left: auto;
   margin-right: auto
 }
@@ -33,13 +36,10 @@ mat-toolbar{
   padding-left: 25%;
 
 }
+
 a {
   color: black;
   padding: 20px 40px;
-}
-
-a:visited {
-  color: black;
 }
 
 img {
@@ -49,4 +49,9 @@ img {
 
 button:active, button:focus {
   outline: none;
+}
+
+.sign-in-up {
+  display: block; /* смещает только блоки */
+  margin-left: auto;
 }

@@ -1,7 +1,7 @@
 .catalog-search-button {
   margin-left: 10px;
   height: 40px;
-  min-width: 50px;
+  width: 100px;
 }
 
 .catalog-search-field {

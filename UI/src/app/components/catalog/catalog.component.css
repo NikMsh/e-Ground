@@ -16,6 +16,11 @@
   margin-top: 5px;
 }
 
+.catalog-search {
+  display: flex;
+  justify-content: center;
+}
+
 .offers-list {
   display: flex;
   flex-direction: row;

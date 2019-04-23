@@ -9,14 +9,17 @@
        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"> {{link.label}}
     </a>
   </nav>
-  <div *ngIf="!(currentUser | async)">
+  <div *ngIf="!(currentUser | async)" class="sign-in-up">
     <button mat-button (click)="openSingIn()" *ngIf="!(currentUser | async)" style="font-size: 20px; font-weight: 300">
       Sign in </button>
     /
     <button mat-button (click)="openSingUp()" style="font-size: 20px; font-weight: 300">Sign up</button>
   </div>
+  <div *ngIf="(currentUser | async)" class="sign-in-up">
+    <button mat-button (click)="logout()"  style="font-weight: 300; font-size: 20px">
+      Logout </button>
+  </div>
 
-  <button mat-button (click)="logout()" *ngIf="(currentUser | async)" style="font-weight: 300; font-size: 20px">
-  Logout </button>
+
 </mat-toolbar>
 
