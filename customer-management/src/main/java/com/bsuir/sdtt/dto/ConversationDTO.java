@@ -18,5 +18,5 @@ public class ConversationDTO {
     private Customer firstCustomer;
     private Customer secondCustomer;
     private String name;
-    private List<MessageDto> conversationMessages;
+    private List<MessageDTO> conversationMessages;
 }

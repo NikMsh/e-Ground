@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @Builder
 @NoArgsConstructor
-public class MessageDto {
+public class MessageDTO {
 
     private UUID conversationId;
 
@@ -20,5 +20,5 @@ public class MessageDto {
 
     private String message;
 
-    private LocalDateTime date;
+    private LocalDateTime creationDate;
 }

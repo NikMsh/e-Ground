@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Builder
@@ -14,7 +15,11 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "conversation")
-public class Conversation extends BaseEntity {
+public class Conversation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected UUID id;
 
     @ManyToOne
     @JoinColumn(name = "id_your_account", nullable = false)
