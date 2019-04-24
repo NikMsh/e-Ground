@@ -6,7 +6,8 @@ import com.bsuir.sdtt.client.FavouriteItemManagementClient;
 import com.bsuir.sdtt.dto.catalog.CategoryDto;
 import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
-import com.bsuir.sdtt.dto.customer.CustomerDto;
+import com.bsuir.sdtt.dto.customer.ConversationDTO;
+import com.bsuir.sdtt.dto.customer.CustomerDTO;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
 import com.bsuir.sdtt.dto.processor.AccountDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
@@ -51,7 +52,7 @@ public class DefaultProcessorService implements ProcessorService {
         UUID customerId = createOrderParameter.getCustomerId();
         UUID itemId = createOrderParameter.getItemId();
 
-        CustomerDto customerDto = customerManagementClient.getCustomerDto(customerId);
+        CustomerDTO customerDto = customerManagementClient.getCustomerDto(customerId);
         OfferDto offerDto = catalogClient.getOfferDto(itemId);
 
         log.info("Start method DefaultProcessorService.createOrder customerId = {}",
@@ -75,13 +76,13 @@ public class DefaultProcessorService implements ProcessorService {
     }
 
     @Override
-    public CustomerDto createCustomer(CustomerDto customerDto) {
+    public CustomerDTO createCustomer(CustomerDTO customerDto) {
         log.debug("Start method DefaultProcessorService.createCustomer Customer DTO = {}", customerDto);
         return customerManagementClient.save(customerDto);
     }
 
     @Override
-    public CustomerDto updateCustomer(CustomerDto customerDto) {
+    public CustomerDTO updateCustomer(CustomerDTO customerDto) {
         log.debug("Start method DefaultProcessorService.updateCustomer Customer DTO = {}", customerDto);
         return customerManagementClient.update(customerDto);
     }
@@ -101,7 +102,7 @@ public class DefaultProcessorService implements ProcessorService {
         log.debug("Start method DefaultProcessorService.addCommentToOffer" +
                 " Customer DTO = {}", addCommentToOfferDto);
 
-        CustomerDto customerDto = customerManagementClient
+        CustomerDTO customerDto = customerManagementClient
                 .getCustomerDto(addCommentToOfferDto.getCustomerId());
         CustomerCommentParameterDto customerCommentParameterDto = null;
         if (addCommentToOfferDto.getCustomerId().equals(customerDto.getId())) {
@@ -158,7 +159,7 @@ public class DefaultProcessorService implements ProcessorService {
     }
 
     @Override
-    public CustomerDto getCustomerById(UUID id) {
+    public CustomerDTO getCustomerById(UUID id) {
         log.info("Start method DefaultProcessorService.getCustomersByEmail ID = {}", id);
         return customerManagementClient.getCustomerDto(id);
     }
@@ -173,5 +174,15 @@ public class DefaultProcessorService implements ProcessorService {
     public List<CategoryDto> getAllCategories() {
         log.info("Start method DefaultProcessorService.getAllCategories");
         return catalogClient.getAllCategories();
+    }
+
+    @Override
+    public List<ConversationDTO> getConversationsByUserId(UUID userId) {
+        return null;
+    }
+
+    @Override
+    public ConversationDTO getConversationInfo(UUID yourId, UUID otherId) {
+        return null;
     }
 }

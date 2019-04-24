@@ -20,7 +20,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CustomerDto {
+public class CustomerDTO {
     private UUID id;
 
     private String imageId;
@@ -65,7 +65,7 @@ public class CustomerDto {
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
 
-    public CustomerDto() {
+    public CustomerDTO() {
 
     }
 }

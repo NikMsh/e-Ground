@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/conversation")
+@RequestMapping("api/v1/customer-management/conversations")
 public class ConversationController {
 
     private ConversationService conversationService;
@@ -27,7 +27,8 @@ public class ConversationController {
 
 
     @GetMapping("/getConversationInfoByUsersIds")
-    public ConversationDTO getConversationInfo(@RequestParam(name = "yourId") UUID yourId, @RequestParam(name = "otherId") UUID otherId) {
+    public ConversationDTO getConversationInfo(@RequestParam(name = "yourId") UUID yourId,
+                                               @RequestParam(name = "otherId") UUID otherId) {
         return conversationMapper.conversationToConversationDTO(
                 conversationService.getConversationByUsersIds(yourId, otherId).orElseThrow(
                         () -> new EntityNotFoundException("Conversation not found for users: " + yourId + "and " + otherId)

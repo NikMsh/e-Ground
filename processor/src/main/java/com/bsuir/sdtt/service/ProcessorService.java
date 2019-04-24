@@ -3,7 +3,8 @@ package com.bsuir.sdtt.service;
 import com.bsuir.sdtt.dto.catalog.CategoryDto;
 import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
-import com.bsuir.sdtt.dto.customer.CustomerDto;
+import com.bsuir.sdtt.dto.customer.ConversationDTO;
+import com.bsuir.sdtt.dto.customer.CustomerDTO;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
@@ -21,9 +22,9 @@ import java.util.UUID;
 public interface ProcessorService {
     OrderDto addToFavorite(CreateOrderParameterDto createOrderParameter);
 
-    CustomerDto createCustomer(CustomerDto customerDto);
+    CustomerDTO createCustomer(CustomerDTO customerDto);
 
-    CustomerDto updateCustomer(CustomerDto customerDto);
+    CustomerDTO updateCustomer(CustomerDTO customerDto);
 
     OfferDto createOffer(OfferDto offerDto);
 
@@ -33,7 +34,7 @@ public interface ProcessorService {
 
     List<CommentDto> getAllCommentsByOfferId(UUID id);
 
-    CustomerDto getCustomerById(UUID id);
+    CustomerDTO getCustomerById(UUID id);
 
     OfferDto getOfferById(UUID id);
 
@@ -43,4 +44,8 @@ public interface ProcessorService {
     List<OrderDto> getOrderByCustomerId(UUID id);
 
     List<CategoryDto> getAllCategories();
+
+    List<ConversationDTO> getConversationsByUserId(UUID id);
+
+    ConversationDTO getConversationInfo(UUID yourId, UUID otherId);
 }

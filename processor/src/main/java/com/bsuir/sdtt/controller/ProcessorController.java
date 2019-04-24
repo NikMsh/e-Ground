@@ -1,9 +1,12 @@
 package com.bsuir.sdtt.controller;
 
+import com.bsuir.sdtt.client.CustomerManagementClient;
 import com.bsuir.sdtt.dto.catalog.CategoryDto;
 import com.bsuir.sdtt.dto.catalog.CommentDto;
 import com.bsuir.sdtt.dto.catalog.OfferDto;
-import com.bsuir.sdtt.dto.customer.CustomerDto;
+import com.bsuir.sdtt.dto.customer.ConversationDTO;
+import com.bsuir.sdtt.dto.customer.CustomerDTO;
+import com.bsuir.sdtt.dto.customer.MessageDTO;
 import com.bsuir.sdtt.dto.favourite.OrderDto;
 import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
 import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,11 +30,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/api/v1/processor")
 public class ProcessorController {
+
     private final ProcessorService processorService;
 
+    private final CustomerManagementClient client;
+
     @Autowired
-    public ProcessorController(ProcessorService processorService) {
+    public ProcessorController(ProcessorService processorService,
+                               CustomerManagementClient client) {
         this.processorService = processorService;
+        this.client = client;
     }
 
     @PostMapping(path = "/orders")
@@ -40,8 +49,8 @@ public class ProcessorController {
     }
 
     @PostMapping(path = "/customers")
-    public CustomerDto createCustomer(@Validated @RequestBody
-                                              CustomerDto customerDto) {
+    public CustomerDTO createCustomer(@Validated @RequestBody
+                                              CustomerDTO customerDto) {
         return processorService.createCustomer(customerDto);
     }
 
@@ -51,8 +60,8 @@ public class ProcessorController {
     }
 
     @PutMapping(path = "/customers")
-    public CustomerDto updateCustomer(@Validated @RequestBody
-                                              CustomerDto customerDto) {
+    public CustomerDTO updateCustomer(@Validated @RequestBody
+                                              CustomerDTO customerDto) {
         return processorService.updateCustomer(customerDto);
     }
 
@@ -87,7 +96,7 @@ public class ProcessorController {
     }
 
     @GetMapping(path = "/customers/{id}")
-    public CustomerDto getCustomersById(@PathVariable("id") UUID id) {
+    public CustomerDTO getCustomersById(@PathVariable("id") UUID id) {
         return processorService.getCustomerById(id);
     }
 
@@ -99,5 +108,21 @@ public class ProcessorController {
     @GetMapping(path = "/categories}")
     public List<CategoryDto> getAllCategories() {
         return processorService.getAllCategories();
+    }
+
+    @GetMapping(path = "/messages")
+    public ConversationDTO getConversationInfo(@RequestParam("ourId") UUID yourId,
+                                               @RequestParam("otherId") UUID otherId) {
+       return client.getConversationInfo(yourId, otherId);
+    }
+
+    @GetMapping(path = "/conversations/{id}")
+    public List<MessageDTO> getConversationMessages(@PathVariable("id") UUID id) {
+        return client.getConversationMessages(id);
+    }
+
+    @GetMapping(path = "/conversations/users/{id}")
+    public List<ConversationDTO> getConversationsByUserId(@PathVariable("id") UUID id) {
+        return client.getConversatoinsByUserId(id);
     }
 }
