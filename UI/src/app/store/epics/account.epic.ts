@@ -44,6 +44,7 @@ export class AccountEpic {
           .getUserById(payload.userId)
             .pipe(map(user => fetchUserSuccessAction(user)),
               catchError(error => {
+                this.notifierService.notify('error', 'Account fetch failed');
                 return of(fetchUserFailedAction(error));
               })
             );

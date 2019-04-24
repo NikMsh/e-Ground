@@ -17,12 +17,14 @@ import {of} from 'rxjs';
 import {SELECT_OFFER, selectOfferFailedAction, selectOfferSuccessAction} from '../actions/catalog.actions';
 import {OfferService} from '../../services/offer.service';
 import {defaultOffer} from '../../model/Offer';
+import {NotifierService} from 'angular-notifier';
 
 @Injectable()
 export class OfferEpic {
   constructor(private catalogService: CatalogService,
               private ngRedux: NgRedux<AppState>,
-              private offerService: OfferService) {
+              private offerService: OfferService,
+              private notifierService: NotifierService) {
   }
 
   createOffer$ = (action$: ActionsObservable<AnyAction>) => {
@@ -34,11 +36,14 @@ export class OfferEpic {
             map(offer => {
               return createOfferSuccessAction(offer);
             }),
-            catchError(error => of(createOfferFailedAction(error)))
+            catchError(error => {
+              this.notifierService.notify('error', 'Create offer failed');
+              return of(createOfferFailedAction(error));
+            })
           );
       })
     );
-  }
+  };
 
   selectOffer$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(SELECT_OFFER).pipe(
@@ -48,16 +53,22 @@ export class OfferEpic {
             .getOfferById(payload.offerId)
             .pipe(
               map(offer => selectOfferSuccessAction(offer)),
-              catchError(error => of(selectOfferFailedAction(error)))
+              catchError(error => {
+                this.notifierService.notify('error', 'Select offer failed');
+                return of(selectOfferFailedAction(error));
+              })
             )
           : of(defaultOffer)
             .pipe(
               map(offer => selectOfferSuccessAction(offer)),
-              catchError(error => of(selectOfferFailedAction(error)))
+              catchError(error => {
+                this.notifierService.notify('error', 'Select offer failed');
+                return of(selectOfferFailedAction(error));
+              })
             );
       })
     );
-  }
+  };
 
   fetchComments$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(FETCH_COMMENTS).pipe(
@@ -71,6 +82,6 @@ export class OfferEpic {
         }
       )
     );
-  }
+  };
 }
 
