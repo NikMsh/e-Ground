@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.service;
 
-import com.bsuir.sdtt.dto.AuthorizationDTO;
+import com.bsuir.sdtt.dto.AuthorizationParameterDTO;
 import com.bsuir.sdtt.entity.Customer;
 
 import javax.persistence.EntityExistsException;
@@ -17,7 +17,7 @@ import java.util.UUID;
 public interface CustomerService {
     Customer create(Customer customer, String image) throws EntityExistsException;
 
-    Customer authorization(AuthorizationDTO authorizationDTO);
+    Customer authorization(AuthorizationParameterDTO authorizationDTO);
 
     Customer findById(UUID id);
 

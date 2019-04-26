@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.service.impl;
 
-import com.bsuir.sdtt.dto.AuthorizationDTO;
+import com.bsuir.sdtt.dto.AuthorizationParameterDTO;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.CustomerService;
@@ -86,7 +86,7 @@ public class DefaultCustomerService implements CustomerService {
     }
 
     @Override
-    public Customer authorization(AuthorizationDTO authorizationDTO) {
+    public Customer authorization(AuthorizationParameterDTO authorizationDTO) {
         String email = authorizationDTO.getEmail();
         Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
         Customer foundCustomer = optionalCustomer.<EntityNotFoundException>orElseThrow(() -> {

@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.dto.AuthorizationDTO;
+import com.bsuir.sdtt.dto.AuthorizationParameterDTO;
 import com.bsuir.sdtt.dto.CustomerDTO;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.service.CustomerService;
@@ -68,7 +68,7 @@ public class CustomerController {
      * @return created object of Customer class
      */
     @PostMapping(path = "/authorization")
-    public CustomerDTO authorization(@Validated @RequestBody AuthorizationDTO authorizationDTO) {
+    public CustomerDTO authorization(@Validated @RequestBody AuthorizationParameterDTO authorizationDTO) {
         log.debug("In authorization customer controller method");
         CustomerDTO customerDTOTemp = new CustomerDTO();
         modelMapper.map(customerService.authorization(authorizationDTO), customerDTOTemp);

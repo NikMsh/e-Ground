@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 @Data
 @Builder
 @AllArgsConstructor
-public class AuthorizationDTO {
+public class AuthorizationParameterDTO {
     @Email
     private String email;
 
