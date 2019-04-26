@@ -63,7 +63,7 @@ public class CustomerManagementClient {
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CustomerManagementClientProperty.API_V1_CUSTOMER_MANAGEMENT);
-        finalUrl.append("/authorizationCustomer");
+        finalUrl.append("authorization");
 
         log.info("Final URL: {}", finalUrl.toString());
 

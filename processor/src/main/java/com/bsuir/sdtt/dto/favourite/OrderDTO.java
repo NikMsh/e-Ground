@@ -3,6 +3,7 @@ package com.bsuir.sdtt.dto.favourite;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class OrderDTO {
     private UUID id;
 
@@ -53,8 +55,4 @@ public class OrderDTO {
     @NotNull
     @Min(0)
     private int orderItemCount;
-
-    public OrderDTO() {
-
-    }
 }
