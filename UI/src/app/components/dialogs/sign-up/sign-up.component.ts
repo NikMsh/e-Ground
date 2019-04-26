@@ -8,10 +8,9 @@ import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../../store';
 import {NotifierService} from 'angular-notifier';
 import {RegistrationData} from '../../../model/RegistrationData';
-import {selectErrorMessage, isLoading} from '../../../store/selectors/user.selector';
+import {isLoading, selectErrorMessage} from '../../../store/selectors/user.selector';
 import {Observable} from 'rxjs';
-import {selectErrorMessage as selectLoginErrorMessage} from '../../../store/selectors/current-user.selector';
-import {isLoading as loginIsLoading} from '../../../store/selectors/current-user.selector';
+import {isLoading as loginIsLoading, selectErrorMessage as selectLoginErrorMessage} from '../../../store/selectors/current-user.selector';
 import {loginUserAction} from '../../../store/actions/current-user.actions';
 import {Credential} from '../../../model/Credential';
 
@@ -114,15 +113,13 @@ export class SignUpComponent implements OnInit {
 
   private convertFromFormToUser(): RegistrationData {
     return {
+      id: '',
       email: this.registerForm.get('email').value,
       password: this.registerForm.get('password').value,
-      account: {
-        id: '',
-        firstName: this.registerForm.get('firstName').value as string,
-        lastName: this.registerForm.get('lastName').value as string,
-        age: this.registerForm.get('age').value as number,
-        phoneNumber: this.registerForm.get('phoneNumber').value as string
-      }
+      firstName: this.registerForm.get('firstName').value as string,
+      lastName: this.registerForm.get('lastName').value as string,
+      age: this.registerForm.get('age').value as number,
+      phoneNumber: this.registerForm.get('phoneNumber').value as string
     };
   }
 
@@ -146,7 +143,7 @@ export class SignUpComponent implements OnInit {
     console.log('I am in login now');
     this.ngRedux.dispatch(loginUserAction(this.createCredentialForm()));
     this.loginLoading.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
-          this.loginError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
+      this.loginError.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
   }
 
   onSubmit() {
