@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.dto.CommentDto;
+import com.bsuir.sdtt.dto.CommentDTO;
 import com.bsuir.sdtt.entity.Comment;
 import com.bsuir.sdtt.service.CommentService;
 import org.modelmapper.ModelMapper;
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *
  * @author Stsiapan Balashenka
  * @version 1.0
  */
@@ -37,18 +36,18 @@ public class CommentController {
     }
 
     @GetMapping(path = "/{offerId}")
-    public List<CommentDto> getAllCommentsByOfferId(@PathVariable("offerId") UUID offerId){
+    public List<CommentDTO> getAllCommentsByOfferId(@PathVariable("offerId") UUID offerId) {
         List<Comment> commentsTemp = commentService.getAllCommentsByOfferId(offerId);
-        List<CommentDto> commentsDtoTemp = new ArrayList<>();
-        toCommentDtoList(commentsTemp, commentsDtoTemp);
-        return commentsDtoTemp;
+        List<CommentDTO> commentsDTOTemp = new ArrayList<>();
+        toCommentDtoList(commentsTemp, commentsDTOTemp);
+        return commentsDTOTemp;
     }
 
-    private void toCommentDtoList(List<Comment> commentsTemp, List<CommentDto> commentsDtoTemp){
+    private void toCommentDtoList(List<Comment> commentsTemp, List<CommentDTO> commentsDTOTemp) {
         for (Comment comment : commentsTemp) {
-            CommentDto commentDtoTemp = new CommentDto();
-            modelMapper.map(comment,commentDtoTemp);
-            commentsDtoTemp.add(commentDtoTemp);
+            CommentDTO commentDTOTemp = new CommentDTO();
+            modelMapper.map(comment, commentDTOTemp);
+            commentsDTOTemp.add(commentDTOTemp);
         }
     }
 }

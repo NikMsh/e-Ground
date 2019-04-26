@@ -16,7 +16,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CreateOrderParameterDto {
+public class CreateOrderParameterDTO {
     private UUID customerId;
 
     private UUID itemId;

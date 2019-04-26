@@ -1,4 +1,4 @@
-package com.bsuir.sdtt.dto.catalog;
+package com.bsuir.sdtt.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CategoryDto {
+public class CategoryDTO {
     private UUID id;
 
     /**
@@ -25,6 +25,7 @@ public class CategoryDto {
     @NotNull
     private String name;
 
-    public CategoryDto() {
+    public CategoryDTO() {
+
     }
 }

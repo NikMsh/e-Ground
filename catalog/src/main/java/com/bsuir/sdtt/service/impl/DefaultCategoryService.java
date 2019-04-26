@@ -11,7 +11,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -57,7 +56,7 @@ public class DefaultCategoryService implements CategoryService {
      */
     @Override
     public Category findById(UUID id) throws EntityNotFoundException {
-        return categoryRepository.findById(id).<EntityNotFoundException>orElseThrow(()->{
+        return categoryRepository.findById(id).<EntityNotFoundException>orElseThrow(() -> {
             throw new EntityNotFoundException("Category with id = "
                     + id.toString() + " not found.");
         });

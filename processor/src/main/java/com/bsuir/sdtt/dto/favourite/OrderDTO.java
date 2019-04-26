@@ -1,4 +1,4 @@
-package com.bsuir.sdtt.dto;
+package com.bsuir.sdtt.dto.favourite;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class OrderDto {
+public class OrderDTO {
     private UUID id;
 
     private String imageId;
@@ -54,7 +54,7 @@ public class OrderDto {
     @Min(0)
     private int orderItemCount;
 
-    public OrderDto() {
+    public OrderDTO() {
 
     }
 }

@@ -8,8 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
- * Class of Customer Comment Parameter.
- * Used to create order from offer.
+ * Class of Comment Data Transfer Object. Used to transfer data between application subsystems.
  *
  * @author Stsiapan Balashenka
  * @version 1.0
@@ -17,16 +16,13 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CustomerCommentParameterDto {
-    private UUID id;
+public class AddCommentToOfferParameterDTO {
+    @NotNull
+    private UUID customerId;
+
+    @NotNull
+    private UUID offerId;
 
     @NotNull
     private String message;
-
-    @NotNull
-    private AccountDto accountDto;
-
-    public CustomerCommentParameterDto() {
-
-    }
 }

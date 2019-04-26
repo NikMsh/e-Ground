@@ -1,7 +1,7 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.dto.CommentDto;
-import com.bsuir.sdtt.dto.OfferDto;
+import com.bsuir.sdtt.dto.CommentDTO;
+import com.bsuir.sdtt.dto.OfferDTO;
 import com.bsuir.sdtt.entity.Category;
 import com.bsuir.sdtt.entity.Comment;
 import com.bsuir.sdtt.entity.Offer;
@@ -49,61 +49,62 @@ public class OfferController {
                            ModelMapper modelMapper) {
         this.offerService = offerService;
         this.categoryRepository = categoryRepository;
-        this.modelMapper = modelMapper; }
+        this.modelMapper = modelMapper;
+    }
 
     /**
      * Method that converts DTO to class object and create it.
      *
-     * @param offerDto data transfer object
+     * @param offerDTO data transfer object
      * @return created object of Offer class
      */
     @PostMapping
-    public OfferDto create(@Validated @RequestBody OfferDto offerDto) {
+    public OfferDTO create(@Validated @RequestBody OfferDTO offerDTO) {
         log.debug("In create method offer controller");
         Offer offerTemp = new Offer();
-        modelMapper.map(offerDto, offerTemp);
-        Category category = categoryRepository.findFirstByName(offerDto.getCategory());
+        modelMapper.map(offerDTO, offerTemp);
+        Category category = categoryRepository.findFirstByName(offerDTO.getCategory());
         if (category == null) {
-            Category categorySave = categoryRepository.save(new Category(offerDto.getCategory()));
+            Category categorySave = categoryRepository.save(new Category(offerDTO.getCategory()));
             offerTemp.setCategory(categorySave);
         } else {
             offerTemp.setCategory(category);
         }
 
-        OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.create(offerTemp, offerDto.getImage()), offerDtoTemp);
-        return offerDtoTemp;
+        OfferDTO offerDTOTemp = new OfferDTO();
+        modelMapper.map(offerService.create(offerTemp, offerDTO.getImage()), offerDTOTemp);
+        return offerDTOTemp;
     }
 
     /**
      * Method that save updated object.
      *
-     * @param offerDto updated Offer that needs to save
+     * @param offerDTO updated Offer that needs to save
      * @return updated and saved offer
      */
     @PutMapping
-    public OfferDto update(@Validated @RequestBody OfferDto offerDto) {
+    public OfferDTO update(@Validated @RequestBody OfferDTO offerDTO) {
         log.debug("In update method offer controller");
         Offer offerTemp = new Offer();
-        modelMapper.map(offerDto, offerTemp);
-        OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.update(offerTemp, offerDto.getImage()), offerDtoTemp);
-        return offerDtoTemp;
+        modelMapper.map(offerDTO, offerTemp);
+        OfferDTO offerDTOTemp = new OfferDTO();
+        modelMapper.map(offerService.update(offerTemp, offerDTO.getImage()), offerDTOTemp);
+        return offerDTOTemp;
     }
 
     /**
      * Method that let add comment to offer.
      *
-     * @param commentDto comment
+     * @param commentDTO comment
      * @return updated and saved offer
      */
     @PutMapping(path = "/{id}")
-    public OfferDto addComment(@PathVariable("id") UUID id, @Validated @RequestBody CommentDto commentDto) {
+    public OfferDTO addComment(@PathVariable("id") UUID id, @Validated @RequestBody CommentDTO commentDTO) {
         Comment comment = new Comment();
-        modelMapper.map(commentDto, comment);
-        OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.addComment(id, comment), offerDtoTemp);
-        return offerDtoTemp;
+        modelMapper.map(commentDTO, comment);
+        OfferDTO offerDTOTemp = new OfferDTO();
+        modelMapper.map(offerService.addComment(id, comment), offerDTOTemp);
+        return offerDTOTemp;
     }
 
     /**
@@ -114,12 +115,12 @@ public class OfferController {
      * @return updated Offer
      */
     @PutMapping(path = "/{offerId}/categories/{categoryName}")
-    public OfferDto changeCategory(@PathVariable("offerId") UUID offerId,
+    public OfferDTO changeCategory(@PathVariable("offerId") UUID offerId,
                                    @PathVariable("categoryName") String categoryName) {
         log.debug("In changeCategory method offer controller");
-        OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.changeCategory(offerId, categoryName), offerDtoTemp);
-        return offerDtoTemp;
+        OfferDTO offerDTOTemp = new OfferDTO();
+        modelMapper.map(offerService.changeCategory(offerId, categoryName), offerDTOTemp);
+        return offerDTOTemp;
     }
 
     /**
@@ -129,11 +130,11 @@ public class OfferController {
      * @return List of founded objects
      */
     @GetMapping(path = "/{id}")
-    public OfferDto getById(@PathVariable("id") UUID id) {
+    public OfferDTO getById(@PathVariable("id") UUID id) {
         log.debug("In getById method offer controller");
-        OfferDto offerDtoTemp = new OfferDto();
-        modelMapper.map(offerService.findById(id), offerDtoTemp);
-        return offerDtoTemp;
+        OfferDTO offerDTOTemp = new OfferDTO();
+        modelMapper.map(offerService.findById(id), offerDTOTemp);
+        return offerDTOTemp;
     }
 
     /**
@@ -142,25 +143,25 @@ public class OfferController {
      * @return founded objects
      */
     @GetMapping
-    public List<OfferDto> getAll() {
+    public List<OfferDTO> getAll() {
         log.debug("In getAll method offer controller");
         List<Offer> offersTemp = offerService.findAll();
-        List<OfferDto> offersDtoTemp = new ArrayList<>();
-        toOfferDtoList(offersTemp, offersDtoTemp);
-        return offersDtoTemp;
+        List<OfferDTO> offersDTOTemp = new ArrayList<>();
+        toOfferDTOList(offersTemp, offersDTOTemp);
+        return offersDTOTemp;
     }
 
     @GetMapping(path = "/filter")
-    public List<OfferDto> getAllByFilter(
+    public List<OfferDTO> getAllByFilter(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "priceFrom", required = false) String priceFrom,
             @RequestParam(value = "priceTo", required = false) String priceTo) {
         log.debug("In getAllByFilter method offer controller");
         List<Offer> offersTemp = offerService.findAllByFilter(name, category, priceFrom, priceTo);
-        List<OfferDto> offersDtoTemp = new ArrayList<>();
-        toOfferDtoList(offersTemp, offersDtoTemp);
-        return offersDtoTemp;
+        List<OfferDTO> offersDTOTemp = new ArrayList<>();
+        toOfferDTOList(offersTemp, offersDTOTemp);
+        return offersDTOTemp;
     }
 
     /**
@@ -174,10 +175,10 @@ public class OfferController {
         offerService.delete(id);
     }
 
-    private void toOfferDtoList(List<Offer> offersTemp, List<OfferDto> offersDtoTemp){
+    private void toOfferDTOList(List<Offer> offersTemp, List<OfferDTO> offersDtoTemp) {
         for (Offer offer : offersTemp) {
-            OfferDto offerDtoTemp = new OfferDto();
-            modelMapper.map(offer,offerDtoTemp);
+            OfferDTO offerDtoTemp = new OfferDTO();
+            modelMapper.map(offer, offerDtoTemp);
             offersDtoTemp.add(offerDtoTemp);
         }
     }

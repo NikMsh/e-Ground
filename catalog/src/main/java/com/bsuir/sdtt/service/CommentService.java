@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *
  * @author Stsiapan Balashenka
  * @version 1.0
  */

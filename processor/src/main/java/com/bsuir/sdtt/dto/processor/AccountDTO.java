@@ -20,7 +20,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class AccountDto {
+public class AccountDTO {
     private UUID id;
 
     /**
@@ -55,7 +55,4 @@ public class AccountDto {
     @NotNull
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
-
-    public AccountDto() {
-    }
 }

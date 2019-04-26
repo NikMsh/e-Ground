@@ -1,7 +1,6 @@
 package com.bsuir.sdtt.util;
 
 /**
- *
  * @author Stsiapan Balashenka
  * @version 1.0
  */

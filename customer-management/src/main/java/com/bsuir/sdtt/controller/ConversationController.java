@@ -26,16 +26,16 @@ public class ConversationController {
     }
 
 
-    @GetMapping("/getConversationInfoByUsersIds")
-    public ConversationDTO getConversationInfo(@RequestParam(name = "yourId") UUID yourId,
+    @GetMapping("/conversations")
+    public ConversationDTO getConversationInfo(@RequestParam(name = "id") UUID id,
                                                @RequestParam(name = "otherId") UUID otherId) {
         return conversationMapper.conversationToConversationDTO(
-                conversationService.getConversationByUsersIds(yourId, otherId).orElseThrow(
-                        () -> new EntityNotFoundException("Conversation not found for users: " + yourId + "and " + otherId)
+                conversationService.getConversationByUsersIds(id, otherId).orElseThrow(
+                        () -> new EntityNotFoundException("Conversation not found for users: " + id + "and " + otherId)
                 ));
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}")
     public List<ConversationDTO> getConversationsByUserId(@PathVariable(name = "userId") UUID userId) {
         return conversationMapper
                 .conversationDTOtoConversation(

@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.dto.CategoryDto;
+import com.bsuir.sdtt.dto.CategoryDTO;
 import com.bsuir.sdtt.entity.Category;
 import com.bsuir.sdtt.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -48,33 +48,33 @@ public class CategoryController {
     /**
      * Method that converts DTO to class object and create it.
      *
-     * @param categoryDto data transfer object
+     * @param categoryDTO data transfer object
      * @return created object of Category class
      */
     @PostMapping
-    public CategoryDto create(@Validated @RequestBody CategoryDto categoryDto) {
+    public CategoryDTO create(@Validated @RequestBody CategoryDTO categoryDTO) {
         log.debug("In create method category controller");
         Category categoryTemp = new Category();
-        modelMapper.map(categoryDto, categoryTemp);
-        CategoryDto categoryDtoTemp = new CategoryDto();
-        modelMapper.map(categoryService.create(categoryTemp), categoryDtoTemp);
-        return categoryDtoTemp;
+        modelMapper.map(categoryDTO, categoryTemp);
+        CategoryDTO categoryDTOTemp = new CategoryDTO();
+        modelMapper.map(categoryService.create(categoryTemp), categoryDTOTemp);
+        return categoryDTOTemp;
     }
 
     /**
      * Method that save updated object.
      *
-     * @param categoryDto updated category that needs to save
+     * @param categoryDTO updated category that needs to save
      * @return updated and saved category
      */
     @PutMapping
-    public CategoryDto update(@Validated @RequestBody CategoryDto categoryDto) {
+    public CategoryDTO update(@Validated @RequestBody CategoryDTO categoryDTO) {
         log.debug("In update method category controller");
         Category categoryTemp = new Category();
-        modelMapper.map(categoryDto, categoryTemp);
-        CategoryDto categoryDtoTemp = new CategoryDto();
-        modelMapper.map(categoryService.update(categoryTemp), categoryDtoTemp);
-        return categoryDtoTemp;
+        modelMapper.map(categoryDTO, categoryTemp);
+        CategoryDTO categoryDTOTemp = new CategoryDTO();
+        modelMapper.map(categoryService.update(categoryTemp), categoryDTOTemp);
+        return categoryDTOTemp;
     }
 
     /**
@@ -84,11 +84,11 @@ public class CategoryController {
      * @return founded object or NullPointerException
      */
     @GetMapping(path = "/{id}")
-    public CategoryDto getById(@PathVariable("id") UUID id) {
+    public CategoryDTO getById(@PathVariable("id") UUID id) {
         log.debug("In getById method category controller");
-        CategoryDto categoryDtoTemp = new CategoryDto();
-        modelMapper.map(categoryService.findById(id), categoryDtoTemp);
-        return categoryDtoTemp;
+        CategoryDTO categoryDTOTemp = new CategoryDTO();
+        modelMapper.map(categoryService.findById(id), categoryDTOTemp);
+        return categoryDTOTemp;
     }
 
     /**
@@ -97,18 +97,18 @@ public class CategoryController {
      * @return founded objects
      */
     @GetMapping
-    public List<CategoryDto> getAll() {
+    public List<CategoryDTO> getAll() {
         log.debug("In getAll method category controller");
-        List<CategoryDto> categoriesDtoTemp = new ArrayList<>();
+        List<CategoryDTO> categoriesDTOTemp = new ArrayList<>();
         List<Category> categoriesTemp = categoryService.findAll();
 
         for (Category category : categoriesTemp) {
-            CategoryDto categoryDto = new CategoryDto();
-            modelMapper.map(category, categoryDto);
-            categoriesDtoTemp.add(categoryDto);
+            CategoryDTO categoryDTO = new CategoryDTO();
+            modelMapper.map(category, categoryDTO);
+            categoriesDTOTemp.add(categoryDTO);
         }
 
-        return categoriesDtoTemp;
+        return categoriesDTOTemp;
     }
 
     /**

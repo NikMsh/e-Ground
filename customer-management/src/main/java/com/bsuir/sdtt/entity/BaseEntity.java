@@ -1,6 +1,5 @@
 package com.bsuir.sdtt.entity;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;

@@ -54,8 +54,8 @@ public class ConversationMapper {
 
     public List<ConversationDTO> conversationDTOtoConversation(Collection<Conversation> conversations) {
         List<ConversationDTO> conversationsDTO = new ArrayList<>();
-        conversations.forEach((c)->
-            conversationsDTO.add(conversationToConversationDTO(c)));
+        conversations.forEach((c) ->
+                conversationsDTO.add(conversationToConversationDTO(c)));
         return conversationsDTO;
     }
 }

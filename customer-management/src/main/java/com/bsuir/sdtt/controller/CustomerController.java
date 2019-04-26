@@ -1,5 +1,6 @@
 package com.bsuir.sdtt.controller;
 
+import com.bsuir.sdtt.dto.AuthorizationDTO;
 import com.bsuir.sdtt.dto.CustomerDTO;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.service.CustomerService;
@@ -48,49 +49,62 @@ public class CustomerController {
     /**
      * Method that converts DTO to class object and create it.
      *
-     * @param customerDto data transfer object
+     * @param customerDTO data transfer object
      * @return created object of Customer class
      */
     @PostMapping
-    public CustomerDTO create(@Validated @RequestBody CustomerDTO customerDto) {
+    public CustomerDTO create(@Validated @RequestBody CustomerDTO customerDTO) {
         log.debug("In create customer controller method");
         Customer customer = new Customer();
-        modelMapper.map(customerDto, customer);
-        CustomerDTO customerDtoTemp = new CustomerDTO();
-        modelMapper.map(customerService.create(customer, customerDto.getImage()), customerDtoTemp);
-        return customerDtoTemp;
+        modelMapper.map(customerDTO, customer);
+        CustomerDTO customerDTOTemp = new CustomerDTO();
+        modelMapper.map(customerService.create(customer, customerDTO.getImage()), customerDTOTemp);
+        return customerDTOTemp;
+    }
+
+    /**
+     * Method that converts DTO to class object and create it.
+     *
+     * @return created object of Customer class
+     */
+    @PostMapping(path = "/authorization")
+    public CustomerDTO authorization(@Validated @RequestBody AuthorizationDTO authorizationDTO) {
+        log.debug("In authorization customer controller method");
+        CustomerDTO customerDTOTemp = new CustomerDTO();
+        modelMapper.map(customerService.authorization(authorizationDTO), customerDTOTemp);
+        return customerDTOTemp;
     }
 
     /**
      * Method that save updated object.
      *
-     * @param customerDto updated customer that needs to save
+     * @param customerDTO updated customer that needs to save
      * @return updated and saved customer
      */
     @PutMapping
-    public CustomerDTO update(@Validated @RequestBody CustomerDTO customerDto) {
+    public CustomerDTO update(@Validated @RequestBody CustomerDTO customerDTO) {
         log.debug("In update customer controller method");
         Customer customer = new Customer();
-        modelMapper.map(customerDto, customer);
-        CustomerDTO customerDtoTemp = new CustomerDTO();
-        modelMapper.map(customerService.update(customer, customerDto.getImage()), customerDtoTemp);
-        return customerDtoTemp;
-
+        modelMapper.map(customerDTO, customer);
+        CustomerDTO customerDTOTemp = new CustomerDTO();
+        modelMapper.map(customerService.update(customer, customerDTO.getImage()), customerDTOTemp);
+        return customerDTOTemp;
     }
 
     /**
      * Method that update user password
-     *@param customerDto customer dto with updated password
+     *
+     * @param customerDTO customer dto with updated password
      * @return customer with updated password
      */
     @PutMapping(headers = "action=updatePassword")
-    public CustomerDTO updatePassword(@Validated @RequestBody CustomerDTO customerDto) {
+    public CustomerDTO updatePassword(@Validated @RequestBody CustomerDTO customerDTO) {
         log.debug("In updatePassword customer controller method");
         Customer customer = new Customer();
-        modelMapper.map(customerDto, customer);
-        CustomerDTO customerDtoTemp = new CustomerDTO();
-        modelMapper.map(customerService.updatePassword(customer), customerDtoTemp);
-        return customerDtoTemp;
+        modelMapper.map(customerDTO, customer);
+        CustomerDTO customerDTOTemp = new CustomerDTO();
+        modelMapper.map(customerService.updatePassword(customer), customerDTOTemp);
+        return customerDTOTemp;
     }
 
     /**
@@ -102,9 +116,9 @@ public class CustomerController {
     @GetMapping(path = "/{id}")
     public CustomerDTO getById(@PathVariable("id") UUID id) {
         log.debug("In getById customer controller method");
-        CustomerDTO customerDtoTemp = new CustomerDTO();
-        modelMapper.map(customerService.findById(id), customerDtoTemp);
-        return customerDtoTemp;
+        CustomerDTO customerDTOTemp = new CustomerDTO();
+        modelMapper.map(customerService.findById(id), customerDTOTemp);
+        return customerDTOTemp;
     }
 
     /**
@@ -115,10 +129,10 @@ public class CustomerController {
     @GetMapping
     public List<CustomerDTO> getAll() {
         log.debug("In getAll customer controller method");
-        List<CustomerDTO> customersDtoTemp = new ArrayList<>();
+        List<CustomerDTO> customersDTOTemp = new ArrayList<>();
         List<Customer> customers = customerService.findAll();
-        toCustomersDtoList(customers, customersDtoTemp);
-        return customersDtoTemp;
+        toCustomersDtoList(customers, customersDTOTemp);
+        return customersDTOTemp;
     }
 
     /**
@@ -133,11 +147,11 @@ public class CustomerController {
     }
 
     private void toCustomersDtoList(List<Customer> customers,
-                                    List<CustomerDTO> customersDto) {
+                                    List<CustomerDTO> customersDTO) {
         for (Customer customer : customers) {
             CustomerDTO customerDto = new CustomerDTO();
             modelMapper.map(customer, customerDto);
-            customersDto.add(customerDto);
+            customersDTO.add(customerDto);
         }
     }
 }

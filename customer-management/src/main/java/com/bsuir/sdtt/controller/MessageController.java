@@ -27,8 +27,8 @@ public class MessageController {
         this.messageMapper = messageMapper;
     }
 
-    @GetMapping("/{conversationId}")
-    public List<MessageDTO> getConversationMessages(@PathVariable(name = "conversationId") UUID conversationId) {
-        return messageMapper.messageToMessageDTO(messageService.getConversationMessagesById(conversationId));
+    @GetMapping("/conversations/{id}")
+    public List<MessageDTO> getConversationMessages(@PathVariable(name = "id") UUID id) {
+        return messageMapper.messageToMessageDTO(messageService.getConversationMessagesById(id));
     }
 }

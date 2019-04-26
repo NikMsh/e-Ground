@@ -82,6 +82,7 @@ public class Customer extends BaseEntity {
 
     /**
      * Method that set values except the password from another customer
+     *
      * @param customer
      */
     public void update(Customer customer) {

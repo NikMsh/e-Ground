@@ -1,4 +1,4 @@
-package com.bsuir.sdtt.dto.processor;
+package com.bsuir.sdtt.dto.catalog;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,12 +16,11 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class AddCommentToOfferParameterDto {
-    @NotNull
-    private UUID customerId;
+public class CommentDTO {
+    private UUID id;
 
     @NotNull
-    private UUID offerId;
+    private UUID customerId;
 
     @NotNull
     private String message;

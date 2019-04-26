@@ -1,14 +1,16 @@
 package com.bsuir.sdtt.service;
 
-import com.bsuir.sdtt.dto.catalog.CategoryDto;
-import com.bsuir.sdtt.dto.catalog.CommentDto;
-import com.bsuir.sdtt.dto.catalog.OfferDto;
+import com.bsuir.sdtt.dto.catalog.CategoryDTO;
+import com.bsuir.sdtt.dto.catalog.CommentDTO;
+import com.bsuir.sdtt.dto.catalog.OfferDTO;
 import com.bsuir.sdtt.dto.customer.ConversationDTO;
 import com.bsuir.sdtt.dto.customer.CustomerDTO;
-import com.bsuir.sdtt.dto.favourite.OrderDto;
-import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
-import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
-import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDto;
+import com.bsuir.sdtt.dto.customer.MessageDTO;
+import com.bsuir.sdtt.dto.favourite.OrderDTO;
+import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDTO;
+import com.bsuir.sdtt.dto.processor.AuthorizationParameterDTO;
+import com.bsuir.sdtt.dto.processor.CreateOrderParameterDTO;
+import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,32 +22,36 @@ import java.util.UUID;
  * @version 1.0
  */
 public interface ProcessorService {
-    OrderDto addToFavorite(CreateOrderParameterDto createOrderParameter);
+    OrderDTO addToFavorite(CreateOrderParameterDTO createOrderParameter);
 
     CustomerDTO createCustomer(CustomerDTO customerDto);
 
     CustomerDTO updateCustomer(CustomerDTO customerDto);
 
-    OfferDto createOffer(OfferDto offerDto);
+    CustomerDTO authorizationCustomer(AuthorizationParameterDTO authorizationDto);
 
-    OfferDto updateOffer(OfferDto offerDto);
+    OfferDTO createOffer(OfferDTO offerDto);
 
-    CustomerCommentParameterDto addCommentToOffer(AddCommentToOfferParameterDto addCommentToOfferDto);
+    OfferDTO updateOffer(OfferDTO offerDto);
 
-    List<CommentDto> getAllCommentsByOfferId(UUID id);
+    CustomerCommentParameterDTO addCommentToOffer(AddCommentToOfferParameterDTO addCommentToOfferDto);
+
+    List<CommentDTO> getAllCommentsByOfferId(UUID id);
 
     CustomerDTO getCustomerById(UUID id);
 
-    OfferDto getOfferById(UUID id);
+    OfferDTO getOfferById(UUID id);
 
-    List<OfferDto> getOffersByFilter(String name, String category,
+    List<OfferDTO> getOffersByFilter(String name, String category,
                                      String priceFrom, String priceTo);
 
-    List<OrderDto> getOrderByCustomerId(UUID id);
+    List<OrderDTO> getOrderByCustomerId(UUID id);
 
-    List<CategoryDto> getAllCategories();
+    List<CategoryDTO> getAllCategories();
+
+    List<MessageDTO> getConversationMessages(UUID id);
 
     List<ConversationDTO> getConversationsByUserId(UUID id);
 
-    ConversationDTO getConversationInfo(UUID yourId, UUID otherId);
+    ConversationDTO getConversationInfo(UUID id, UUID otherId);
 }

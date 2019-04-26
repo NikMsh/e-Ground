@@ -1,7 +1,6 @@
 package com.bsuir.sdtt.repository;
 
 import com.bsuir.sdtt.entity.Conversation;
-import com.bsuir.sdtt.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

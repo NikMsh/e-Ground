@@ -1,8 +1,8 @@
 package com.bsuir.sdtt.client;
 
-import com.bsuir.sdtt.dto.catalog.CategoryDto;
-import com.bsuir.sdtt.dto.catalog.CommentDto;
-import com.bsuir.sdtt.dto.catalog.OfferDto;
+import com.bsuir.sdtt.dto.catalog.CategoryDTO;
+import com.bsuir.sdtt.dto.catalog.CommentDTO;
+import com.bsuir.sdtt.dto.catalog.OfferDTO;
 import com.bsuir.sdtt.util.CatalogClientProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,46 +32,32 @@ public class CatalogClient {
         this.restTemplate = restTemplate;
     }
 
-    public OfferDto save(OfferDto offerDto) {
-        log.info("Start method CatalogClient.save: {}", offerDto);
+    public OfferDTO save(OfferDTO offerDTO) {
+        log.info("Start method CatalogClient.save: {}", offerDTO);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CatalogClientProperty.API_CATALOG_OFFERS);
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto> responseEntity = restTemplate
-                .postForEntity(finalUrl.toString(), offerDto, OfferDto.class);
-
-        log.info("Offer DTO: {}", responseEntity.getBody());
-        return responseEntity.getBody();
+        return getResponseEntityOffer(finalUrl, HttpMethod.POST, offerDTO).getBody();
     }
 
 
-    public OfferDto update(OfferDto offerDto) {
-        log.info("Start method CatalogClient.update: {}", offerDto);
+    public OfferDTO update(OfferDTO offerDTO) {
+        log.info("Start method CatalogClient.update: {}", offerDTO);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CatalogClientProperty.API_CATALOG_OFFERS);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<OfferDto> entity = new HttpEntity<>(offerDto, headers);
-
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto> responseEntity = restTemplate
-                .exchange(finalUrl.toString(), HttpMethod.PUT,
-                        entity, OfferDto.class);
-
-        log.info("Offer DTO: {}", responseEntity.getBody());
-
-        return responseEntity.getBody();
+        return getResponseEntityOffer(finalUrl, HttpMethod.PUT, offerDTO).getBody();
     }
 
-    public OfferDto addCommentToOffer(UUID id, CommentDto commentDto) {
-        log.info("Start method CatalogClient.addCommentToOffer: Id = {}, {}",
-                id, commentDto);
+    public OfferDTO addCommentToOffer(UUID id, CommentDTO commentDTO) {
+        log.info("Start method CatalogClient.addCommentToOffer: ID = {}, Comment DTO = {}",
+                id, commentDTO);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CatalogClientProperty.API_CATALOG_OFFERS);
@@ -79,21 +65,11 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<CommentDto> entity = new HttpEntity<>(commentDto, headers);
-
-        ResponseEntity<OfferDto> responseEntity = restTemplate
-                .exchange(finalUrl.toString(), HttpMethod.PUT,
-                        entity, OfferDto.class);
-
-        log.info("Offer DTO: {}", responseEntity.getBody());
-
-        return responseEntity.getBody();
+        return getResponseEntityOffer(finalUrl, HttpMethod.PUT, commentDTO).getBody();
     }
 
-    public OfferDto getOfferDto(UUID id) {
-        log.info("Start method CatalogClient.getOfferDto Id = {}", id);
+    public OfferDTO getOfferDTO(UUID id) {
+        log.info("Start method CatalogClient.getOfferDTO ID: {}", id);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CatalogClientProperty.API_CATALOG_OFFERS);
@@ -101,16 +77,16 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OfferDto> responseEntity = restTemplate
+        ResponseEntity<OfferDTO> responseEntity = restTemplate
                 .exchange(finalUrl.toString(), HttpMethod.GET,
-                        getHttpEntityHeader(), OfferDto.class);
+                        getHttpEntityHeader(""), OfferDTO.class);
 
         log.info("Offer DTO: {}", responseEntity.getBody());
 
         return responseEntity.getBody();
     }
 
-    public List<OfferDto> getOffersDtoByFilter
+    public List<OfferDTO> getOffersDtoByFilter
             (String name, String category, String priceFrom, String priceTo) {
         log.info("Start method CatalogClient.getOffersDtoByFilter" +
                         " Category = {} Price From = {} Price To = {}",
@@ -149,10 +125,18 @@ public class CatalogClient {
             finalUrl.append(priceTo);
         }
 
-        return getResponseEntity(finalUrl);
+        log.info("Final URL: {}", finalUrl.toString());
+
+        ResponseEntity<OfferDTO[]> responseEntity = restTemplate
+                .exchange(finalUrl.toString(), HttpMethod.GET,
+                        getHttpEntityHeader(""), OfferDTO[].class);
+
+        log.info("Size Orders DTO: {}", Objects
+                .requireNonNull(responseEntity.getBody()).length);
+        return Arrays.asList(responseEntity.getBody());
     }
 
-    public List<CategoryDto> getAllCategories() {
+    public List<CategoryDTO> getAllCategories() {
         log.info("Start method CatalogClient.getAllCategories");
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
@@ -160,9 +144,9 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<CategoryDto[]> responseEntity = restTemplate
+        ResponseEntity<CategoryDTO[]> responseEntity = restTemplate
                 .exchange(finalUrl.toString(), HttpMethod.GET,
-                        getHttpEntityHeader(), CategoryDto[].class);
+                        getHttpEntityHeader(""), CategoryDTO[].class);
 
         log.info("Size Categories DTO: {}", Objects
                 .requireNonNull(responseEntity.getBody()).length);
@@ -170,8 +154,8 @@ public class CatalogClient {
         return Arrays.asList(responseEntity.getBody());
     }
 
-    public List<CommentDto> getAllCommentsByOfferId(UUID id) {
-        log.info("Start method CatalogClient.getAllCommentsByOfferId ID {}", id);
+    public List<CommentDTO> getAllCommentsByOfferId(UUID id) {
+        log.info("Start method CatalogClient.getAllCommentsByOfferId ID: {}", id);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(CatalogClientProperty.API_CATALOG_COMMENTS);
@@ -179,9 +163,9 @@ public class CatalogClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<CommentDto[]> responseEntity = restTemplate
+        ResponseEntity<CommentDTO[]> responseEntity = restTemplate
                 .exchange(finalUrl.toString(), HttpMethod.GET,
-                        getHttpEntityHeader(), CommentDto[].class);
+                        getHttpEntityHeader(""), CommentDTO[].class);
 
         log.info("Size Comments DTO: {}", Objects
                 .requireNonNull(responseEntity.getBody()).length);
@@ -189,24 +173,15 @@ public class CatalogClient {
         return Arrays.asList(responseEntity.getBody());
     }
 
-    private List<OfferDto> getResponseEntity(StringBuilder finalUrl) {
-        log.info("Final URL: {}", finalUrl.toString());
-
-        ResponseEntity<OfferDto[]> responseEntity = restTemplate
-                .exchange(finalUrl.toString(), HttpMethod.GET,
-                        getHttpEntityHeader(), OfferDto[].class);
-
-        log.info("Size Orders DTO: {}", Objects
-                .requireNonNull(responseEntity.getBody()).length);
-
-        return Arrays.asList(responseEntity.getBody());
-    }
-
-    private HttpEntity<String> getHttpEntityHeader() {
+    private <T> HttpEntity<T> getHttpEntityHeader(T template) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<>("", headers);
+        return new HttpEntity<>(template, headers);
+    }
 
-        return entity;
+    private <U> ResponseEntity<OfferDTO> getResponseEntityOffer(StringBuilder finalUrl,
+                                                                HttpMethod httpMethod, U template) {
+        return restTemplate.exchange(finalUrl.toString(),
+                httpMethod, getHttpEntityHeader(template), OfferDTO.class);
     }
 }

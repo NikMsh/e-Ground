@@ -111,7 +111,7 @@ public class DefaultOfferService implements OfferService {
             saveOffer = offerRepository.findAllByCategory(foundCategory);
         } else if (category == null && name != null) {
             saveOffer = offerRepository.findAllByNameContaining(name);
-        } else if (category != null && name != null){
+        } else if (category != null && name != null) {
             saveOffer = offerRepository.findAllByNameContainingAndCategory(name, foundCategory);
         } else {
             saveOffer = offerRepository.findAll();

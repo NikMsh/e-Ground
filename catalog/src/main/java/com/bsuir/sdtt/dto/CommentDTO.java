@@ -16,7 +16,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CommentDto {
+public class CommentDTO {
     private UUID id;
 
     @NotNull
@@ -25,5 +25,6 @@ public class CommentDto {
     @NotNull
     private String message;
 
-    public CommentDto(){}
+    public CommentDTO() {
+    }
 }

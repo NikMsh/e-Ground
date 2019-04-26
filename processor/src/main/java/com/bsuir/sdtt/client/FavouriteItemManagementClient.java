@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.client;
 
-import com.bsuir.sdtt.dto.favourite.OrderDto;
+import com.bsuir.sdtt.dto.favourite.OrderDTO;
 import com.bsuir.sdtt.util.FavouriteItemClientManagementProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,25 +30,20 @@ public class FavouriteItemManagementClient {
         this.restTemplate = restTemplate;
     }
 
-    public OrderDto save(OrderDto orderDto) {
-        log.info("Start method save InventoryClient.OrderDto: {}", orderDto);
+    public OrderDTO save(OrderDTO orderDTO) {
+        log.info("Start method save InventoryClient.Order DTO: {}", orderDTO);
 
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(FavouriteItemClientManagementProperty.API_V1_INVENTORY_ORDERS);
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        ResponseEntity<OrderDto> responseEntity = restTemplate
-                .postForEntity(finalUrl.toString(), orderDto, OrderDto.class);
-
-        log.info("Order DTO: {}", responseEntity.getBody());
-        return responseEntity.getBody();
+        return getResponseEntityOrder(finalUrl, HttpMethod.POST, orderDTO).getBody();
     }
 
-    public List<OrderDto> getOrdersDto(UUID id) {
-        log.info("Start method InventoryClient.getOrdersDto ID = {}", id);
+    public List<OrderDTO> getOrdersDTO(UUID id) {
+        log.info("Start method InventoryClient.getOrdersDTO ID: {}", id);
 
-        HttpHeaders headers = new HttpHeaders();
         StringBuilder finalUrl = new StringBuilder(baseUrl);
         finalUrl.append(FavouriteItemClientManagementProperty
                 .API_V1_INVENTORY_ORDERS_CUSTOMER_ID);
@@ -56,16 +51,25 @@ public class FavouriteItemManagementClient {
 
         log.info("Final URL: {}", finalUrl.toString());
 
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<>("", headers);
-
-        ResponseEntity<OrderDto[]> responseEntity = restTemplate
+        ResponseEntity<OrderDTO[]> responseEntity = restTemplate
                 .exchange(finalUrl.toString(), HttpMethod.GET,
-                        entity, OrderDto[].class);
+                        getHttpEntityHeader(""), OrderDTO[].class);
 
         log.info("Size Orders DTO: {}", Objects
                 .requireNonNull(responseEntity.getBody()).length);
 
         return Arrays.asList(responseEntity.getBody());
+    }
+
+    private <T> HttpEntity<T> getHttpEntityHeader(T template) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        return new HttpEntity<>(template, headers);
+    }
+
+    private <U> ResponseEntity<OrderDTO> getResponseEntityOrder(StringBuilder finalUrl,
+                                                                HttpMethod httpMethod, U template) {
+        return restTemplate.exchange(finalUrl.toString(),
+                httpMethod, getHttpEntityHeader(template), OrderDTO.class);
     }
 }

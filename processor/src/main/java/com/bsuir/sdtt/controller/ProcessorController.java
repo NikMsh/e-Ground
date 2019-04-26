@@ -1,22 +1,21 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.client.CustomerManagementClient;
-import com.bsuir.sdtt.dto.catalog.CategoryDto;
-import com.bsuir.sdtt.dto.catalog.CommentDto;
-import com.bsuir.sdtt.dto.catalog.OfferDto;
+import com.bsuir.sdtt.dto.catalog.CategoryDTO;
+import com.bsuir.sdtt.dto.catalog.CommentDTO;
+import com.bsuir.sdtt.dto.catalog.OfferDTO;
 import com.bsuir.sdtt.dto.customer.ConversationDTO;
 import com.bsuir.sdtt.dto.customer.CustomerDTO;
 import com.bsuir.sdtt.dto.customer.MessageDTO;
-import com.bsuir.sdtt.dto.favourite.OrderDto;
-import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDto;
-import com.bsuir.sdtt.dto.processor.CreateOrderParameterDto;
-import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDto;
+import com.bsuir.sdtt.dto.favourite.OrderDTO;
+import com.bsuir.sdtt.dto.processor.AddCommentToOfferParameterDTO;
+import com.bsuir.sdtt.dto.processor.AuthorizationParameterDTO;
+import com.bsuir.sdtt.dto.processor.CreateOrderParameterDTO;
+import com.bsuir.sdtt.dto.processor.CustomerCommentParameterDTO;
 import com.bsuir.sdtt.service.ProcessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,18 +32,14 @@ public class ProcessorController {
 
     private final ProcessorService processorService;
 
-    private final CustomerManagementClient client;
-
     @Autowired
-    public ProcessorController(ProcessorService processorService,
-                               CustomerManagementClient client) {
+    public ProcessorController(ProcessorService processorService) {
         this.processorService = processorService;
-        this.client = client;
     }
 
     @PostMapping(path = "/orders")
-    public OrderDto addToFavorites(@Validated @RequestBody
-                                           CreateOrderParameterDto createOrderParameterDto) {
+    public OrderDTO addToFavorites(@Validated @RequestBody
+                                           CreateOrderParameterDTO createOrderParameterDto) {
         return processorService.addToFavorite(createOrderParameterDto);
     }
 
@@ -55,8 +50,13 @@ public class ProcessorController {
     }
 
     @PostMapping(path = "/offers")
-    public OfferDto createOffer(@Validated @RequestBody OfferDto offerDto) {
+    public OfferDTO createOffer(@Validated @RequestBody OfferDTO offerDto) {
         return processorService.createOffer(offerDto);
+    }
+
+    @PostMapping(path = "/authorization")
+    public CustomerDTO authorizationCustomer(@Validated @RequestBody AuthorizationParameterDTO authorizationDto) {
+        return processorService.authorizationCustomer(authorizationDto);
     }
 
     @PutMapping(path = "/customers")
@@ -66,23 +66,23 @@ public class ProcessorController {
     }
 
     @PutMapping(path = "/offers")
-    public OfferDto updateOffer(@Validated @RequestBody OfferDto offerDto) {
+    public OfferDTO updateOffer(@Validated @RequestBody OfferDTO offerDto) {
         return processorService.updateOffer(offerDto);
     }
 
     @PutMapping(path = "/offers/comments")
-    public CustomerCommentParameterDto addCommentToOffer(
-            @Validated @RequestBody AddCommentToOfferParameterDto addCommentToOfferParameterDto) {
+    public CustomerCommentParameterDTO addCommentToOffer(
+            @Validated @RequestBody AddCommentToOfferParameterDTO addCommentToOfferParameterDto) {
         return processorService.addCommentToOffer(addCommentToOfferParameterDto);
     }
 
     @GetMapping(path = "/offers/comments/{id}")
-    public List<CommentDto> getAllCommentsByOfferId(@PathVariable("id") UUID id) {
+    public List<CommentDTO> getAllCommentsByOfferId(@PathVariable("id") UUID id) {
         return processorService.getAllCommentsByOfferId(id);
     }
 
     @GetMapping(path = "/offers/filter")
-    public List<OfferDto> getOffersByFilter(
+    public List<OfferDTO> getOffersByFilter(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "priceFrom", required = false) String priceFrom,
@@ -91,7 +91,7 @@ public class ProcessorController {
     }
 
     @GetMapping(path = "/offers/{id}")
-    public OfferDto getOfferById(@PathVariable("id") UUID id) {
+    public OfferDTO getOfferById(@PathVariable("id") UUID id) {
         return processorService.getOfferById(id);
     }
 
@@ -101,28 +101,28 @@ public class ProcessorController {
     }
 
     @GetMapping(path = "/orders/{id}")
-    public List<OrderDto> getOrderByCustomerId(@PathVariable("id") UUID id) {
+    public List<OrderDTO> getOrderByCustomerId(@PathVariable("id") UUID id) {
         return processorService.getOrderByCustomerId(id);
     }
 
     @GetMapping(path = "/categories}")
-    public List<CategoryDto> getAllCategories() {
+    public List<CategoryDTO> getAllCategories() {
         return processorService.getAllCategories();
     }
 
-    @GetMapping(path = "/messages")
-    public ConversationDTO getConversationInfo(@RequestParam("ourId") UUID yourId,
-                                               @RequestParam("otherId") UUID otherId) {
-       return client.getConversationInfo(yourId, otherId);
+    @GetMapping(path = "/messages/conversations/{id}")
+    public List<MessageDTO> getConversationMessages(@PathVariable("id") UUID id) {
+        return processorService.getConversationMessages(id);
     }
 
-    @GetMapping(path = "/conversations/{id}")
-    public List<MessageDTO> getConversationMessages(@PathVariable("id") UUID id) {
-        return client.getConversationMessages(id);
+    @GetMapping(path = "/conversations")
+    public ConversationDTO getConversationInfo(@RequestParam("id") UUID id,
+                                               @RequestParam("otherId") UUID otherId) {
+        return processorService.getConversationInfo(id, otherId);
     }
 
     @GetMapping(path = "/conversations/users/{id}")
     public List<ConversationDTO> getConversationsByUserId(@PathVariable("id") UUID id) {
-        return client.getConversatoinsByUserId(id);
+        return processorService.getConversationsByUserId(id);
     }
 }

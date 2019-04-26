@@ -1,4 +1,4 @@
-package com.bsuir.sdtt.dto;
+package com.bsuir.sdtt.dto.catalog;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class OfferDto {
+public class OfferDTO {
     private UUID id;
 
     private String imageId;
@@ -29,24 +29,25 @@ public class OfferDto {
     private String image;
 
     /**
+     * Field of seller ID.
+     */
+    @NotNull
+    private UUID sellerId;
+
+    /**
      * Field of Offer firstName.
      */
     @NotNull
     private String name;
 
     /**
-     * Field of seller ID.
-     */
-    @NotNull
-    private UUID sellerId;
-
-    @NotNull
-    private String description;
-    /**
      * Field of Offer category.
      */
     @NotNull
     private String category;
+
+    @NotNull
+    private String description;
 
     /**
      * Field of Offer price.
@@ -55,9 +56,5 @@ public class OfferDto {
     @Min(0)
     private double price;
 
-    private List<CommentDto> comments = new ArrayList<>();
-
-    public OfferDto() {
-
-    }
+    private List<CommentDTO> comments = new ArrayList<>();
 }

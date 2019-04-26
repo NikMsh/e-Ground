@@ -1,7 +1,6 @@
 package com.bsuir.sdtt.util;
 
 /**
- *
  * @author Stsiapan Balashenka
  * @version 1.0
  */
@@ -10,8 +9,8 @@ public abstract class CustomerManagementClientProperty {
             = "/api/v1/customer-management/customers/";
 
     public static final String API_V1_MESSAGES
-            = "/avi/v1/customer-management/messages";
+            = "/avi/v1/customer-management/messages/";
 
     public static final String API_V1_CONVERSATIONS
-            = "/api/v1/customer-management/conversations";
+            = "/api/v1/customer-management/conversations/";
 }

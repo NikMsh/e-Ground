@@ -2,13 +2,13 @@ server:
   port: ${CUSTOMER_MANAGEMENT_SERVER_PORT:8086}
 spring:
   datasource:
-    url: ${CUSTOMER_MANAGEMENT_DB_URL:jdbc:postgresql://localhost:5432/customer_management}
+    url: ${CUSTOMER_MANAGEMENT_DB_URL:jdbc:postgresql://localhost:5432/customer-management}
     username: ${CUSTOMER_MANAGEMENT_DB_USERNAME:postgres}
     password: ${CUSTOMER_MANAGEMENT_DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
 logging:
   pattern:
