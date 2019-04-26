@@ -1,6 +1,6 @@
 package com.bsuir.sdtt.controller;
 
-import com.bsuir.sdtt.dto.OrderDto;
+import com.bsuir.sdtt.dto.OrderDTO;
 import com.bsuir.sdtt.entity.Order;
 import com.bsuir.sdtt.service.OrderService;
 import io.swagger.annotations.ApiParam;
@@ -49,33 +49,33 @@ public class OrderController {
     /**
      * Method that converts DTO to class object and create it.
      *
-     * @param orderDto data transfer object
+     * @param orderDTO data transfer object
      * @return created object of Order class
      */
     @PostMapping
-    public OrderDto create(@ApiParam(name = "date", value = "Example date: 2018-12-12T15:15:15") @Validated @RequestBody OrderDto orderDto) {
+    public OrderDTO create(@ApiParam(name = "date", value = "Example date: 2018-12-12T15:15:15") @Validated @RequestBody OrderDTO orderDTO) {
         log.debug("In create method order controller");
         Order order = new Order();
-        modelMapper.map(orderDto, order);
-        OrderDto orderDtoTemp = new OrderDto();
-        modelMapper.map(orderService.create(order), orderDtoTemp);
-        return orderDtoTemp;
+        modelMapper.map(orderDTO, order);
+        OrderDTO orderDTOTemp = new OrderDTO();
+        modelMapper.map(orderService.create(order), orderDTOTemp);
+        return orderDTOTemp;
     }
 
     /**
      * Method that save updated object.
      *
-     * @param orderDto updated order that needs to save
+     * @param orderDTO updated order that needs to save
      * @return updated and saved order
      */
     @PutMapping
-    public OrderDto update(@Validated @RequestBody OrderDto orderDto) {
+    public OrderDTO update(@Validated @RequestBody OrderDTO orderDTO) {
         log.debug("In update method order controller");
         Order order = new Order();
-        modelMapper.map(orderDto, order);
-        OrderDto orderDtoTemp = new OrderDto();
-        modelMapper.map(orderService.update(order), orderDtoTemp);
-        return orderDtoTemp;
+        modelMapper.map(orderDTO, order);
+        OrderDTO orderDTOTemp = new OrderDTO();
+        modelMapper.map(orderService.update(order), orderDTOTemp);
+        return orderDTOTemp;
     }
 
     /**
@@ -85,19 +85,19 @@ public class OrderController {
      * @return founded object or NullPointerException
      */
     @GetMapping(path = "/{id}")
-    public OrderDto getById(@PathVariable("id") UUID id) {
+    public OrderDTO getById(@PathVariable("id") UUID id) {
         log.debug("In getById method order controller");
-        OrderDto orderDtoTemp = new OrderDto();
-        modelMapper.map(orderService.findById(id), orderDtoTemp);
-        return orderDtoTemp;
+        OrderDTO orderDTOTemp = new OrderDTO();
+        modelMapper.map(orderService.findById(id), orderDTOTemp);
+        return orderDTOTemp;
     }
 
     @GetMapping(path = "/customers/{customerId}")
-    public List<OrderDto> getByIdCustomerId(@PathVariable("customerId") UUID customerId) {
+    public List<OrderDTO> getByIdCustomerId(@PathVariable("customerId") UUID customerId) {
         log.debug("In getByIdCustomerId method order controller");
-        List<OrderDto> orderDtoTemp = new ArrayList<>();
-        toOrdersDtoList(orderService.findByCustomerId(customerId), orderDtoTemp);
-        return orderDtoTemp;
+        List<OrderDTO> orderDTOTemp = new ArrayList<>();
+        toOrdersDTOList(orderService.findByCustomerId(customerId), orderDTOTemp);
+        return orderDTOTemp;
     }
 
     /**
@@ -106,12 +106,12 @@ public class OrderController {
      * @return founded objects
      */
     @GetMapping
-    public List<OrderDto> getAll() {
+    public List<OrderDTO> getAll() {
         log.debug("In getALl method order controller");
-        List<OrderDto> ordersDtoTemp = new ArrayList<>();
+        List<OrderDTO> ordersDTOTemp = new ArrayList<>();
         List<Order> orders = orderService.findAll();
-        toOrdersDtoList(orders, ordersDtoTemp);
-        return ordersDtoTemp;
+        toOrdersDTOList(orders, ordersDTOTemp);
+        return ordersDTOTemp;
     }
 
     /**
@@ -126,9 +126,9 @@ public class OrderController {
         orderService.delete(id);
     }
 
-    private void toOrdersDtoList(List<Order> orders, List<OrderDto> ordersDto) {
+    private void toOrdersDTOList(List<Order> orders, List<OrderDTO> ordersDto) {
         for (Order order : orders) {
-            OrderDto orderDto = new OrderDto();
+            OrderDTO orderDto = new OrderDTO();
             modelMapper.map(order, orderDto);
             ordersDto.add(orderDto);
         }

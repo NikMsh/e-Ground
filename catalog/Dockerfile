@@ -4,7 +4,7 @@ RUN mkdir -p /app
 
 ENV PROJECT_HOME /app
 
-ADD catalog/target/catalog-0.1.0.jar  $PROJECT_HOME/catalog.jar
+ADD target/catalog-0.1.0.jar  $PROJECT_HOME/catalog.jar
 
 WORKDIR $PROJECT_HOME
 

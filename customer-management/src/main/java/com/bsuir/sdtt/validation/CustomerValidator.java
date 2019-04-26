@@ -4,7 +4,7 @@ import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.repository.CustomerRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Optional;
 
 /**
  * Class for validation customer data before creating or updating.
@@ -33,8 +33,8 @@ public class CustomerValidator {
 
         Optional<Customer> withSuchPhone = customerRepository
                 .findByPhoneNumber(phoneNumber);
-        if(withSuchPhone.isPresent()) {
-            if(validationType == ValidationType.FOR_CREATING ||
+        if (withSuchPhone.isPresent()) {
+            if (validationType == ValidationType.FOR_CREATING ||
                     (validationType == ValidationType.FOR_UPDATING &&
                             withSuchPhone.get().getId().compareTo(customer.getId()) != 0)) {
                 errorBuilder.append(buildErrorMessage("phone", phoneNumber));
@@ -42,7 +42,7 @@ public class CustomerValidator {
         }
 
         Optional<Customer> withSuchEmail = customerRepository.findByEmail(email);
-        if(withSuchEmail.isPresent()) {
+        if (withSuchEmail.isPresent()) {
             if (validationType == ValidationType.FOR_CREATING ||
                     (validationType == ValidationType.FOR_UPDATING &&
                             withSuchEmail.get().getId().compareTo(customer.getId()) != 0)) {

@@ -1,15 +1,15 @@
-package com.bsuir.sdtt.dto.processor;
+package com.bsuir.sdtt.dto.catalog;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
- * Class of Customer Comment Parameter.
- * Used to create order from offer.
+ * Class of Comment Data Transfer Object. Used to transfer data between application subsystems.
  *
  * @author Stsiapan Balashenka
  * @version 1.0
@@ -17,16 +17,13 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CustomerCommentParameterDto {
+@NoArgsConstructor
+public class CommentDTO {
     private UUID id;
 
     @NotNull
-    private String message;
+    private UUID customerId;
 
     @NotNull
-    private AccountDto accountDto;
-
-    public CustomerCommentParameterDto() {
-
-    }
+    private String message;
 }

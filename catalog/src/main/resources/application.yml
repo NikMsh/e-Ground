@@ -16,7 +16,7 @@ logging:
     file: "%d %-5level [%thread] %logger{0}: %msg%n"
     console: "%d %-5level [%thread] %logger{0}: %msg%n"
   level:
-      com.bsuir.sdtt: DEBUG
+    com.bsuir.sdtt: DEBUG
 
 
 

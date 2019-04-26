@@ -1,11 +1,13 @@
 package com.bsuir.sdtt.service.impl;
 
+import com.bsuir.sdtt.dto.AuthorizationParameterDTO;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.CustomerService;
 import com.bsuir.sdtt.service.ImageService;
 import com.bsuir.sdtt.validation.CustomerValidator;
 import com.bsuir.sdtt.validation.ValidationType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,10 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Class of customer service that allows you to work with a customer and implements CustomerService.
@@ -24,6 +29,7 @@ import java.util.*;
  * @author Stsiapan Balashenka, Eugene Korenik
  * @version 1.1
  */
+@Slf4j
 @Service
 @Transactional
 public class DefaultCustomerService implements CustomerService {
@@ -42,7 +48,7 @@ public class DefaultCustomerService implements CustomerService {
      * Constructor that accepts a object CustomerDao class.
      *
      * @param customerRepository object of CustomerRepository class
-     * @param imageService object of ImageService class
+     * @param imageService       object of ImageService class
      */
     @Autowired
     public DefaultCustomerService(CustomerRepository customerRepository,
@@ -63,7 +69,7 @@ public class DefaultCustomerService implements CustomerService {
     @Override
     public Customer create(Customer customer, String image) throws EntityExistsException {
         String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_CREATING);
-        if(!errorMessage.isEmpty()) {
+        if (!errorMessage.isEmpty()) {
             throw new EntityExistsException(errorMessage);
         }
         if (image != null && !image.equals("")) {
@@ -79,6 +85,22 @@ public class DefaultCustomerService implements CustomerService {
         return customer;
     }
 
+    @Override
+    public Customer authorization(AuthorizationParameterDTO authorizationDTO) {
+        String email = authorizationDTO.getEmail();
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        Customer foundCustomer = optionalCustomer.<EntityNotFoundException>orElseThrow(() -> {
+            throw new EntityNotFoundException("Customer with email = "
+                    + email + " not found");
+        });
+
+        if (passwordEncoder.matches(authorizationDTO.getPassword(), foundCustomer.getPassword())) {
+            return foundCustomer;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Method that finds an object in database.
      *
@@ -89,7 +111,8 @@ public class DefaultCustomerService implements CustomerService {
     public Customer findById(UUID id) throws EntityNotFoundException {
         return customerRepository.findById(id).<EntityNotFoundException>orElseThrow(() -> {
             throw new EntityNotFoundException("Customer with id =" + id.toString()
-                    + " not found");});
+                    + " not found");
+        });
     }
 
     /**
@@ -116,7 +139,7 @@ public class DefaultCustomerService implements CustomerService {
     @Override
     public Customer update(Customer customer, String image) throws EntityExistsException {
         String errorMessage = customerValidator.isValid(customer, ValidationType.FOR_UPDATING);
-        if(!errorMessage.isEmpty()) {
+        if (!errorMessage.isEmpty()) {
             throw new EntityExistsException(errorMessage);
         }
         if (image != null && !image.equals("")) {
@@ -160,13 +183,13 @@ public class DefaultCustomerService implements CustomerService {
         File imageFile = imageService.convertStringToFile(image);
         String imageId = imageService.saveImageToGoogleDrive(imageFile);
 
-        String comressedImagePath = imageService.compressionImage(imageFile);
-        File comressedImageFile = new File(comressedImagePath);
-        String comressedImageId = imageService.saveImageToGoogleDrive(comressedImageFile);
+        String compressedImagePath = imageService.compressionImage(imageFile);
+        File compressedImageFile = new File(compressedImagePath);
+        String compressedImageId = imageService.saveImageToGoogleDrive(compressedImageFile);
 
         offer.setImageId(imageId);
-        offer.setCompressedImageId(comressedImageId);
+        offer.setCompressedImageId(compressedImageId);
         imageFile.delete();
-        comressedImageFile.delete();
+        compressedImageFile.delete();
     }
 }

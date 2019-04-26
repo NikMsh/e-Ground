@@ -1,17 +1,16 @@
 package com.bsuir.sdtt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * Class of customer that extends BaseEntity class.
@@ -30,17 +29,17 @@ public class Customer extends BaseEntity {
     private String compressedImageId;
 
     /**
-     * Field of customer name.
+     * Field of customer firstName.
      */
     @Basic(optional = false)
     @NotNull
-    private String name;
+    private String firstName;
 
     /**
-     * Field of customer surname.
+     * Field of customer lastName.
      */
     @NotNull
-    private String surname;
+    private String lastName;
 
     /**
      * Field of customer email.
@@ -67,6 +66,14 @@ public class Customer extends BaseEntity {
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "secondAccount", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Conversation> conversationList;
+
+    @OneToMany(mappedBy = "secondAccount", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Conversation> otherConversationList;
+
     /**
      * Constructor without params that create object without initialization fields.
      */
@@ -75,11 +82,12 @@ public class Customer extends BaseEntity {
 
     /**
      * Method that set values except the password from another customer
+     *
      * @param customer
      */
     public void update(Customer customer) {
-        name = customer.name;
-        surname = customer.surname;
+        firstName = customer.firstName;
+        lastName = customer.lastName;
         email = customer.email;
         age = customer.age;
         phoneNumber = customer.phoneNumber;

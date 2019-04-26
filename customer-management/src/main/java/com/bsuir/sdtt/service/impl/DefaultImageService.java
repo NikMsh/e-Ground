@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Stsiapan Balashenka
  * @version 1.0
  */

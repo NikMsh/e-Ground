@@ -1,8 +1,9 @@
-package com.bsuir.sdtt.dto.catalog;
+package com.bsuir.sdtt.dto.processor;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -16,14 +17,14 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CommentDto {
-    private UUID id;
-
+@NoArgsConstructor
+public class AddCommentToOfferParameterDTO {
     @NotNull
     private UUID customerId;
 
     @NotNull
-    private String message;
+    private UUID offerId;
 
-    public CommentDto(){}
+    @NotNull
+    private String message;
 }

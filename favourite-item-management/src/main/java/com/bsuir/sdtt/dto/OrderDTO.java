@@ -1,4 +1,4 @@
-package com.bsuir.sdtt.dto.processor;
+package com.bsuir.sdtt.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,12 +7,10 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
 /**
- * Class of User Account dto.
- * Used to create order from offer.
+ * Class of Order Data Transfer Object. Used to transfer data between application subsystems.
  *
  * @author Stsiapan Balashenka
  * @version 1.0
@@ -20,20 +18,20 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class AccountDto {
+public class OrderDTO {
     private UUID id;
 
-    /**
-     * Field of customer name.
-     */
+    private String imageId;
+
+    private String compressedImageId;
+
+    private String image;
+
+    @NotNull
+    private UUID customerId;
+
     @NotNull
     private String name;
-
-    /**
-     * Field of customer surname.
-     */
-    @NotNull
-    private String surname;
 
     /**
      * Field of customer email.
@@ -43,19 +41,20 @@ public class AccountDto {
     private String email;
 
     /**
-     * Field of customer age.
+     * Field of order total price;
      */
     @NotNull
-    @Min(1)
-    private int age;
+    @Min(0)
+    private double totalPrice;
 
     /**
-     * Field of customer number
+     * Field of order item count.
      */
     @NotNull
-    @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
-    private String phoneNumber;
+    @Min(0)
+    private int orderItemCount;
 
-    public AccountDto() {
+    public OrderDTO() {
+
     }
 }

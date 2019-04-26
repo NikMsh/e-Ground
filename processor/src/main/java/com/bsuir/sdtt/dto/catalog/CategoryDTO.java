@@ -3,6 +3,7 @@ package com.bsuir.sdtt.dto.catalog;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -16,15 +17,13 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CategoryDto {
+@NoArgsConstructor
+public class CategoryDTO {
     private UUID id;
 
     /**
-     * Field of Category name
+     * Field of Category firstName
      */
     @NotNull
     private String name;
-
-    public CategoryDto() {
-    }
 }

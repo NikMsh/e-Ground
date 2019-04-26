@@ -16,16 +16,16 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CategoryDto {
+public class CategoryDTO {
     private UUID id;
 
     /**
-     * Field of Category name
+     * Field of Category firstName
      */
     @NotNull
     private String name;
 
-    public CategoryDto() {
+    public CategoryDTO() {
 
     }
 }

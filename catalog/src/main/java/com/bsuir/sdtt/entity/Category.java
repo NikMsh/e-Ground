@@ -24,7 +24,7 @@ import java.util.List;
 @Entity
 public class Category extends BaseEntity {
     /**
-     * Necessarily field of Category name.
+     * Necessarily field of Category firstName.
      */
     @Basic(optional = false)
     @NotNull

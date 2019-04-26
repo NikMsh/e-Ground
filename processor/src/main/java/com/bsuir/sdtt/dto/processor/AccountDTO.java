@@ -1,8 +1,9 @@
-package com.bsuir.sdtt.dto;
+package com.bsuir.sdtt.dto.processor;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -11,8 +12,8 @@ import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
 /**
- * Class of Customer Data Transfer Object.
- * Used to transfer data between application subsystems.
+ * Class of User Account dto.
+ * Used to create order from offer.
  *
  * @author Stsiapan Balashenka
  * @version 1.0
@@ -20,23 +21,18 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-public class CustomerDto {
+@NoArgsConstructor
+public class AccountDTO {
     private UUID id;
 
-    private String imageId;
-
-    private String compressedImageId;
-
-    private String image;
-
     /**
-     * Field of customer name.
+     * Field of customer firstName.
      */
     @NotNull
     private String name;
 
     /**
-     * Field of customer surname.
+     * Field of customer lastName.
      */
     @NotNull
     private String surname;
@@ -55,17 +51,10 @@ public class CustomerDto {
     @Min(1)
     private int age;
 
-    @NotNull
-    private String password;
-
     /**
      * Field of customer number
      */
     @NotNull
     @Pattern(regexp = "^\\+375(29|33|44)\\d{7}$")
     private String phoneNumber;
-
-    public CustomerDto() {
-
-    }
 }
