@@ -121,7 +121,7 @@ public class CatalogClient {
         finalUrl.append("?");
 
         if (name != null) {
-            finalUrl.append("name=");
+            finalUrl.append("firstName=");
             finalUrl.append(name);
         }
 

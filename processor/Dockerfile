@@ -4,7 +4,7 @@ RUN mkdir -p /app
 
 ENV PROJECT_HOME /app
 
-ADD processor/target/processor-0.1.0.jar $PROJECT_HOME/processor.jar
+ADD target/processor-0.1.0.jar $PROJECT_HOME/processor.jar
 
 WORKDIR $PROJECT_HOME
 

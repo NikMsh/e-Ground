@@ -35,7 +35,7 @@ public class OfferDto {
     private UUID sellerId;
 
     /**
-     * Field of Offer name.
+     * Field of Offer firstName.
      */
     @NotNull
     private String name;

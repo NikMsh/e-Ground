@@ -29,17 +29,17 @@ public class Customer extends BaseEntity {
     private String compressedImageId;
 
     /**
-     * Field of customer name.
+     * Field of customer firstName.
      */
     @Basic(optional = false)
     @NotNull
-    private String name;
+    private String firstName;
 
     /**
-     * Field of customer surname.
+     * Field of customer lastName.
      */
     @NotNull
-    private String surname;
+    private String lastName;
 
     /**
      * Field of customer email.
@@ -85,8 +85,8 @@ public class Customer extends BaseEntity {
      * @param customer
      */
     public void update(Customer customer) {
-        name = customer.name;
-        surname = customer.surname;
+        firstName = customer.firstName;
+        lastName = customer.lastName;
         email = customer.email;
         age = customer.age;
         phoneNumber = customer.phoneNumber;

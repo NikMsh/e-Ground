@@ -4,7 +4,7 @@ RUN mkdir -p /app
 
 ENV PROJECT_HOME /app
 
-ADD customer-management/target/customer-management-0.1.0.jar  $PROJECT_HOME/customer-management.jar
+ADD target/customer-management-0.1.0.jar  $PROJECT_HOME/customer-management.jar
 
 WORKDIR $PROJECT_HOME
 

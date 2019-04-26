@@ -29,7 +29,7 @@ public class OfferDto {
     private String image;
 
     /**
-     * Field of Offer name.
+     * Field of Offer firstName.
      */
     @NotNull
     private String name;

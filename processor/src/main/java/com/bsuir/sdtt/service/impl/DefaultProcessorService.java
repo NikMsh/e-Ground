@@ -61,7 +61,7 @@ public class DefaultProcessorService implements ProcessorService {
         OrderDto savedOrderDto = null;
         if (customerId.equals(customerDto.getId())) {
             orderDto.setCustomerId(customerId);
-            orderDto.setName(customerDto.getName());
+            orderDto.setName(customerDto.getFirstName());
             orderDto.setEmail(customerDto.getEmail());
             orderDto.setTotalPrice(offerDto.getPrice() * createOrderParameter
                     .getItemCount());
@@ -115,8 +115,8 @@ public class DefaultProcessorService implements ProcessorService {
 
             AccountDto accountDto = AccountDto.builder()
                     .id(customerDto.getId())
-                    .name(customerDto.getName())
-                    .surname(customerDto.getSurname())
+                    .name(customerDto.getFirstName())
+                    .surname(customerDto.getLastName())
                     .age(customerDto.getAge())
                     .email(customerDto.getEmail())
                     .phoneNumber(customerDto.getPhoneNumber())

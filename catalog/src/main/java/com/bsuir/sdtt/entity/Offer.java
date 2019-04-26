@@ -27,7 +27,7 @@ public class Offer extends BaseEntity {
     private String compressedImageId;
 
     /**
-     * Necessarily field of Offer name.
+     * Necessarily field of Offer firstName.
      */
     @Basic(optional = false)
     private String name;

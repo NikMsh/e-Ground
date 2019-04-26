@@ -24,13 +24,13 @@ public class AccountDto {
     private UUID id;
 
     /**
-     * Field of customer name.
+     * Field of customer firstName.
      */
     @NotNull
     private String name;
 
     /**
-     * Field of customer surname.
+     * Field of customer lastName.
      */
     @NotNull
     private String surname;

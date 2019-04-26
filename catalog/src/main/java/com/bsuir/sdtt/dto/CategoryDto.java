@@ -20,7 +20,7 @@ public class CategoryDto {
     private UUID id;
 
     /**
-     * Field of Category name
+     * Field of Category firstName
      */
     @NotNull
     private String name;

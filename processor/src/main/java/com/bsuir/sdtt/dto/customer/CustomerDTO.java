@@ -30,16 +30,16 @@ public class CustomerDTO {
     private String image;
 
     /**
-     * Field of customer name.
+     * Field of customer firstName.
      */
     @NotNull
-    private String name;
+    private String firstName;
 
     /**
-     * Field of customer surname.
+     * Field of customer lastName.
      */
     @NotNull
-    private String surname;
+    private String lastName;
 
     /**
      * Field of customer email.

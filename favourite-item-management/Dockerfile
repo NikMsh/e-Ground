@@ -4,7 +4,7 @@ RUN mkdir -p /app
 
 ENV PROJECT_HOME /app
 
-ADD favourite-item-management/target/favourite-item-management-0.1.0.jar  $PROJECT_HOME/favourite-item-management.jar
+ADD target/favourite-item-management-0.1.0.jar  $PROJECT_HOME/favourite-item-management.jar
 
 WORKDIR $PROJECT_HOME
 

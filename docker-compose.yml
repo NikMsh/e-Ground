@@ -51,7 +51,7 @@ services:
       - FAVOURITE_ITEM_MANAGEMENT_HOST=http://favourite-item-management
       - FAVOURITE_ITEM_MANAGEMENT_PORT=8083
     ports:
-      - 9090:8081
+      - 9090:8080
     restart: on-failure
 
   catalog-postgres:
