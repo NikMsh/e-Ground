@@ -39,41 +39,41 @@ public class ProcessorController {
 
     @PostMapping(path = "/orders")
     public OrderDTO addToFavorites(@Validated @RequestBody
-                                           CreateOrderParameterDTO createOrderParameterDto) {
-        return processorService.addToFavorite(createOrderParameterDto);
+                                           CreateOrderParameterDTO createOrderParameterDTO) {
+        return processorService.addToFavorite(createOrderParameterDTO);
     }
 
     @PostMapping(path = "/customers")
     public CustomerDTO createCustomer(@Validated @RequestBody
-                                              CustomerDTO customerDto) {
-        return processorService.createCustomer(customerDto);
+                                              CustomerDTO customerDTO) {
+        return processorService.createCustomer(customerDTO);
     }
 
     @PostMapping(path = "/offers")
-    public OfferDTO createOffer(@Validated @RequestBody OfferDTO offerDto) {
-        return processorService.createOffer(offerDto);
+    public OfferDTO createOffer(@Validated @RequestBody OfferDTO offerDTO) {
+        return processorService.createOffer(offerDTO);
     }
 
     @PostMapping(path = "/authorization")
-    public CustomerDTO authorizationCustomer(@Validated @RequestBody AuthorizationParameterDTO authorizationDto) {
-        return processorService.authorizationCustomer(authorizationDto);
+    public CustomerDTO authorizationCustomer(@Validated @RequestBody AuthorizationParameterDTO authorizationParameterDTO) {
+        return processorService.authorizationCustomer(authorizationParameterDTO);
     }
 
     @PutMapping(path = "/customers")
     public CustomerDTO updateCustomer(@Validated @RequestBody
-                                              CustomerDTO customerDto) {
-        return processorService.updateCustomer(customerDto);
+                                              CustomerDTO customerDTO) {
+        return processorService.updateCustomer(customerDTO);
     }
 
     @PutMapping(path = "/offers")
-    public OfferDTO updateOffer(@Validated @RequestBody OfferDTO offerDto) {
-        return processorService.updateOffer(offerDto);
+    public OfferDTO updateOffer(@Validated @RequestBody OfferDTO offerDTO) {
+        return processorService.updateOffer(offerDTO);
     }
 
     @PutMapping(path = "/offers/comments")
     public CustomerCommentParameterDTO addCommentToOffer(
-            @Validated @RequestBody AddCommentToOfferParameterDTO addCommentToOfferParameterDto) {
-        return processorService.addCommentToOffer(addCommentToOfferParameterDto);
+            @Validated @RequestBody AddCommentToOfferParameterDTO addCommentToOfferParameterDTO) {
+        return processorService.addCommentToOffer(addCommentToOfferParameterDTO);
     }
 
     @GetMapping(path = "/offers/comments/{id}")
