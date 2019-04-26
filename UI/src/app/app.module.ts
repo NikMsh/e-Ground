@@ -166,8 +166,8 @@ export class AppModule {
     middleware.run(epics as any);
     ngReduxRouter.initialize((state: AppState) => state.router);
     if (this.ngRedux.getState().currentUserState.currentUser) {
-      this.chatService.connect(this.ngRedux.getState().currentUserState.currentUser.token.accessToken,
-        this.ngRedux.getState().currentUserState.currentUser.id);
+      /*this.chatService.connect(this.ngRedux.getState().currentUserState.currentUser.token.accessToken,
+        this.ngRedux.getState().currentUserState.currentUser.id);*/
     }
   }
 }

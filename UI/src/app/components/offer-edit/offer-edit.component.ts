@@ -30,7 +30,7 @@ export class OfferEditComponent implements OnInit {
 
   ngOnInit() {
     this.offerForm = this.fb.group({
-        firstName: ['', Validators.required],
+        name: ['', Validators.required],
         category: ['', Validators.required],
         description: ['', Validators.required],
         price: ['', Validators.pattern('[1-9][0-9]{0,4}')]
@@ -40,7 +40,7 @@ export class OfferEditComponent implements OnInit {
 
   private initializeForm(offer: Offer) {
     this.offerForm = this.fb.group({
-        firstName: [offer.name, Validators.required],
+        name: [offer.name, Validators.required],
         category: [offer.category, Validators.required],
         description: ['', Validators.required],
         price: [offer.price, Validators.pattern('[1-9][0-9]{0,4}')]
@@ -56,6 +56,14 @@ export class OfferEditComponent implements OnInit {
       });
   }
 
+  get price(): FormControl {
+    return this.offerForm.get('price') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.offerForm.get('description') as FormControl;
+  }
+
   get name(): FormControl {
     return this.offerForm.get('name') as FormControl;
   }
@@ -64,11 +72,4 @@ export class OfferEditComponent implements OnInit {
     return this.offerForm.get('category') as FormControl;
   }
 
-  get price(): FormControl {
-    return this.offerForm.get('price') as FormControl;
-  }
-
-  get description(): FormControl {
-    return this.offerForm.get('description') as FormControl;
-  }
 }

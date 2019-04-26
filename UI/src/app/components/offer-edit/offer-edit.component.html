@@ -1,25 +1,26 @@
 <main>
-  <form [formGroup]="offerForm" class="form-wrapper">
-    <app-image-upload class="image-edit"
-      [defaultImage]=""
-      [imageHeight]="250" [imageWidth]="450"
-      [onErrorImage]="'/src/assets/images/defaultImageForOffer.png'">
-    </app-image-upload>
-    <div class="edit-form">
-      <mat-form-field>
-        <mat-label>Название товара</mat-label>
-        <input matInput required placeholder="Имя" [formControlName]="'name'" maxlength="20">
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Категория</mat-label>
-        <textarea matInput required placeholder="Категория" [formControlName]="'category'"
-                  maxlength="15"
-                  cdkTextareaAutosize="false">
+  <form [formGroup]="offerForm">
+    <div class="form-wrapper">
+      <app-image-upload class="image-edit"
+                        [defaultImage]=""
+                        [imageHeight]="250" [imageWidth]="450"
+                        [onErrorImage]="'/src/assets/images/defaultImageForOffer.png'">
+      </app-image-upload>
+      <div class="edit-form">
+        <mat-form-field>
+          <mat-label>Offer name</mat-label>
+          <input matInput required placeholder="Name" [formControlName]="'name'" maxlength="20">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <textarea matInput required placeholder="Category" [formControlName]="'category'"
+                    maxlength="15"
+                    cdkTextareaAutosize="false">
         </textarea>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Описание</mat-label>
-          <textarea matInput required placeholder="Описание" [formControlName]="'description'"
+          <mat-label>Description</mat-label>
+          <textarea matInput required placeholder="Description" [formControlName]="'description'"
                     cdkTextareaAutosize
                     maxlength="150"
                     cdkAutosizeMinRows="5"
@@ -28,11 +29,12 @@
         </textarea>
         </mat-form-field>
         <mat-form-field>
-          <input matInput required placeholder="Цена" [formControlName]="'price'" maxlength="8">
+          <input matInput required placeholder="Cost" [formControlName]="'price'" maxlength="8">
         </mat-form-field>
         <button mat-raised-button class="btnControl" [disabled]="offerForm.invalid" (click)="createOffer()">
           Create
         </button>
       </div>
-    </form>
+    </div>
+  </form>
 </main>
