@@ -61,10 +61,7 @@ public class DefaultImageService implements ImageService {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(GoogleProperty.TOKENS_DIRECTORY_PATH)))
                 .setAccessType("online")
                 .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
-                .setHost("https://eg-processor.herokuapp.com")
-                .setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     }
 
     @Override
