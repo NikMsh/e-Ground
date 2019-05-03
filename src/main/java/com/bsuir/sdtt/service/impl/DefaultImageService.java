@@ -64,7 +64,7 @@ public class DefaultImageService implements ImageService {
         LocalServerReceiver receiver = new LocalServerReceiver.Builder()
                 .setHost(clientSecrets.getWeb().getAuthUri())
                 .setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
     @Override
