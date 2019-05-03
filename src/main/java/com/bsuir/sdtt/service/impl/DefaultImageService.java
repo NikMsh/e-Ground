@@ -63,7 +63,7 @@ public class DefaultImageService implements ImageService {
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder()
                 .setHost(clientSecrets.getWeb().getRedirectUris().get(0))
-                .setPort(8888).build();
+                .build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
