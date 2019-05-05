@@ -3,16 +3,17 @@ package com.bsuir.sdtt.service.impl;
 import com.bsuir.sdtt.service.ImageService;
 import com.bsuir.sdtt.util.GoogleProperty;
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
@@ -32,8 +33,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-import static com.bsuir.sdtt.util.GoogleProperty.REDIRECT_URI;
-
 /**
  * @author Stsiapan Balashenka
  * @version 1.0
@@ -45,34 +44,25 @@ public class DefaultImageService implements ImageService {
 
     private final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
 
-    private NetHttpTransport HTTP_TRANSPORT;
-
-    private GoogleAuthorizationCodeFlow flow;
-
-    private String code;
-
-    public DefaultImageService() throws GeneralSecurityException, IOException {
-        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-
-        InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
-
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-
-        flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .build();
-    }
-
-    private Drive getDriveService() throws IOException {
-        return new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials())
+    private Drive getDriveService() throws GeneralSecurityException, IOException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(GoogleProperty.APPLICATION_NAME)
                 .build();
+        return service;
     }
 
-    private Credential getCredentials() throws IOException {
-        GoogleTokenResponse response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute();
+    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+        InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
-        return flow.createAndStoreCredential(response, null);
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(GoogleProperty.TOKENS_DIRECTORY_PATH)))
+                .setAccessType("offline")
+                .build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
     @Override
@@ -134,15 +124,11 @@ public class DefaultImageService implements ImageService {
 
     @Override
     public void authorizationGoogle(String code) {
-        this.code = code;
+
     }
 
     @Override
     public String getAuthorizationGoogleCode() {
-        GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
-        url.setRedirectUri(REDIRECT_URI);
-        url.setApprovalPrompt("force");
-        url.setAccessType("offline");
-        return url.build();
+        return null;
     }
 }
