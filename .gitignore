@@ -78,6 +78,8 @@ fabric.properties
 hs_err_pid*
 ### Maven template
 target/
+.idea
+favourite-item-management.iml
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
