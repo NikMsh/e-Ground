@@ -6,7 +6,9 @@ import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -28,10 +30,9 @@ import javax.imageio.stream.ImageOutputStream;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static com.bsuir.sdtt.util.GoogleProperty.REDIRECT_URI;
 
 /**
  * @author Stsiapan Balashenka
@@ -56,14 +57,27 @@ public class DefaultImageService implements ImageService {
         InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
+
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(GoogleProperty.TOKENS_DIRECTORY_PATH)))
-                .setAccessType("offline")
                 .build();
 
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setHost("urn:ietf:wg:oauth:2.0:oob").build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
+        url.setRedirectUri(REDIRECT_URI);
+        url.setApprovalPrompt("force");
+        url.setAccessType("offline");
+        String authorize_url = url.build();
+
+        System.out.println("Put this url into your browser and paste in the access token:");
+        System.out.println(authorize_url);
+
+        Scanner scanner = new Scanner(System.in);
+        String code = scanner.nextLine();
+        scanner.close();
+
+        GoogleTokenResponse response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute();
+
+        return flow.createAndStoreCredential(response, null);
     }
 
     @Override
