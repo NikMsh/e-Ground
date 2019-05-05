@@ -146,6 +146,24 @@ public class CustomerController {
         customerService.delete(id);
     }
 
+    /**
+     * Method that converts DTO to class object and create it.
+     *
+     * @return created object of Customer class
+     */
+    @PostMapping(path = "/authorizationGoogleCode")
+    public void authorizationGoogleCode(@RequestBody String code) {
+        log.debug("In authorization Google controller method");
+        customerService.authorizationGoogle(code);
+    }
+
+
+    @GetMapping(path = "/authorizationGoogle")
+    public String getAuthorizationGoogleCode() {
+        log.debug("In get authorization Google controller method");
+        return customerService.getAuthorizationGoogleCode();
+    }
+
     private void toCustomersDtoList(List<Customer> customers,
                                     List<CustomerDTO> customersDTO) {
         for (Customer customer : customers) {

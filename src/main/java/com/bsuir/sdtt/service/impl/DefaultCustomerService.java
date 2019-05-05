@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -177,6 +179,16 @@ public class DefaultCustomerService implements CustomerService {
     @Override
     public void delete(UUID id) throws EntityNotFoundException {
         customerRepository.delete(findById(id));
+    }
+
+    @Override
+    public void authorizationGoogle(String code) {
+        imageService.authorizationGoogle(code);
+    }
+
+    @Override
+    public String getAuthorizationGoogleCode() {
+        return imageService.getAuthorizationGoogleCode();
     }
 
     private void setImage(Customer offer, String image) throws IOException, GeneralSecurityException {

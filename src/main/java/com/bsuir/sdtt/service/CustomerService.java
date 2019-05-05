@@ -2,6 +2,7 @@ package com.bsuir.sdtt.service;
 
 import com.bsuir.sdtt.dto.AuthorizationParameterDTO;
 import com.bsuir.sdtt.entity.Customer;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -28,4 +29,8 @@ public interface CustomerService {
     Customer updatePassword(Customer customer);
 
     void delete(UUID id);
+
+    void authorizationGoogle(String code);
+
+    String getAuthorizationGoogleCode();
 }
