@@ -7,6 +7,7 @@ import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -16,9 +17,19 @@ import java.util.UUID;
 
 @Component
 public class ChatServer {
-
     private MessageService messageService;
+
     private MessageMapper messageMapper;
+
+    private SocketIOServer socketIOServer;
+
+    private Map<UUID, SocketIOClient> users;
+
+    @Value("${chat.server.hostname}")
+    private String hostName;
+
+    @Value("${chat.server.portNum}")
+    private int portNum;
 
     @Autowired
     public ChatServer(MessageService messageService,
@@ -27,13 +38,10 @@ public class ChatServer {
         this.messageMapper = messageMapper;
     }
 
-    private SocketIOServer socketIOServer;
-    private Map<UUID, SocketIOClient> users;
-
     public ChatServer() {
         Configuration config = new Configuration();
-        config.setHostname("localhost");
-        config.setPort(10000);
+        config.setHostname(hostName);
+        config.setPort(portNum);
 
         socketIOServer = new SocketIOServer(config);
         users = new HashMap<>();
