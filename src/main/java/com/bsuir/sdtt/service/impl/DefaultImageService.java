@@ -62,7 +62,7 @@ public class DefaultImageService implements ImageService {
                 .setAccessType("offline")
                 .build();
 
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setHost("urn:ietf:wg:oauth:2.0:oob").build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
