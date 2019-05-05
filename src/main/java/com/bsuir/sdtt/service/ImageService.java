@@ -18,8 +18,4 @@ public interface ImageService {
     String compressionImage(java.io.File image) throws IOException, GeneralSecurityException;
 
     void deleteImageFromGoogleDrive(String imageId, String compressImageId) throws GeneralSecurityException, IOException;
-
-    void authorizationGoogle(String code);
-
-    String getAuthorizationGoogleCode();
 }

@@ -181,16 +181,6 @@ public class DefaultCustomerService implements CustomerService {
         customerRepository.delete(findById(id));
     }
 
-    @Override
-    public void authorizationGoogle(String code) {
-        imageService.authorizationGoogle(code);
-    }
-
-    @Override
-    public String getAuthorizationGoogleCode() {
-        return imageService.getAuthorizationGoogleCode();
-    }
-
     private void setImage(Customer offer, String image) throws IOException, GeneralSecurityException {
         File imageFile = imageService.convertStringToFile(image);
         String imageId = imageService.saveImageToGoogleDrive(imageFile);
