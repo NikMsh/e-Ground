@@ -6,4 +6,6 @@ public abstract class GoogleProperty {
     public static final String TOKENS_DIRECTORY_PATH = "tokens";
 
     public static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+
+    public static final String REDIRECT_URI = "https://eg-customer-management.herokuapp.com";
 }
