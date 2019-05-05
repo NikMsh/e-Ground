@@ -45,13 +45,22 @@ public class DefaultImageService implements ImageService {
 
     private final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
 
-    private final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+    private NetHttpTransport HTTP_TRANSPORT;
 
-    private GoogleAuthorizationCodeFlow flow = null;
+    private GoogleAuthorizationCodeFlow flow;
 
     private String code;
 
     public DefaultImageService() throws GeneralSecurityException, IOException {
+        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+
+        InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
+
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .build();
     }
 
     private Drive getDriveService() throws IOException {
@@ -130,18 +139,6 @@ public class DefaultImageService implements ImageService {
 
     @Override
     public String getAuthorizationGoogleCode() {
-        InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
-        GoogleClientSecrets clientSecrets = null;
-        try {
-            clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .build();
-
         GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
         url.setRedirectUri(REDIRECT_URI);
         url.setApprovalPrompt("force");
