@@ -4,15 +4,13 @@ import com.bsuir.sdtt.dto.AuthorizationParameterDTO;
 import com.bsuir.sdtt.entity.Customer;
 import com.bsuir.sdtt.repository.CustomerRepository;
 import com.bsuir.sdtt.service.CustomerService;
-import com.bsuir.sdtt.service.ImageService;
+import com.bsuir.sdtt.service.GoogleDriveService;
 import com.bsuir.sdtt.validation.CustomerValidator;
 import com.bsuir.sdtt.validation.ValidationType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -40,7 +38,7 @@ public class DefaultCustomerService implements CustomerService {
      */
     private final CustomerRepository customerRepository;
 
-    private final ImageService imageService;
+    private final GoogleDriveService imageService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -50,11 +48,11 @@ public class DefaultCustomerService implements CustomerService {
      * Constructor that accepts a object CustomerDao class.
      *
      * @param customerRepository object of CustomerRepository class
-     * @param imageService       object of ImageService class
+     * @param imageService       object of GoogleDriveService class
      */
     @Autowired
     public DefaultCustomerService(CustomerRepository customerRepository,
-                                  ImageService imageService, PasswordEncoder passwordEncoder,
+                                  GoogleDriveService imageService, PasswordEncoder passwordEncoder,
                                   CustomerValidator customerValidator) {
         this.customerRepository = customerRepository;
         this.imageService = imageService;
