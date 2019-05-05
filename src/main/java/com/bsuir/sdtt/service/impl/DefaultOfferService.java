@@ -6,7 +6,7 @@ import com.bsuir.sdtt.entity.Offer;
 import com.bsuir.sdtt.repository.CategoryRepository;
 import com.bsuir.sdtt.repository.CommentRepository;
 import com.bsuir.sdtt.repository.OfferRepository;
-import com.bsuir.sdtt.service.ImageService;
+import com.bsuir.sdtt.service.GoogleDriveService;
 import com.bsuir.sdtt.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,11 +34,11 @@ public class DefaultOfferService implements OfferService {
 
     private final CommentRepository commentRepository;
 
-    private final ImageService imageService;
+    private final GoogleDriveService imageService;
 
     @Autowired
     public DefaultOfferService(OfferRepository offerRepository,
-                               CategoryRepository categoryRepository, CommentRepository commentRepository, ImageService imageService) {
+                               CategoryRepository categoryRepository, CommentRepository commentRepository, GoogleDriveService imageService) {
         this.offerRepository = offerRepository;
         this.categoryRepository = categoryRepository;
         this.commentRepository = commentRepository;

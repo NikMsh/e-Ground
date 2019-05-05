@@ -1,5 +1,8 @@
 package com.bsuir.sdtt.service;
 
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -10,7 +13,7 @@ import java.security.GeneralSecurityException;
  * @author Stsiapan Balashenka
  * @version 1.0
  */
-public interface ImageService {
+public interface GoogleDriveService {
     File convertStringToFile(String image) throws IOException;
 
     String saveImageToGoogleDrive(java.io.File image) throws GeneralSecurityException, IOException;
@@ -18,4 +21,13 @@ public interface ImageService {
     String compressionImage(java.io.File image) throws IOException, GeneralSecurityException;
 
     void deleteImageFromGoogleDrive(String imageId, String compressImageId) throws GeneralSecurityException, IOException;
+
+    GoogleClientSecrets getClientSecrets();
+
+    Credential getCredentials();
+
+    String getSourceUrl();
+
+    String getRedirectUrl();
+
 }
