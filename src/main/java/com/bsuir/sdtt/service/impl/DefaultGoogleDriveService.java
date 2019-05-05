@@ -45,6 +45,7 @@ public class DefaultGoogleDriveService implements GoogleDriveService {
     public static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     public static HttpTransport HTTP_TRANSPORT;
+    private static GoogleClientSecrets clientSecrets;
 
     static {
         try {
@@ -55,19 +56,17 @@ public class DefaultGoogleDriveService implements GoogleDriveService {
         }
     }
 
-    private static GoogleClientSecrets clientSecrets;
-
     private String authorizationCode;
 
     private String sourceUrl;
 
     private Credential credential;
 
-    private InputStream getSecretFile() {
-        return this.getClass().getResourceAsStream(CREDENTIALS_FILE_PATH);
+    public DefaultGoogleDriveService() {
     }
 
-    public DefaultGoogleDriveService() {
+    private InputStream getSecretFile() {
+        return this.getClass().getResourceAsStream(CREDENTIALS_FILE_PATH);
     }
 
     private Drive getDriveService() {
@@ -121,18 +120,9 @@ public class DefaultGoogleDriveService implements GoogleDriveService {
         return result;
     }
 
-    public String getAuthorizationCode() {
-        return authorizationCode;
-    }
-
     @Override
     public String getSourceUrl() {
         return sourceUrl;
-    }
-
-    @Override
-    public void setSourceUrl(String redirectUrl) {
-        this.sourceUrl = redirectUrl;
     }
 
     @Override

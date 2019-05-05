@@ -28,8 +28,6 @@ public interface GoogleDriveService {
 
     String getSourceUrl();
 
-    void setSourceUrl(String redirectUrl);
-
     String getRedirectUrl();
 
 }
