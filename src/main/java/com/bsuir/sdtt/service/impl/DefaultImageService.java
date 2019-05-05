@@ -45,22 +45,33 @@ public class DefaultImageService implements ImageService {
 
     private final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
 
-    private GoogleAuthorizationCodeFlow flow = null;
-
     private String code;
 
-    private final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-
-    public DefaultImageService() throws GeneralSecurityException, IOException {
-    }
-
     private Drive getDriveService() throws GeneralSecurityException, IOException {
-        return new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials())
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(GoogleProperty.APPLICATION_NAME)
                 .build();
+        return service;
     }
 
-    private Credential getCredentials() throws IOException {
+    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+        InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                .build();
+
+        GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
+        url.setRedirectUri(REDIRECT_URI);
+        url.setApprovalPrompt("force");
+        url.setAccessType("offline");
+        String authorize_url = url.build();
+
+        System.out.println("Put this url into your browser and paste in the access token:");
+        System.out.println(authorize_url);
+
         GoogleTokenResponse response = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute();
 
         return flow.createAndStoreCredential(response, null);
@@ -130,23 +141,6 @@ public class DefaultImageService implements ImageService {
 
     @Override
     public String getAuthorizationGoogleCode() {
-        InputStream in = DefaultImageService.class.getResourceAsStream(GoogleProperty.CREDENTIALS_FILE_PATH);
-        GoogleClientSecrets clientSecrets = null;
-        try {
-            clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .build();
-
-        GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
-        url.setRedirectUri(REDIRECT_URI);
-        url.setApprovalPrompt("force");
-        url.setAccessType("offline");
-
-        return url.build();
+        return code;
     }
 }
