@@ -6,26 +6,22 @@ import com.bsuir.sdtt.service.MessageService;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Component
+@Slf4j
+@Service
 public class ChatServer {
-
-    private MessageService messageService;
-    private MessageMapper messageMapper;
-
     @Autowired
-    public ChatServer(MessageService messageService,
-                      MessageMapper messageMapper) {
-        this.messageService = messageService;
-        this.messageMapper = messageMapper;
-    }
+    private MessageService messageService;
+    @Autowired
+    private MessageMapper messageMapper;
 
     private SocketIOServer socketIOServer;
     private Map<UUID, SocketIOClient> users;
